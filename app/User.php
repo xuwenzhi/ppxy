@@ -31,4 +31,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+	const ROLE_PENDING  = 'pending';
+	const ROLE_ADMIN    = 'admin';
+	const ROLE_MEMBER   = 'member';
+	const ROLE_REJECTED = 'pending';
+
 }

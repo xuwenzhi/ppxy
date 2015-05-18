@@ -10,10 +10,11 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+$router->pattern('id', '[1-9][0-9]*');
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/home', 'Home\IndexController@index');
 
-Route::get('home', 'HomeController@index');
+
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -22,3 +23,8 @@ Route::controllers([
 Route::get('/error', function(){
 	return '404';
 });
+
+
+Route::get('/admin', 'Admin\IndexController@index');
+
+Route::get('/deny', 'Admin\AdminController@index');
