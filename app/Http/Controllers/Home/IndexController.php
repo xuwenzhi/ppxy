@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 
 class IndexController extends HomeController {
 
-	protected $boolNeedLogin = true;
+	protected $boolNeedLogin = false;
 
 	public function index() {
-		echo '前台主页';
-		var_dump($this->boolNeedLogin);
+		$data = array();
+		return view('front.index', $data);
 	}
 
 	
