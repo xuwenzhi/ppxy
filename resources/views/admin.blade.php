@@ -26,27 +26,8 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav" id="my_nav">
-        <li><a href="__APP__/product/index" title="">产品推介</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">招聘应聘 <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="__APP__/recruit/index">职位列表</a></li>
-                <li class="divider"></li>
-                <li><a href="__APP__/recruit/hot">热招职位</a></li>
-              </ul>
-        </li>
-        <li><a href="__APP__/news/index">联盟资讯</a></li>
-        <li><a href="#">知识共享</a></li>
-        <li><a href="#">在线交流</a></li>
+        
       </ul>
-
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="想搜点啥？">
-        </div>
-        <button type="submit" class="btn btn-default">搜索</button>
-      </form>
-      
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -71,7 +52,7 @@
          </div>
           <ul class="sidebar-menu">
               <li class="sub-menu active">
-                  <a class="" href="index.html">
+                  <a class="" href="{{ url('/admin') }}">
                       <i class="icon-dashboard"></i>
                       <span>控制台</span>
                   </a>
@@ -83,8 +64,8 @@
                       <span class="arrow"></span>
                   </a>
                   <ul class="sub">
-                      <li><a class="" href="general.html">通用</a></li>
-                      <li><a class="" href="button.html">按钮</a></li>
+                      <li><a class="" href="general.html">所有用户</a></li>
+                      <li><a class="" href="button.html">今日用户</a></li>
                       <li><a class="" href="slider.html">滑动</a></li>
                       <li><a class="" href="metro_view.html">Metro风格</a></li>
                       <li><a class="" href="tabs_accordion.html">Tab选项卡 & 手风琴</a></li>
@@ -96,13 +77,13 @@
               <li class="sub-menu">
                   <a href="javascript:;" class="">
                       <i class="icon-cogs"></i>
-                      <span>插件</span>
+                      <span>订单</span>
                       <span class="arrow"></span>
                   </a>
                   <ul class="sub">
-                      <li><a class="" href="calendar.html">日历</a></li>
-                      <li><a class="" href="grids.html">网格</a></li>
-                      <li><a class="" href="chartjs.html">图表统计</a></li>
+                      <li><a class="" href="calendar.html">所有订单</a></li>
+                      <li><a class="" href="grids.html">最新订单</a></li>
+                      <li><a class="" href="chartjs.html">今日订单</a></li>
                       <li><a class="" href="flot_chart.html">Flot图表</a></li>
                       <li><a class="" href="gallery.html">相册</a></li>
                   </ul>

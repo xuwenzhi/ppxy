@@ -14,6 +14,7 @@ $router->pattern('id', '[1-9][0-9]*');
 
 Route::get('/home', 'Home\IndexController@index');
 
+Route::get('/', 'Home\IndexController@index');
 
 
 Route::controllers([

@@ -6231,3 +6231,49 @@ label,
 .checkbox label {
   font-weight: 300;
 }
+
+/* footer */
+#footer {
+    background: #f0f0f0;
+    bottom: 0;
+    color:#757575 ;
+    font-size: 12px;
+    padding: 10px;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    z-index: 102;
+}
+
+#footer .goto {
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: -8px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    font-size: 16px;
+    background-color: #111;
+    opacity: 0.8;
+    padding: 8px 12px;
+    opacity:0.4;
+    filter: alpha(opacity = 40);
+}
+
+#footer .goto:hover {
+    background: #4a8bc2;
+    opacity: 1;
+    transition-duration: 500ms;
+    transition-property: width, background;
+    transition-timing-function: ease;
+    -webkit-transition-duration: 500ms;
+    -webkit-transition-property: width, background;
+    -webkit-transition-timing-function: ease;
+}
+
+#footer .goto  {
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+    opacity: 1;
+}
