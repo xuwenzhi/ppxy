@@ -1,11 +1,11 @@
 @extends('app')
-@section('title', '重置密码')
+@section('title', '找回密码')
 @section('content')
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				<div class="panel-heading">重置密码</div>
+				<div class="panel-heading">找回密码</div>
 				<div class="panel-body">
 					@if (session('status'))
 						<div class="alert alert-success">
@@ -37,7 +37,7 @@
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-primary">
-									给您发送重置密码邮件
+									给我发送重置密码邮件
 								</button>
 							</div>
 						</div>
