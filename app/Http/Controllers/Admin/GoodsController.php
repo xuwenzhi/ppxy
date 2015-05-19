@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Goods;
 use App\Util;
 use App\User;
+use Illuminate\Support\Facades\Redirect;
+
 class GoodsController extends AdminController {
 
 	/**
@@ -22,7 +24,23 @@ class GoodsController extends AdminController {
 	    return view('admin.goods.goodslist', $data);
 	}
 
-	
+	/**
+	 * 商品详情页
+	 */
+	public function detail($enId){
+		$id = Util::encryptData($enId, true);
+		if(!$id){
+			return Redirect::to('/404');
+		}
+		$arrGoods = Goods::where(array('id' => $id)) -> get();
+		$arrGoods = $this->_decorateList($arrGoods);
+		$data = array(
+			'goods' => $arrGoods,
+			'title' => $arrGoods[0]['title'],
+		);
+		return view('admin.goods.goodsdetail', $data);
+	}
+
 
 	private function _decorateList($arrGoods){
 		if(!$arrGoods){
@@ -37,11 +55,13 @@ class GoodsController extends AdminController {
 		$arrUser = User::whereIn('id', $arrUid)->select('id', 'name')->get();
 		$arrUser = Util::setKey($arrUser, 'id');
 		foreach($arrGoods as $goods){
+			$goods['id'] = Util::encryptData($goods['id']);
 			$goods['username'] = isset($arrUser[$goods['uid']]['name']) ? $arrUser[$goods['uid']]['name'] : '';
 			$goods['special_txt'] = isset($arrSpecial[$goods['special']]) ? $arrSpecial[$goods['special']] : '';
 			$goods['status_txt'] = isset($arrStatus[$goods['status']]) ? $arrStatus[$goods['status']] : '';
 			$goods['dealtype_txt'] = isset($arrDealType[$goods['deal_type']]) ? $arrDealType[$goods['deal_type']] : '';
 			$goods['destination_txt'] = isset($arrDestination[$goods['destination']]) ? $arrDestination[$goods['destination']] : '';
+			$goods['uid'] = Util::encryptData($goods['uid']);
 		}
 		return $arrGoods;
 	}

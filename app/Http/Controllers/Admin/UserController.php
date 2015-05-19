@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Util;
 
 class UserController extends AdminController {
 
@@ -57,6 +58,11 @@ class UserController extends AdminController {
         	'title' => '已认证用户',
 	    );
 	    return view('admin.user.userlist', $data);
+	}
+
+	public function detail($enId){
+		$id = Util::encryptData($enId, true);
+		echo $id;
 	}
 
 

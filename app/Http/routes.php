@@ -38,6 +38,7 @@ Route::group(['prefix' => '/aduser'], function()
 	Route::get('today', 'Admin\UserController@today');
 	Route::get('member', 'Admin\UserController@member');
 	Route::get('pending', 'Admin\UserController@pending');
+	Route::get('detail/{enId}', 'Admin\UserController@detail');
 });
 
 Route::group(['prefix' => '/adgoods'], function()
@@ -46,4 +47,5 @@ Route::group(['prefix' => '/adgoods'], function()
 	Route::get('newbie', 'Admin\GoodsController@newbie');
 	Route::get('hide', 'Admin\GoodsController@hide');
 	Route::get('close', 'Admin\GoodsController@close');
+	Route::get('detail/{enId}', 'Admin\GoodsController@detail');
 });

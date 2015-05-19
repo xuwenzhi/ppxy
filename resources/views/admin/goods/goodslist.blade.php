@@ -27,6 +27,7 @@
 
 
             <div class="row-fluid">
+
                 <div class="widget blue">
                     <div class="widget-title">
                         <h4><i class="icon-reorder"></i>{{$title}}</h4>
@@ -59,8 +60,8 @@
                             <tr class="odd gradex">
                                 <td><input type="checkbox" class="checkboxes" value="1" /></td>
                                 <td><span class="center label label-success">{{$good->status_txt}}</span></td>
-                                <td class="center hidden-phone">{{$good->title}}</td>
-                                <td class="center hidden-phone"><a href="{{url('/aduser/detail/')}}">{{$good->username}}</a></td>
+                                <td class="center hidden-phone"><a href="{{ url('/adgoods/detail').'/'.$good->id }}">{{$good->title}}</a></td>
+                                <td class="center hidden-phone"><a href="{{url('/aduser/detail').'/'.$good->uid}}">{{$good->username}}</a></td>
                                 <td class="center hidden-phone">{{$good->ctime}}</td>
                                 <td class="center hidden-phone">{{$good->special_txt}}</td>
                                 <td class="hidden-phone">{{$good->type}}</td>
