@@ -10,7 +10,7 @@ use App\User;
 class IndexController extends AdminController {
 
 	public function index() {
-		$data = array(  
+		$data = array(
         	'name' => 'Laravel',
 	    );  
 	    return view('admin.index', $data);

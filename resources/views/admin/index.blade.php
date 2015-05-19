@@ -1,5 +1,6 @@
 @extends('admin')
-
+@section('Css')
+@endsection
 @section('content')
 <div id="container">
       <div id="main-content">

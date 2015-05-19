@@ -10,6 +10,7 @@
    <link href="{{ asset('/css/style.css') }}" rel="stylesheet" />
    <link href="{{ asset('/css/style-responsive.css') }}" rel="stylesheet" />
    <link href="{{ asset('/css/style-default.css') }}" rel="stylesheet" id="style_color" />
+   @yield('Css')
 </head>
 <body class="fixed-top">
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -21,7 +22,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="__APP__/index/index"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>&nbsp;IT联盟信息平台</a>
+        <a class="navbar-brand" href="__APP__/index/index"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>&nbsp;PP校园后台管理系统</a>
     </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -64,14 +65,10 @@
                       <span class="arrow"></span>
                   </a>
                   <ul class="sub">
-                      <li><a class="" href="general.html">所有用户</a></li>
-                      <li><a class="" href="button.html">今日用户</a></li>
-                      <li><a class="" href="slider.html">滑动</a></li>
-                      <li><a class="" href="metro_view.html">Metro风格</a></li>
-                      <li><a class="" href="tabs_accordion.html">Tab选项卡 & 手风琴</a></li>
-                      <li><a class="" href="typography.html">文字排版</a></li>
-                      <li><a class="" href="tree_view.html">树菜单</a></li>
-                      <li><a class="" href="nestable.html">嵌套列表</a></li>
+                      <li><a class="" href="{{url('/aduser/all')}}">所有用户</a></li>
+                      <li><a class="" href="{{url('/aduser/today')}}">今日用户</a></li>
+                      <li><a class="" href="{{url('/aduser/member')}}">已认证用户</a></li>
+                      <li><a class="" href="{{url('/aduser/pending')}}">未认证用户</a></li>
                   </ul>
               </li>
               <li class="sub-menu">
@@ -91,15 +88,15 @@
               <li class="sub-menu">
                   <a href="javascript:;" class="">
                       <i class="icon-tasks"></i>
-                      <span>表单</span>
+                      <span>商品</span>
                       <span class="arrow"></span>
                   </a>
                   <ul class="sub">
-                      <li><a class="" href="form_layout.html">表单布局</a></li>
-                      <li><a class="" href="form_component.html">表单组件</a></li>
-                      <li><a class="" href="form_wizard.html">表单提示</a></li>
-                      <li><a class="" href="form_validation.html">表单验证</a></li>
-                      <li><a class="" href="dropzone.html">文件上传</a></li>
+                      <li><a class="" href="{{url('/adgoods/all')}}">所有</a></li>
+                      <li><a class="" href="{{url('/adgoods/deal')}}">已成交</a></li>
+                      <li><a class="" href="{{url('/adgoods/newbie')}}">待审核</a></li>
+                      <li><a class="" href="{{url('/adgoods/hide')}}">已隐藏</a></li>
+                      <li><a class="" href="{{url('/adgoods/close')}}">已关闭</a></li>
                   </ul>
               </li>
               <li class="sub-menu">
@@ -198,7 +195,10 @@
    
     <script src="{{ asset('/js/jquery.js')}}"></script>
     <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
-    
+    <script src="{{ asset('js/dynamic-table.js')}}"></script>
+    <script src="{{ asset('/js/jquery.nicescroll.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('/js/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{ asset('/js/common-scripts.js')}}"></script>
     @yield('js')
 </body>
 </html>

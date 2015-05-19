@@ -11,6 +11,8 @@ class AdminController extends Controller {
 
 	protected $strAdminRole = null;
 
+	protected $intPageSize = 20;
+
 	public function __construct() {
 		$this->middleware('auth');
 		$this->checkRole();

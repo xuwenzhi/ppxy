@@ -574,6 +574,7 @@ a,a:focus, a:hover, a:active {
 }
 
 #sidebar > ul > li > ul.sub > li {
+    width :100%;
     background: none !important;
     padding: 0px;
     margin-bottom: 1px;
@@ -581,13 +582,14 @@ a,a:focus, a:hover, a:active {
 
 #sidebar > ul > li > ul.sub > li > a {
     display: block;
+    width: 190px;
     position: relative;
     padding: 10px 10px 10px 45px;
     color: #ccc;
     text-decoration: none;
     text-shadow: 0 1px 1px #000;
     font-size: 13px;
-    left:-50px;
+    left:-40px;
     font-weight: normal;
     line-height: normal;
 }

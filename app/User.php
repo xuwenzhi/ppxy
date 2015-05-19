@@ -6,7 +6,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+class User extends Base implements AuthenticatableContract, CanResetPasswordContract {
 
 	use Authenticatable, CanResetPassword;
 
@@ -31,9 +31,27 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+	/**
+	 * 用户角色
+	 */
 	const ROLE_PENDING  = 'pending';
 	const ROLE_ADMIN    = 'admin';
 	const ROLE_MEMBER   = 'member';
 	const ROLE_REJECTED = 'pending';
+
+	public static $arrRole = array(
+		self::ROLE_PENDING  => '未认证',
+		self::ROLE_ADMIN    => '管理员',
+		self::ROLE_MEMBER   => '已认证',
+		self::ROLE_REJECTED => '已拒绝',
+	);
+
+	public static $arrSex = array(
+		'notknow' => '未知',
+		'male'    => '女',
+		'female'  => '男',
+ 	);
+
+
 
 }

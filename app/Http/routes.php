@@ -26,6 +26,24 @@ Route::get('/error', function(){
 });
 
 
+/**
+ * 后台
+ */
 Route::get('/admin', 'Admin\IndexController@index');
-
 Route::get('/deny', 'Admin\AdminController@index');
+
+Route::group(['prefix' => '/aduser'], function()
+{
+	Route::get('all', 'Admin\UserController@userall');
+	Route::get('today', 'Admin\UserController@today');
+	Route::get('member', 'Admin\UserController@member');
+	Route::get('pending', 'Admin\UserController@pending');
+});
+
+Route::group(['prefix' => '/adgoods'], function()
+{
+	Route::get('all', 'Admin\GoodsController@all');
+	Route::get('newbie', 'Admin\GoodsController@newbie');
+	Route::get('hide', 'Admin\GoodsController@hide');
+	Route::get('close', 'Admin\GoodsController@close');
+});
