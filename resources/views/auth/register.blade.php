@@ -1,5 +1,5 @@
 @extends('app')
-
+@section('title', '用户注册')
 @section('content')
 <div class="container-fluid">
 	<div class="row">

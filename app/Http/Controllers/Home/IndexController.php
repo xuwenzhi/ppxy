@@ -14,7 +14,7 @@ class IndexController extends HomeController {
 
 	public function index() {
 		$data = array();
-		return view('front.index', $data);
+		return view('app.index', $data);
 	}
 
 	
