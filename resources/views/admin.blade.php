@@ -22,7 +22,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="__APP__/index/index"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>&nbsp;PP校园后台管理系统</a>
+        <a class="navbar-brand" href="{{ url('/admin/') }}"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>&nbsp;PP校园后台管理系统</a>
     </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
