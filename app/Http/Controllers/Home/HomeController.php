@@ -30,4 +30,16 @@ class HomeController extends Controller {
 		}
 	}
 
+	protected function getLogUid(){
+		$arrUser = $this->getLogUser();
+		if($arrUser){
+			return $arrUser['id'];
+		}
+	}
+
+	protected function getLogUser(){
+		$arrUser = \Auth::user();
+		return $arrUser;
+	}
+
 }

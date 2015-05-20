@@ -10,7 +10,7 @@
             <div class="row-fluid">
                <div class="span12">
                     <h3 class="page-title">
-                        {{$title}}
+                        
                     </h3>
                     <ul class="breadcrumb">
                        <li>
@@ -18,16 +18,13 @@
                            <span class="divider"></span>
                        </li>
                        <li class="active">
-                           {{$title}}
+                           商品列表
                        </li>
                    </ul>
                </div>
             </div>
 
-
-
             <div class="row-fluid">
-
                 <div class="widget blue">
                     <div class="widget-title">
                         <h4><i class="icon-reorder"></i>{{$title}}</h4>

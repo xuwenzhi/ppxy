@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+@yield('html')
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,6 +33,9 @@
 					<li><a href="{{ url('/') }}">首页</a></li>
 				</ul>
 
+				<ul class="nav navbar-nav">
+					<li><a href="{{ url('/goods/new') }}">发布新商品</a></li>
+				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
 						<li><a href="{{ url('/auth/login') }}">登录</a></li>
@@ -59,5 +62,7 @@
 	<!-- Scripts -->
 	<script src="{{ asset('/js/jquery.js')}}"></script>
     <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('/js/angular.js')}}"></script>
+    @yield('js')
 </body>
 </html>

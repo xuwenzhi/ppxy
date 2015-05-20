@@ -34,7 +34,28 @@
                             </span>
                     </div>
                     <div class="widget-body">
-                        
+
+                        @foreach ($photos as $photo)
+                            <div class="row">
+                                <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                  <img src="{{$photo->address}}" data-toggle="modal" data-target="#goodsPhotoDia{{$photo->id}}" type="button" alt="...">
+                                </div>
+                                </div>
+                            </div>
+                            <!-- 模态弹出窗内容 -->
+                            <div class="modal fade" id="goodsPhotoDia{{$photo->id}}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <div class="modal-body">
+                                            <p>{{$photo->address}}</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 </div>
