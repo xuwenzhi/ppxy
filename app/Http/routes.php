@@ -18,10 +18,9 @@ Route::get('/', 'Home\IndexController@index');
 
 Route::group(['prefix' => '/goods'], function()
 {
-	Route::get('new', 'Home\GoodsController@tplNew');
-	Route::post('doNew', 'Home\GoodsController@doNew');
+	Route::get('new', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@tplNew']);
+	Route::post('doNew', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@doNew']);
 	Route::get('detail/{enId}', 'Home\GoodsController@detail');
-	Route::get('pending', 'Admin\UserController@pending');
 });
 
 

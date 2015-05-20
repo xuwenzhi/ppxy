@@ -54,11 +54,11 @@
 	</nav>
 
 	@yield('content')
-
-	@yidld('footer')
 	<div id="footer" class="navbar-fixed-bottom">
-       2015 &copy; PP校园
-   </div>
+	@yield('footer')
+	</div>
+       
+   
 	<!-- Scripts -->
 	<script src="{{ asset('/js/jquery.js')}}"></script>
     <script src="{{ asset('/js/bootstrap.min.js')}}"></script>

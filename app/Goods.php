@@ -64,10 +64,10 @@ class Goods extends Base {
 		if(!$arrGoods){
 			return array();
 		}
-		$arrSpecial     = Goods::$arrSpecial;
-		$arrStatus      = Goods::$arrStatus;
-		$arrDealType    = Goods::$arrDealType;
-		$arrDestination = Goods::$arrDestination;
+		$arrSpecial     = self::$arrSpecial;
+		$arrStatus      = self::$arrStatus;
+		$arrDealType    = self::$arrDealType;
+		$arrDestination = self::$arrDestination;
 
 		$arrUid  = Util::column($arrGoods, 'uid');
 		$arrUser = User::whereIn('id', $arrUid)->select('id', 'name')->get();

@@ -52,6 +52,6 @@ class User extends Base implements AuthenticatableContract, CanResetPasswordCont
 		'female'  => '男',
  	);
 
-
+	
 
 }

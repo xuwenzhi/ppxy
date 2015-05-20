@@ -12,6 +12,8 @@ use App\GoodsPhoto;
 
 class GoodsController extends HomeController {
 
+	protected $boolNeedLogin = false;
+
 	public function myGoodsList(){
 
 	}
@@ -71,11 +73,13 @@ class GoodsController extends HomeController {
 		$arrGoods = Goods::decorateList($arrGoods);
 		$arrPhoto = GoodsPhoto::whereIn('goods_id', array($id))->get();
 		$arrGoods = $arrGoods[0];
+		$strFooterTxt = "立即购买";
 		$data = array(
 			'goods' => $arrGoods,
 			'title' => $arrGoods['title'],
 			'photos' => $arrPhoto,
 			'special_recommend' => Goods::SPECIAL_RECOMMEND,
+			'footer_show_txt' => $strFooterTxt,
 		);
 		$this->_addViews($id, $arrGoods['view_times']);
 		return view('app.goods.detail', $data);

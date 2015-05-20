@@ -55,6 +55,9 @@
 </div>
 </div>
 @endsection
+@section('footer')
+<button type="button" class="btn btn-success btn-lg btn-block">{{$footer_show_txt}}</button>
+@endsection
 @section('js')
 <script src="{{ asset('/js/goods/newgoods.js')}}"></script>
 @endsection

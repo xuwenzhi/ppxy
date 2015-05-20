@@ -14,3 +14,6 @@
 	</div>
 </div>
 @endsection
+@section('footer')
+2015 &copy; PP校园
+@endsection
