@@ -1,5 +1,5 @@
 <?php namespace App;
-
+use App\Util;
 class Goods extends Base {
 
 	/**
@@ -56,5 +56,33 @@ class Goods extends Base {
 		self::DESTINATION_SELL => '出售',
 		self::DESTINATION_SELL => '出租',
 	);
+
+	/**
+	 * 数据加工
+	 */
+	public static function decorateList($arrGoods){
+		if(!$arrGoods){
+			return array();
+		}
+		$arrSpecial     = Goods::$arrSpecial;
+		$arrStatus      = Goods::$arrStatus;
+		$arrDealType    = Goods::$arrDealType;
+		$arrDestination = Goods::$arrDestination;
+
+		$arrUid  = Util::column($arrGoods, 'uid');
+		$arrUser = User::whereIn('id', $arrUid)->select('id', 'name')->get();
+		$arrUser = Util::setKey($arrUser, 'id');
+		foreach($arrGoods as $goods){
+			$goods['id']              = Util::encryptData($goods['id']);
+			$goods['username']        = isset($arrUser[$goods['uid']]['name']) ? $arrUser[$goods['uid']]['name'] : '';
+			$goods['special_txt']     = isset($arrSpecial[$goods['special']]) ? $arrSpecial[$goods['special']] : '';
+			$goods['status_txt']      = isset($arrStatus[$goods['status']]) ? $arrStatus[$goods['status']] : '';
+			$goods['dealtype_txt']    = isset($arrDealType[$goods['deal_type']]) ? $arrDealType[$goods['deal_type']] : '';
+			$goods['destination_txt'] = isset($arrDestination[$goods['destination']]) ? $arrDestination[$goods['destination']] : '';
+			$goods['uid']             = Util::encryptData($goods['uid']);
+			$goods['trans_time']      = Util::timeTrans($goods['ctime']);
+		}
+		return $arrGoods;
+	}
 
 }

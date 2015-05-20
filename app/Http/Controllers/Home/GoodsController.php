@@ -8,6 +8,7 @@ use Illuminate\Session;
 use Illuminate\Support\Facades\Log;
 use App\Util;
 use Illuminate\Support\Facades\Redirect;
+use App\GoodsPhoto;
 
 class GoodsController extends HomeController {
 
@@ -29,12 +30,17 @@ class GoodsController extends HomeController {
 		$arrRequest = $request -> all();
 		$uid = $this->getLogUid();
 		$arrRequest['uid'] = $uid;
-		$res = $this->_insert($arrRequest);
-		if($res){
-			return Redirect::to('/goods/detail/'.Util::encryptData($res));
+		$lastId = $this->_insert($arrRequest);
+		if($lastId){
+			return Redirect::to('/goods/detail/'.Util::encryptData($lastId));
+		} else {
+			echo '很抱歉，添加失败!请重试';
 		}
 	}
 
+	/**
+	 * 添加一条数据
+	 */
 	private function _insert($arrData){
 		$objGoods = new Goods;
 		$objGoods->title = $arrData['goods_title'];
@@ -55,13 +61,32 @@ class GoodsController extends HomeController {
 		return $objGoods -> id;
 	}
 
-
 	public function detail($enId){
-		$id = Util::encryptData($enId, true);
-		echo $id;
+		$id = intval(Util::encryptData($enId, true));
+		if(!$id){
+			return Redirect::to('/404');
+		}
+
+		$arrGoods = Goods::where(array('id' => $id)) -> get();
+		$arrGoods = Goods::decorateList($arrGoods);
+		$arrPhoto = GoodsPhoto::whereIn('goods_id', array($id))->get();
+		$arrGoods = $arrGoods[0];
 		$data = array(
-			
-		);		
+			'goods' => $arrGoods,
+			'title' => $arrGoods['title'],
+			'photos' => $arrPhoto,
+			'special_recommend' => Goods::SPECIAL_RECOMMEND,
+		);
+		$this->_addViews($id, $arrGoods['view_times']);
 		return view('app.goods.detail', $data);
+	}
+
+	private function _addViews($id, $view_times){
+		if(!$id){
+			return;
+		}
+		$objGoods = Goods::find($id);
+		$objGoods -> view_times = $view_times+1;
+		return $objGoods->save();
 	}
 }

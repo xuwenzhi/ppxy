@@ -22,7 +22,6 @@ Route::group(['prefix' => '/goods'], function()
 	Route::post('doNew', 'Home\GoodsController@doNew');
 	Route::get('detail/{enId}', 'Home\GoodsController@detail');
 	Route::get('pending', 'Admin\UserController@pending');
-	Route::get('detail/{enId}', 'Admin\UserController@detail');
 });
 
 

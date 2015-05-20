@@ -6277,3 +6277,9 @@ label,
     text-decoration: none;
     opacity: 1;
 }
+
+
+#my-container{
+  width: 1111px;
+  margin:0 auto;
+}

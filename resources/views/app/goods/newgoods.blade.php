@@ -2,16 +2,6 @@
 @section('html','<html ng-app="newGoodsModule">')
 @section('title', '上架我的商品')
 @section('content')
-<style>
-	 .my-form {
-	   -webkit-transition:all linear 0.5s;
-	   transition:all linear 0.5s;
-	   background: transparent;
-	 }
-	 .my-form.ng-invalid {
-	   background: red;
-	 }
-	</style>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">

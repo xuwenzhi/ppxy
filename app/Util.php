@@ -74,4 +74,13 @@ class Util {
 	  	return $out;
 	}
 
+	/**
+	 * 时间转换
+	 */
+	public static function timeTrans($time = NULL) {
+	    return '5小时前';
+	}
+
+
+
 }

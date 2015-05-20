@@ -55,8 +55,8 @@
 
 	@yield('content')
 
-
-	<div id="footer">
+	@yidld('footer')
+	<div id="footer" class="navbar-fixed-bottom">
        2015 &copy; PP校园
    </div>
 	<!-- Scripts -->

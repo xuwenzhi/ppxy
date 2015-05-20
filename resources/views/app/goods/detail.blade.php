@@ -1,58 +1,58 @@
 @extends('app')
 @section('html','<html ng-app="newGoodsModule">')
-@section('title', '上架我的商品')
+@section('title', $title)
 @section('content')
-<style>
-	 .my-form {
-	   -webkit-transition:all linear 0.5s;
-	   transition:all linear 0.5s;
-	   background: transparent;
-	 }
-	 .my-form.ng-invalid {
-	   background: red;
-	 }
-	</style>
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-primary">
-				<div class="panel-heading">上架我的商品</div>
-				<div class="panel-body">
-					<form action="{{ url('/goods/doNew') }}" method="post" name="goodsForm" ng-controller="formController">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}" />
-				        <div class="form-group">
-				        	<label for="goods_title" class="control-label">给你的东东加个标题 &nbsp;&nbsp;<span class="label label-danger">必填</span></label>
-				            <input class="form-control" type="text" id="goods_title" name="goods_title" ng-model="goods.goods_title" required>
-				        </div>
-				        <div class="form-group">
-				            <label for="goods_type" class="control-label">你的东东类别是哪种呢&nbsp;&nbsp;<span class="label label-danger">必选</span></label>
-				            <select class="form-control" id="goods_type" name="goods_type" ng-model="goods.goods_type" required>
-							  	<?php
-							  		foreach ($types as $key => $value) {
-							  			echo "<option value=".$value['id'].">".$value['name']."</option>";
-							  		}
-							  	?>
-							</select>
-				        </div>
-				        <div class="form-group">
-				            <label for="goods_price" class="control-label">出个价&nbsp;&nbsp;<span class="label label-danger">必填</span></label>
-				            <input type="text" id="goods_price" class="form-control" name="goods_price" id="recipient-name" ng-model="goods.goods_price" required>
-				        </div>
-				        <div class="form-group">
-				            <label for="goods_content" class="control-label">来个简要介绍吧:</label>
-				            	<textarea class="form-control" id="goods_content" name="goods_content" rows="10" ng-model="goods.goods_content">
-				            		
-				            	</textarea>
-				        </div>
-				        <div class="form-group">
-				            <button type="submit" class="btn btn-success btn-block" ng-show="goodsForm.$valid">现在就发出去</button>
-				            <button type="button" class="btn btn-info btn-block" ng-hide="goodsForm.$valid" disabled="disabled">先把上面的填完吧</button>
-				        </div>
-			        </form>
+<div class="container">
+	<ol class="breadcrumb">
+	  	<li><a href="" onclick="history.go(-1)">商品列表</a></li>
+	  	<li class="active">商品详情</li>
+	</ol>
+<div class="row">
+  	<div class="col-md-9">
+  		
+  		<div class="panel panel-primary">
+	  		<div class="panel-heading">
+	  			<h5>{{$title}}</h5><span class="label label-danger">{{$goods->special == $special_recommend ? '推荐' : ''}}</span>
+	  		</div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<li class="list-group-item"><span class="label label-success">{{$goods->status_txt}}</span></li>
+					<li class="list-group-item">¥{{$goods->price}}</li>
+					<li class="list-group-item">由{{$goods->username}}发布于{{$goods->trans_time}}</li>
+					<li class="list-group-item">最近有<mark>{{$goods->view_times}}</mark>个人查看了它</li>
+				</ul>
+				<div class="jumbotron">
+				  	<p>{{$goods->content}}</p>
+				</div>
+				<div class="page-header">
+				  	<h1>图片写真</h1>
+				</div>
+				<div class="row">
+					@foreach ($photos as $photo)
+					 <div class="col-sm-6 col-md-3">
+				      <a href="#" class="thumbnail" data-toggle="modal" data-target="#goodsPhotoDia{{$photo->id}}">
+				         <img src=" {{asset('/images/product4.png')}}"  alt="..." class="img-responsive img-rounded" alt="Responsive image">
+				      </a>
+				      <!-- 模态弹出窗内容 -->
+		                <div class="modal fade" id="goodsPhotoDia{{$photo->id}}"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		                    <div class="modal-dialog">
+		                        <div class="modal-content">
+		                            <div class="modal-body">
+		                                <img src="{{asset('/images/product4.png')}}" width="80%" class="img-responsive center-block" alt="Responsive image"/>
+		                            </div>
+		                        </div>
+		                	</div>
+		            	</div>
+				    </div>
+				    @endforeach
 				</div>
 			</div>
 		</div>
-	</div>
+  	</div>
+  	<div class="col-md-3">
+  		这里放同类商品
+  	</div>
+</div>
 </div>
 @endsection
 @section('js')
