@@ -24,6 +24,7 @@ class GoodsController extends HomeController {
 	 */
 	public function tplNew() {
 		$data = array(
+			'new_level' => Goods::$arrNewLevel,
 			'types' => array(array('id'=>1, 'name'=>'电子类'), array('id'=>2, 'name'=>'生活类'),),
 		);
 		return view('app.goods.newgoods', $data);
@@ -55,6 +56,7 @@ class GoodsController extends HomeController {
 		$objGoods->status  = Goods::STATUS_SELL;
 		$objGoods->deal_type = Goods::DEAL_TYPE_FACETOFACE;
 		$objGoods->destination = Goods::DESTINATION_SELL;
+		$objGoods->new_level = $arrData['goods_newlevel'];
 		$objGoods->extra_welfare = '';
 		$res = $objGoods->save();
 		if(!$res){
@@ -72,7 +74,7 @@ class GoodsController extends HomeController {
 		$arrGoods = Goods::where(array('id' => $id)) -> get();
 		$uid = $this->getLogUid();
 		$boolBelongUser = false;
-		if($uid){
+		if($uid) {
 			//增加浏览记录
 			GoodsView::addVies($id, $uid);
 			//是否是当前登录用户的商品
@@ -91,8 +93,29 @@ class GoodsController extends HomeController {
 			'footer_show_txt' => $strFooterTxt,
 			'view_times' => GoodsView::getUserViewsByGoods($id),
 			'belong_crt_user' => $boolBelongUser,
+			'isMobile' => Util::isMobile(),
 		);
 		return view('app.goods.detail', $data);
+	}
+
+	/**
+	 * 发现
+	 */
+	public function find(){
+		$data = array(
+			
+		);
+		return view('app.goods.find', $data);
+	}
+
+	/**
+	 * 我的商品
+	 */
+	public function mine(){
+		$data = array(
+
+		);
+		return view('app.goods.mine', $data);
 	}
 
 }

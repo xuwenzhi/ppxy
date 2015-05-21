@@ -3,7 +3,6 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>@yield('title') - PP校园</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
@@ -34,7 +33,11 @@
 				</ul>
 
 				<ul class="nav navbar-nav">
-					<li><a href="{{ url('/goods/new') }}">发布新商品</a></li>
+					<li><a href="{{ url('/goods/find') }}">发现</a></li>
+				</ul>
+
+				<ul class="nav navbar-nav">
+					<li><a href="{{ url('/goods/new') }}">我要发货</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
@@ -44,7 +47,10 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ url('/auth/logout') }}">退出登录</a></li>
+								<!--<li><a href="{{ url('/people').'/'.Auth::user()->name  }}">个人中心</a></li> -->
+								<li><a href="{{ url('/goods/mine') }}"><span class="glyphicon glyphicon-jpy" aria-hidden="true"></span>&nbsp;&nbsp;我的商品</a></li>
+								<li><a href="{{ url('/setting') }}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;验证手机号</a></li>
+								<li><a href="{{ url('/auth/logout') }}"><span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;&nbsp;退出登录</a></li>
 							</ul>
 						</li>
 					@endif

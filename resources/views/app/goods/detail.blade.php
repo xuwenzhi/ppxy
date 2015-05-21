@@ -4,13 +4,18 @@
 @section('content')
 <div class="container">
 	<ol class="breadcrumb">
-	  	<li><a href="" onclick="history.go(-1)">商品列表</a></li>
+	  	<li>商品列表</li>
 	  	<li class="active">商品详情</li>
 	</ol>
 @if ($belong_crt_user == true)
 @if ($photo_count == 0)
     <div class="alert alert-success" role="alert">
-    	您还没有为它上图噢,如需添加，<a class="alert-link" href="{{ url('/goods/update').'/'.$goods->id }}">戳这里</a>
+    	您还没有为它上图噢,如需添加,
+    	@if($isMobile == 1)
+    		请打开个人电脑来上图
+    	@else
+    		<a class="alert-link" href="{{ url('/goods/update').'/'.$goods->id }}">戳这里</a>
+    	@endif
     </div>
 @elseif($photo_count != 0)
 	<div class="alert alert-success" role="alert">

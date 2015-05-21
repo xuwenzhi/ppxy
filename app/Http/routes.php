@@ -16,14 +16,31 @@ Route::get('/home', 'Home\IndexController@index');
 
 Route::get('/', 'Home\IndexController@index');
 
+/**
+ * 个人部分
+ */
+//Route::get('people/{username}', 'Home\IndividualController@page');
+Route::get('setting', 'Home\IndividualController@setting');
+
+
+/**
+ * 商品部分
+ */
 Route::group(['prefix' => '/goods'], function()
 {
 	Route::get('new', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@tplNew']);
 	Route::post('doNew', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@doNew']);
 	Route::get('detail/{enId}', 'Home\GoodsController@detail');
+	Route::get('find', 'Home\GoodsController@find');
+	Route::get('mine', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@mine']);
 });
 
 
+
+
+/**
+ * 通用部分
+ */
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

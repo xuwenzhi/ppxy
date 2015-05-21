@@ -57,6 +57,20 @@ class Goods extends Base {
 		self::DESTINATION_SELL => '出租',
 	);
 
+	//几成新
+	public static $arrNewLevel = array(
+		'one'   => '一成新',
+		'two'   => '二成新',
+		'three' => '三成新',
+		'four'  => '四成新',
+		'five'  => '五成新',
+		'six'   => '六成新',
+		'seven' => '七成新',
+		'eight' => '八成新',
+		'nine'  => '九成新',
+		'ten'   => '十成新',
+	);
+
 	/**
 	 * 数据加工
 	 */

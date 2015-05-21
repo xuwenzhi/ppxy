@@ -25,6 +25,16 @@
 							</select>
 				        </div>
 				        <div class="form-group">
+				            <label for="goods_newlevel" class="control-label">几成新?&nbsp;&nbsp;<span class="label label-danger">必选</span></label>
+				            <select class="form-control" id="goods_newlevel" name="goods_newlevel" ng-model="goods.goods_newlevel" required>
+							  	<?php
+							  		foreach ($new_level as $key => $value) {
+							  			echo "<option value=".$key.">".$value."</option>";
+							  		}
+							  	?>
+							</select>
+				        </div>
+				        <div class="form-group">
 				            <label for="goods_price" class="control-label">出个价&nbsp;&nbsp;<span class="label label-danger">必填</span></label>
 				            <input type="text" id="goods_price" class="form-control" name="goods_price" id="recipient-name" ng-model="goods.goods_price" required>
 				        </div>
