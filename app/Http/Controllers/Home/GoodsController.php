@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\Util;
 use Illuminate\Support\Facades\Redirect;
 use App\GoodsPhoto;
+use App\GoodsView;
 
 class GoodsController extends HomeController {
 
@@ -68,8 +69,15 @@ class GoodsController extends HomeController {
 		if(!$id){
 			return Redirect::to('/404');
 		}
-
 		$arrGoods = Goods::where(array('id' => $id)) -> get();
+		$uid = $this->getLogUid();
+		$boolBelongUser = false;
+		if($uid){
+			//增加浏览记录
+			GoodsView::addVies($id, $uid);
+			//是否是当前登录用户的商品
+			$boolBelongUser = $uid == $arrGoods[0]['uid'] ? true : false;
+		}
 		$arrGoods = Goods::decorateList($arrGoods);
 		$arrPhoto = GoodsPhoto::whereIn('goods_id', array($id))->get();
 		$arrGoods = $arrGoods[0];
@@ -78,19 +86,13 @@ class GoodsController extends HomeController {
 			'goods' => $arrGoods,
 			'title' => $arrGoods['title'],
 			'photos' => $arrPhoto,
+			'photo_count' => count($arrPhoto),
 			'special_recommend' => Goods::SPECIAL_RECOMMEND,
 			'footer_show_txt' => $strFooterTxt,
+			'view_times' => GoodsView::getUserViewsByGoods($id),
+			'belong_crt_user' => $boolBelongUser,
 		);
-		$this->_addViews($id, $arrGoods['view_times']);
 		return view('app.goods.detail', $data);
 	}
 
-	private function _addViews($id, $view_times){
-		if(!$id){
-			return;
-		}
-		$objGoods = Goods::find($id);
-		$objGoods -> view_times = $view_times+1;
-		return $objGoods->save();
-	}
 }

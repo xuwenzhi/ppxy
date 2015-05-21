@@ -77,8 +77,52 @@ class Util {
 	/**
 	 * 时间转换
 	 */
-	public static function timeTrans($time = NULL) {
-	    return '5小时前';
+	public static function timeTrans($sj) {
+	    date_default_timezone_set('PRC');
+		$newsjc = time();
+	    $fbarr = explode(" ",$sj);
+	    $fbsjarr = explode("-",$fbarr[0]);
+	    $fbrqarr = explode(":",$fbarr[1]);
+	    $fbsjc = mktime($fbrqarr[0],$fbrqarr[1],$fbrqarr[2],$fbsjarr[1],$fbsjarr[2],$fbsjarr[0]);
+	    /*    $sjcm是当前时间戳和发表时间戳的差值   */
+	    $sjcm = $newsjc - $fbsjc;
+	    $yifz = 60;
+	    $yixs = 3600;
+			$yitian = 864000;
+			$yigy = 2592000;
+			$yinian = 31104000;
+			if($sjcm > $yinian){
+				$nian = floor($sjcm/$yinian);
+				return $nian."年前";
+			}
+			else{
+				if($sjcm >$yigy){
+					$yue = floor($sjcm/$yigy);
+					return $yue."个月前";
+				}
+				else{
+					if($sjcm >$yitian){
+						$tian = floor($sjcm/$yitian);
+						return $tian."天前";
+					}
+					else{
+						if($sjcm >$yixs){
+							$xiaoshi = floor($sjcm/$yixs);
+							return $xiaoshi."小时前";
+						}
+						else{
+							if($sjcm >$yifz){
+								$fenzhong = floor($sjcm/$yifz);
+								return $fenzhong."分钟前";
+							}
+							else{
+									return "刚刚";
+							}
+						}
+					}
+				}
+			}
+
 	}
 
 
