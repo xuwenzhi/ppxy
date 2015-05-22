@@ -83,9 +83,10 @@ $(document).ready(function(){
 					$("#verify_error_modal").modal({
 						show: true
 					});
+					$("#verify_button").html("下一步");
 				}
 			},beforeSend:function(){
-				$(this).html("正在验证...");
+				$("#verify_button").html("正在验证...");
 			}
 		});
 	});

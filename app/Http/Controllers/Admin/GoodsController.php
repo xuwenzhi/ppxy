@@ -9,7 +9,7 @@ use App\Util;
 use App\User;
 use App\GoodsPhoto;
 use Illuminate\Support\Facades\Redirect;
-use Sms
+
 
 class GoodsController extends AdminController {
 

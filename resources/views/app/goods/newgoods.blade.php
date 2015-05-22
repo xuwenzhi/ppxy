@@ -35,8 +35,15 @@
 							</select>
 				        </div>
 				        <div class="form-group">
+				            <label for="goods_newlevel" class="control-label">交易地点?&nbsp;&nbsp;<span class="label label-danger">必填</span></label>
+				            <input class="form-control" id="goods_dealplace" name="goods_dealplace" 
+				            	ng-model="goods.goods_dealplace" disabled="disabled" 
+				            	placeholder="哈尔滨理工大学" required />
+							
+				        </div>
+				        <div class="form-group">
 				            <label for="goods_price" class="control-label">出个价&nbsp;&nbsp;<span class="label label-danger">必填</span></label>
-				            <input type="text" id="goods_price" class="form-control" name="goods_price" id="recipient-name" ng-model="goods.goods_price" required>
+				            <input type="text" id="goods_price" class="form-control" name="goods_price" ng-model="goods.goods_price" required>
 				        </div>
 				        <div class="form-group">
 				            <label for="goods_content" class="control-label">来个简要介绍吧:</label>

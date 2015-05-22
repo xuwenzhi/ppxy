@@ -42,7 +42,6 @@ class SmsVerifyRecord extends Base {
 
 	public static function generateSend($uid, $phone_nu){
 		$randCode = self::generateRandCode();
-		$msg = "您本次的验证码为".$randCode."，请注意保密，感谢您的选择！";
 		$msg = sprintf("您本次的验证码为%s，请注意保密，感谢您的选择！", $randCode);
 		$objSms = new Sms;
 		$sendRes = $objSms->setHp($phone_nu)->setMsg($msg)->sendSingle();

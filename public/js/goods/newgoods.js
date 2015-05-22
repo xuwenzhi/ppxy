@@ -5,7 +5,7 @@ newGoodsModule.config(function($interpolateProvider) {
   });
 newGoodsModule.controller('formController', ['$scope', 
 	function($scope) {
-		$scope.goods = {goods_title: '', goods_type: '', goods_price:'', goods_content:''};
+		$scope.goods_dealplace = "哈尔滨理工大学";
 	}
 ]);
 
