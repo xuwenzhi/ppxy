@@ -34,6 +34,7 @@
 				<ul class="list-group">
 					<li class="list-group-item"><span class="label label-success">{{$goods->status_txt}}</span></li>
 					<li class="list-group-item">¥{{$goods->price}}</li>
+					<li class="list-group-item"><mark>{{$goods->school_name}}{{$goods->deal_place_ext}}</mark>交易噢~</li>
 					<li class="list-group-item">{{$goods->username}}发布于{{$goods->trans_time}}</li>
 					<li class="list-group-item">它被查看了<mark>{{$view_times}}</mark>次</li>
 				</ul>

@@ -34,12 +34,14 @@
 							  	?>
 							</select>
 				        </div>
-				        <div class="form-group">
-				            <label for="goods_newlevel" class="control-label">交易地点?&nbsp;&nbsp;<span class="label label-danger">必填</span></label>
+				        <div class="form-group form-inline">
+				            <label for="goods_newlevel" class="control-label">交易地点?</label>
 				            <input class="form-control" id="goods_dealplace" name="goods_dealplace" 
 				            	ng-model="goods.goods_dealplace" disabled="disabled" 
-				            	placeholder="哈尔滨理工大学" required />
-							
+				            	placeholder="哈尔滨理工大学" />
+							<input class="form-control" id="goods_dealplace_ext" name="goods_dealplace_ext" 
+				            	ng-model="goods.goods_dealplace_ext"  
+				            	placeholder="西区 or 东区 or 南区" required />&nbsp;&nbsp;<br/><span class="label label-info">其他学校，敬请期待</span>
 				        </div>
 				        <div class="form-group">
 				            <label for="goods_price" class="control-label">出个价&nbsp;&nbsp;<span class="label label-danger">必填</span></label>

@@ -10,6 +10,7 @@ use App\Util;
 use Illuminate\Support\Facades\Redirect;
 use App\GoodsPhoto;
 use App\GoodsView;
+use App\School;
 
 class GoodsController extends HomeController {
 
@@ -58,6 +59,8 @@ class GoodsController extends HomeController {
 		$objGoods->destination = Goods::DESTINATION_SELL;
 		$objGoods->new_level = $arrData['goods_newlevel'];
 		$objGoods->extra_welfare = '';
+		$objGoods->school_id = 480;
+		$objGoods->deal_place_ext = $arrData['goods_dealplace_ext'];
 		$res = $objGoods->save();
 		if(!$res){
 			Log::error('【添加商品报错】', ['context' => $arrData]);
@@ -83,6 +86,7 @@ class GoodsController extends HomeController {
 		$arrGoods = Goods::decorateList($arrGoods);
 		$arrPhoto = GoodsPhoto::whereIn('goods_id', array($id))->get();
 		$arrGoods = $arrGoods[0];
+		$arrGoods['school_name'] = School::getNameById($arrGoods['school_id']);
 		$strFooterTxt = "立即购买";
 		$data = array(
 			'goods' => $arrGoods,
