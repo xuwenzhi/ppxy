@@ -19,6 +19,6 @@ class School extends Base {
 		if($school && !empty($school[0]['name'])){
 			return $school[0]['name'];
 		}
-		return array();
+		return '';
 	}
 }

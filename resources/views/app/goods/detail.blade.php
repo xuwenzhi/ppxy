@@ -14,12 +14,12 @@
     	@if($isMobile == 1)
     		请打开个人电脑来上图
     	@else
-    		<a class="alert-link" href="{{ url('/goods/update').'/'.$goods->id }}">戳这里</a>
+    		<a class="alert-link" href="{{ url('/goods/modify').'/'.$goods->id }}">戳这里</a>
     	@endif
     </div>
 @elseif($photo_count != 0)
 	<div class="alert alert-success" role="alert">
-		如需修改它,请<a  class="alert-link" href="{{ url('/goods/update').'/'.$goods->id }}">戳这里</a>
+		如需修改它,请<a  class="alert-link" href="{{ url('/goods/modify').'/'.$goods->id }}">戳这里</a>
     </div>
 @endif
 @endif

@@ -122,4 +122,20 @@ class GoodsController extends HomeController {
 		return view('app.goods.mine', $data);
 	}
 
+	/**
+	 * 修改商品信息
+	 */
+	public function modify($enId){
+		$id = intval(Util::encryptData($enId, true));
+		if(!$id){
+			Redirect::to('/404');
+		}
+		$arrGoods = Goods::where(array('id' => $id)) -> get();
+		var_dump($arrGoods);
+		$data = array(
+
+		);
+		return view('app.goods.modify', $data);
+	}
+
 }

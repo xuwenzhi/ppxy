@@ -35,6 +35,7 @@ Route::group(['prefix' => '/goods'], function()
 	Route::get('detail/{enId}', 'Home\GoodsController@detail');
 	Route::get('find', 'Home\GoodsController@find');
 	Route::get('mine', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@mine']);
+	Route::get('modify/{enId}', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@modify']);
 });
 
 
