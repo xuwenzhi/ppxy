@@ -16,7 +16,7 @@ class SmsVerifyRecord extends Base {
 	 *
 	 * @var string
 	 */
-	protected $table = 'sms_verify_record';
+	protected $table = 'sms_record';
 
 	public $timestamps = false;
 
