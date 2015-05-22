@@ -12,27 +12,11 @@
   	    <div class="panel-heading">
           <h5>
             
-            @if($baseinfo->role == $role_pending && $baseinfo->phone_nu == '')
+            @if($baseinfo->role == $role_pending || $baseinfo->phone_nu == '')
               <div class="alert alert-success" role="alert">
                 <a href="#qa_verify_phone" data-toggle="modal"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a>您尚未验证手机号,是否现在验证?
               </div>
-              <!-- Modal -->
-              <div class="modal fade" id="qa_verify_phone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="myModalLabel">为什么要验证手机号?</h4>
-                    </div>
-                    <div class="modal-body">
-                        验证手机号,保证了交易双方信息的有效性和真实性,我们会充分保护您的个人隐私,谢谢您的合作！
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
               <form action="" method="post">
                 <div class="form-group">
                     <input type="text" id="veryfy_phone" class="form-control" id="veryfy_phone" required placeholder="请输入您的手机号"/>
@@ -53,11 +37,56 @@
           </h5>
         </div>
         <div class="panel-body">
-
-        </div>   
+            <div class="jumbotron">
+              <h3>为什么需要验证手机号?</h3>
+              <p>&nbsp;&nbsp;验证手机号,保证了交易双方信息的有效性和真实性,我们会充分保护您的个人隐私,谢谢您的合作！</p>
+            </div>
+        </div>
     </div>
     <div class="col-md-3">
-  		
+        <!-- Modal -->
+        <div class="modal fade" id="qa_verify_phone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">为什么要验证手机号?</h4>
+              </div>
+              <div class="modal-body">
+                  验证手机号,保证了交易双方信息的有效性和真实性,我们会充分保护您的个人隐私,谢谢您的合作！
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </div>
+            </div>
+          </div>
+        </div>
+  		  <!-- Modal -->
+        <div class="modal fade" id="verify_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body" id="verify_modal_body">
+                  
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="verify_error_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body" id="verify_error_modal_body">
+                  
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 </div>
 </div>

@@ -65,7 +65,7 @@
 
 	@yield('content')
 	<div id="footer" class="navbar-fixed-bottom">
-	@yield('footer')<br/>
+	@yield('footer')
 	2015 &copy; PP校园
 	</div>
        

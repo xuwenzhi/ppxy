@@ -33,6 +33,7 @@ class IndividualController extends HomeController {
 		if(!$arrUser){
 			return Redirect::to('/auth/login');
 		}
+		$arrUser['phone_nu'] = Util::mask_phone_nu($arrUser['phone_nu']);
 		$data = array(
 			'baseinfo' => $arrUser,
 			'role_pending' => User::ROLE_PENDING,
@@ -60,7 +61,7 @@ class IndividualController extends HomeController {
 		if(SmsVerifyRecord::TOP_USER < SmsVerifyRecord::getVerifyPhoneTimesByUid($arrUser['id'])){
 			return Util::json_format('error', '您今日的验证次数已达上限,请明日再试,多谢配合!');
 		}
-		SmsVerifyRecord::generateSend($arrUser['id'], $strPhoneNu);
+		//SmsVerifyRecord::generateSend($arrUser['id'], $strPhoneNu);
 		return Util::json_format('success');
 	}
 
@@ -91,7 +92,7 @@ class IndividualController extends HomeController {
 				return Util::json_format('error', '很抱歉，验证没有通过，请重试！');
 			}
 		}else{
-			return Util::json_format('error', '您的操作有误!');
+			return Util::json_format('error', '验证码错误,请您重试!');
 		}
 		return Util::json_format('error', '系统错误,请重试!');
 	}
