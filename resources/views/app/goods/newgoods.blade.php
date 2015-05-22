@@ -56,7 +56,6 @@
 </div>
 @endsection
 @section('footer')
-2015 &copy; PP校园
 @endsection
 @section('js')
 <script src="{{ asset('/js/goods/newgoods.js')}}"></script>

@@ -1,5 +1,5 @@
 @extends('app')
-@section('html','<html lang="zh-CN" ng-app="newGoodsModule">')
+@section('html','<html lang="zh-CN">')
 @section('title', '发现商品')
 @section('content')
 <div class="container">
@@ -18,7 +18,7 @@
 </div>
 @endsection
 @section('footer')
-2015 &copy; PP校园
+
 @endsection
 @section('js')
 @endsection

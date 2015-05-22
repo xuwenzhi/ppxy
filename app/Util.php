@@ -191,6 +191,44 @@ class Util {
 	    return false;
 	}
 
+	public static function json_format($code, $message = '', $data = array()) {
+		$res = array(
+				'status' => $code,
+				'message' => $message,
+				'data'    => $data, 
+			);
+		return json_encode($res);
+	}
+
+	public static function errorResponse($msg = "", $code = 1) {
+	    return array('code' => $code, 'message' => $msg);
+	}
+
+	/*
+	 * help function to create success reponse array
+	 * default code is 0, means success
+	 */
+	public static function successResponse($msg = ""){
+	    return array('code' => 0, 'message' => $msg);
+	}
+
+	public static function reg_phone_nu($phone_nu){
+		if(preg_match("/1[34589]{1}\d{9}$/",$phone_nu)){  
+		     return true;
+		}else{  
+		 	 return false;
+		}
+	}
+
+	public static function reg_verify_code($code){
+		if(preg_match("/\d{6}$/",$code)){  
+		     return true;
+		}else{  
+		 	 return false;
+		}
+	}
+
+
 
 
 }

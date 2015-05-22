@@ -53,5 +53,20 @@ class User extends Base implements AuthenticatableContract, CanResetPasswordCont
  	);
 
 	
+	public static function checkPhoneRepeat($phone_nu){
+		$intCount = User::where(array('phone_nu'=>$phone_nu)) -> count();
+		return $intCount;
+	}
+
+	/**
+	 * 用户验证通过
+	 */
+	public static function passUserVerify($uid, $phone_nu){
+		$objUser = User::find($uid);
+		$objUser->role = User::ROLE_MEMBER;
+		$objUser->phone_nu = $phone_nu;
+		return $objUser->save();
+	}
+
 
 }

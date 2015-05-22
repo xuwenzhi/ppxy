@@ -21,6 +21,8 @@ Route::get('/', 'Home\IndexController@index');
  */
 //Route::get('people/{username}', 'Home\IndividualController@page');
 Route::get('setting', 'Home\IndividualController@setting');
+Route::any('verifyphone', 'Home\IndividualController@verifyphone');
+Route::any('doverifyphone', 'Home\IndividualController@doverifyphone');
 
 
 /**

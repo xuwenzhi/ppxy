@@ -2,6 +2,39 @@ $(document).ready(function(){
 	$("#veryfy_phone").keyup(function(){
 		var verifyphone = $(this).val().trim();
 		if(checkPhoneNu(verifyphone)){
+			$("#get_verify_button").attr("disabled", false);
+		}else{
+			$("#get_verify_button").attr("disabled", "disabled");
+		}
+	});
+
+	$("#get_verify_button").on('click', function(){
+		var verifyphone = $('#veryfy_phone').val().trim();
+		if(checkPhoneNu(verifyphone)){
+			$.ajax({
+				url:APP+"/verifyphone",
+				type :'post',
+				dataType:'json',
+				data :{phone_nu:$("#veryfy_phone").val().trim(), '_token':$('meta[name="_token"]').attr('content')},
+				success:function(data){
+					if(data.status == 'success'){
+						$(this).attr('disabled', 'disabled');
+						$("#time_flee").html('60秒');
+						$("#verify_button").attr("disabled", "disabled");
+						$("#verify_button").show();
+						$("#verify_code_block").show();
+						$("#get_verify_button_txt").html('等待验证码');
+						$("#verify_code").val('');
+						$("#time_flee").show();
+						setInterval(showTimeFlee, 1000);
+					}
+				}
+			});
+		}
+	});
+	$("#verify_code").on('keyup', function(){
+		var code = $(this).val().trim();
+		if(checkCode(code)){
 			$("#verify_button").attr("disabled", false);
 		}else{
 			$("#verify_button").attr("disabled", "disabled");
@@ -9,20 +42,29 @@ $(document).ready(function(){
 	});
 
 	$("#verify_button").on('click', function(){
-		var verifyphone = $('#veryfy_phone').val().trim();
-		if(checkPhoneNu(verifyphone)){
-			$("#verify_button_txt").html('提交');
-			$("#verify_code_block").show();
-			$("#time_flee").show();
-			setInterval(showTimeFlee,1000);
-			$.ajax({
-				url:"/jquery/test1.txt",
-				async:false,
-				success:function(data){
-					
-				}
-			});
+		var verify_code = $("#verify_code").val().trim();
+		if(!checkCode(verify_code)){
+			$("#verify").attr("placeholder", "请输入正确的验证码");
+			return false;
 		}
+		$.ajax({
+			url:APP+"/doverifyphone",
+			type :'post',
+			dataType:'json',
+			data :{phone_nu:$("#veryfy_phone").val().trim(), 'verify_code':verify_code, '_token':$('meta[name="_token"]').attr('content')},
+			success:function(data){
+				if(data.status == 'success'){
+					alert(data.message);
+					window.location.reload();
+				}else if(data.status == 'repeat'){
+					alert(data.message);
+					window.location.reload();
+				}else{
+					alert(data.message);
+					window.location.reload();
+				}
+			}
+		});
 	});
 });
 
@@ -41,11 +83,24 @@ function checkPhoneNu(phone_nu){
 function showTimeFlee(){
 	var crt_time = parseInt($("#time_flee").html());
 	if(crt_time == 0){
-		$("#time_flee").html('');
-		$("#verify_button").html("没有收到?点击重新获取");
-		
+		$("#time_flee").html('60秒');
+		$("#get_verify_button_txt").html("没有收到?点击重新获取");
+		$("#get_verify_button").attr("disabled", false);
+		$("#time_flee").hide();
+		clearInterval(showTimeFlee);
 	}
 	$("#time_flee").html(crt_time-1+"秒");
+}
+
+function checkCode(code){
+	if(code.length != 6){
+		return false;
+	}
+	var codeParttern =  /\d{6}/;
+	if(!codeParttern.test(code)){
+		return false;
+	}
+	return true;
 }
 
 

@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>@yield('title') - PP校园</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="_token" content="{{ csrf_token() }}" />
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" />
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -13,6 +14,9 @@
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	<script>
+		var APP = "{{url('/')}}";
+	</script>
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -24,7 +28,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">PP校园</a>
+				<a class="navbar-brand" href="{{ url('/') }}">PP校园</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -61,7 +65,8 @@
 
 	@yield('content')
 	<div id="footer" class="navbar-fixed-bottom">
-	@yield('footer')
+	@yield('footer')<br/>
+	2015 &copy; PP校园
 	</div>
        
    
