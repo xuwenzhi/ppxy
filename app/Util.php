@@ -200,16 +200,8 @@ class Util {
 		return json_encode($res);
 	}
 
-	public static function errorResponse($msg = "", $code = 1) {
-	    return array('code' => $code, 'message' => $msg);
-	}
-
-	/*
-	 * help function to create success reponse array
-	 * default code is 0, means success
-	 */
-	public static function successResponse($msg = ""){
-	    return array('code' => 0, 'message' => $msg);
+	public static function str_json_format($str = ''){
+		return json_encode($str);
 	}
 
 	public static function reg_phone_nu($phone_nu){

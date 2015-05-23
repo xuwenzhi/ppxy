@@ -44,3 +44,7 @@
     opacity: 1;
 }
 
+
+#input_border{
+    border:1px solid red;
+}

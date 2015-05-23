@@ -45,61 +45,58 @@ $(document).ready(function(){
 	});
 
 	$("#goods_title").on('keyup', function(){
-		var goods_price = $("#goods_price").val().trim();
 		var goods_title = $(this).val().trim();
-		var goods_type = $("#goods_type").val().trim();
-		if(goods_title!='' && checkPrice(goods_price) && goods_type != ''){
-			$("#newgoods_btn_info").hide();
-			$("#newgoods_btn_sub").show();
+		if(goods_title!=''){
+			$(this).css("border", "0px");
+			$(this).html("修改好了");
 		}else{
-			$("#newgoods_btn_info").show();
-			$("#newgoods_btn_sub").hide();
+			$(this).css("border", "1px solid red");
 		}
 	});
+
 	$("#goods_price").on('keyup', function(){
-		var goods_title = $("#goods_title").val().trim();
 		var goods_price = $(this).val().trim();
-		var goods_type = $("#goods_type").val().trim();
-		if(goods_title != '' && checkPrice(goods_price) && goods_type != ''){
-			$("#newgoods_btn_info").hide();
-			$("#newgoods_btn_sub").show();
+		if(checkPrice(goods_price)){
+			$(this).css("border", "0px");
+			$(this).html("修改好了");
 		}else{
-			$("#newgoods_btn_info").show();
-			$("#newgoods_btn_sub").hide();
+			$(this).css("border", "1px solid red");
 		}
 	});
 
-	$("#goods_type").on('change', function(){
-		var goods_title = $("#goods_title").val().trim();
-		var goods_price = $("#goods_price").val().trim();
+	$("#goods_type").on('keyup', function(){
 		var goods_type = $(this).val().trim();
-		if(goods_title != '' && checkPrice(goods_price) && goods_type != ''){
-			$("#newgoods_btn_info").hide();
-			$("#newgoods_btn_sub").show();
-			$("#newgoods_btn_sub").html('现在就发出去');
+		if(goods_type!=''){
+			$(this).css("border", "0px");
+			$(this).html("修改好了");
 		}else{
-			$("#newgoods_btn_info").show();
-			$("#newgoods_btn_sub").hide();
+			$(this).css("border", "1px solid red");
 		}
 	});
 
-	$("#newgoods_btn_sub").on('click', function(){
+	$("#modifybtn_sub").on('click', function(){
 		var goods_title = $("#goods_title").val().trim();
 		var goods_price = $("#goods_price").val().trim();
 		var goods_type = $("#goods_type").val().trim();
 		if(goods_title == ''){
+			$("#goods_title").focus();
+			$("#goods_title").css("border", "1px solid red");
 			$(this).html("您还没有填写标题呢。");
 			return false;
 		}
 		if(goods_type == ''){
+			$("#goods_type").focus();
+			$("#goods_type").css("border", "1px solid red");
 			$(this).html("您还没有选择商品类别呢。");
 			return false;
 		}
 		if(goods_price == '' || !checkPrice(goods_price)){
+			$("#goods_price").focus();
+			$("#goods_price").css("border", "1px solid red");
 			$(this).html("请输入正确的价格。");
 			return false;
 		}
-		$("#newGoodsForm").submit();
+		$("#modifyGoodsForm").submit();
 	});
 
 });

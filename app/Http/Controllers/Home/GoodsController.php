@@ -115,6 +115,7 @@ class GoodsController extends HomeController {
 		}
 		$arrGoods = Goods::decorateList($arrGoods);
 		$arrPhoto = GoodsPhoto::whereIn('goods_id', array($id))->get();
+		$arrPhoto = GoodsPhoto::encryptId($arrPhoto);
 		$arrGoods = $arrGoods[0];
 		if($uid) {
 			$arrSame = $this->getSameTypeGoods($arrGoods['type'], $id, array($uid));
@@ -185,10 +186,13 @@ class GoodsController extends HomeController {
 		$crt_first_type_code = Util::encryptData($crt_first_type_code);
 		$arrGoods['id'] = Util::encryptData($arrGoods['id']);
 		$arrGoods['type'] = Util::encryptData($arrGoods['type']);
+		$arrPhoto = GoodsPhoto::whereIn('goods_id', array($id))->get();
+		$arrPhoto = GoodsPhoto::encryptId($arrPhoto);
 		$data = array(
 			'goods' => $arrGoods,
 			'types'=>$goods_types,
 			'second_types'=>$second_types,
+			'photos'=>$arrPhoto,
 			'new_level' =>Goods::$arrNewLevel,
 			'crt_first_type_code' => $crt_first_type_code,
 			'isMobile'=>Util::isMobile(),
@@ -231,18 +235,24 @@ class GoodsController extends HomeController {
 	public function upload(Request $request){
 		$file = $request -> file('Filedata');
 		if (!$file -> isValid()) {
-		    return Util::json_format('error', '上传的图片有误,请重新选择。');
+		    echo 'error*图片过大,请重新选择,请控制在2M以下。';
+		    return ;
+			exit();
 		}
 		$goods_id = Util::encryptData($request->get('goodsenid'), true);
 		$mimeType = $file->getMimeType();
 		if(!Util::is_in_array($mimeType, GoodsPhoto::$permit_mimetype)){
-			return Util::json_format('error', '图片格式错误,请重新选择。');
+			echo 'error*图片格式错误,请重新选择。';
+			return ;
+			exit();
 		}
 		$upload_path = GoodsPhoto::UPLOAD_PATH."".date('Y-m-d');
 		if(!is_dir($upload_path)){
 			if(!mkdir($upload_path)){
 				Log::error("【创建路径失败】- 路径为".$upload_path);
-				return Util::json_format('error', '上传失败,请重试。');
+				echo 'error*上传失败,请重试。';
+				return ;
+				exit();
 			}
 		}
 		//生成一个新名称
@@ -251,13 +261,49 @@ class GoodsController extends HomeController {
 		$new_name = Util::generate_unique_str($origin_name).'.'.$extension_name;
 		if(!$file -> move($upload_path, $new_name)){
 			return Util::json_format('error', '图片上传失败,请重试。');
+			echo 'error*图片上传失败,请重试。';
+			return ;
+			exit();
 		}
-		$img_system_path = GoodsPhoto::UPLOAD_PATH.''.$new_name;
-		if(!GoodsPhoto::newGoodsPhoto($goods_id, $img_system_path)){
-			return Util::json_format('error', '上传失败,请重试。');
+		$img_system_path = $upload_path.'/'.$new_name;
+		$new_photo_id = GoodsPhoto::newGoodsPhoto($goods_id, $img_system_path);
+		$new_photo_id = Util::encryptData($new_photo_id);
+		$response_data = $img_system_path;
+		echo 'success*'.$response_data.'*'.$new_photo_id;
+		exit;
+	}
+
+	public function doModify(Request $request){
+		$arrRequest = $request -> all();
+		//数据检查
+		if(!$this->checkPostGoods($arrRequest)){
+			return Redirect::to('/404');
 		}
-		$response_data = array('img_path'=>$img_system_path);
-		return Util::json_format('success', '上传成功!', $response_data);
+		$uid = $this->getLogUid();
+		$arrRequest['uid'] = $uid;
+		$arrRequest['goods_type'] = Util::encryptData($arrRequest['goods_type'], true);
+		$arrRequest['id'] = Util::encryptData($arrRequest['goods_enid'], true);
+		$update_res = $this->_update($arrRequest);
+		if($update_res){
+			return Redirect::to('/goods/detail/'.$arrRequest['goods_enid']);
+		} else {
+			return Redirect::to('/goods/modify/'.$arrRequest['goods_enid']);
+		}
+	}
+
+	private function _update($arrData){
+		$objGoods = Goods::find($arrData['id']);
+		$objGoods->title = $arrData['goods_title'];
+		$objGoods->type = $arrData['goods_type'];
+		$objGoods->price = $arrData['goods_price'];
+		$objGoods->content = trim($arrData['goods_content']);
+		$objGoods->deal_place_ext = $arrData['goods_dealplace_ext'];
+		$res = $objGoods->save();
+		if(!$res){
+			Log::error('【修改商品报错】', ['context' => $arrData]);
+			return array();
+		}
+		return $res;
 	}
 
 }

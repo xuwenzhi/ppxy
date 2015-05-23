@@ -27,9 +27,21 @@ class GoodsPhoto extends Base {
 		$obj->goods_id = $goods_id;
 		$obj->address = $photo_path;
 		$obj->special = self::SPECIAL_NORMAL;
-		return $obj->save();
+		if(!$obj->save()){
+			return false;
+		}
+		return $obj->lastId;
 	}
 
+	public static function encryptId($arrData){
+		if(!$arrData){
+			return array();
+		}
+		foreach($arrData as $val){
+			$val['id'] = Util::encryptData($val['id']);
+		}
+		return $arrData;
+	}
 
 }
 

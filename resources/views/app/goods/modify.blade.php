@@ -11,11 +11,11 @@
 		<li class="active">修改我的货</li>
 	</ol>
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
+		<div class="col-md-12">
 			<div class="panel panel-primary">
-				<div class="panel-heading">上架我的商品</div>
+				<div class="panel-heading">修改我的货</div>
 				<div class="panel-body">
-					<form action="{{ url('/goods/doNew') }}" method="post" name="goodsForm" id="newGoodsForm">
+					<form action="{{ url('/goods/doModify') }}" method="post" name="modifyGoodsForm" id="modifyGoodsForm">
 						<input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
 				        <div class="form-group">
 				        	<label for="goods_title" class="control-label">给你的东东加个标题 &nbsp;&nbsp;<span class="label label-danger">必填</span></label>
@@ -70,54 +70,61 @@
 				        </div>
 				        <div class="form-group">
 				        <label for="goods_price" class="control-label">出个价<span id="size12 gray"></span>&nbsp;&nbsp;<span class="label label-danger">必填</span></label>
-				            <input type="text" id="price" class="form-control" name="goods_price" value="{{$goods->price}}" placeholder="(例如:5.20)" required>
+				            <input type="text" id="goods_price" class="form-control" name="goods_price" value="{{$goods->price}}" placeholder="(例如:5.20)" required>
 				        </div>
 				        <div class="form-group">
 				            <label for="content" class="control-label">来个简要介绍吧:</label>
 				            	<textarea class="form-control" id="goods_content" name="goods_content" rows="6">{{$goods->content}}</textarea>
 				        </div>
+				        <div class="page-header">
+						  	<h1>图片写真</h1>
+						</div>
 				        @if(!$isMobile)
-				        <div class="form-group">
-				            <label for="content" class="control-label">加几个图 ?</label>
-				            <input type="file" name="file_upload" id="file_upload" />
-							<a id="doUploadPhoto" class="button green" 
-							href="javascript:$('#file_upload').uploadify('settings', 'formData', {'_token':document.getElementById('_token').value,'goodsenid':document.getElementById('goods_enid').value});$('#file_upload').uploadify('upload','*')">上传</a>
-							<input type="hidden" id="goods_enid" value="{{$goods->id}}"/>
-							<a id="doAgainUploadPhoto" class="button green" style="display:none;" href="#again" onclick="showUploadLink(this)"><font color='white'>再次添加图片</font></a>						
-				        </div>
+				        <a href="#editPhotos" class="btn btn-warning btn-block" data-toggle="modal" data-target="#editPhotos">添加图片</a>
+				        <!-- 模态弹出窗内容 -->
+		                <div class="modal fade" id="editPhotos"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		                    <div class="modal-dialog">
+		                    <div class="modal-content">
+		                    	<div class="modal-header">
+				                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				                	<h4 class="modal-title" id="myModalLabel">添加图片</h4>
+				                	<small>上传的图片应小于2M,格式为jpg/jpeg/png/gif等。</small>
+				              	</div>
+		                        <div class="modal-content">
+		                            <div class="modal-body">
+		                                <div class="form-group">
+								            <input type="file" name="file_upload" id="file_upload"/>
+											<a id="doUploadPhoto" class="btn btn-warning btn-block" 
+											href="javascript:$('#file_upload').uploadify('settings', 'formData', {'_token':document.getElementById('_token').value,'goodsenid':document.getElementById('goods_enid').value});$('#file_upload').uploadify('upload','*')">请先选择图片然后点这里上传</a>
+											<a id="doAgainUploadPhoto" class="button" style="display:none;" href="#again" onclick="showUploadLink(this)"><font color='white'>再次添加图片</font></a>						
+								        </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                	</div>
+		            	</div>
+		            	<br/>
 				        @endif
 				        <div class="row" id="upload_photo_block">
-				        	<div class="col-sm-6 col-md-3">
-						      	<a href="#" class="thumbnail" data-toggle="modal" data-target="#goodsPhotoDia">
-						         <img src=" {{asset('/images/product4.png')}}"  alt="..." class="img-responsive img-rounded" alt="Responsive image">
+				        	@foreach ($photos as $photo)
+							<div class="col-sm-6 col-md-3">
+						      	<a href="#" class="thumbnail" data-toggle="modal" data-target="#goodsPhotoDia{{$photo->id}}">
+						         <img src=" {{asset('/').$photo->address}}" alt="..." class="img-responsive img-rounded" />
 						      	</a>
 						      	<!-- 模态弹出窗内容 -->
-				                <div class="modal fade" id="goodsPhotoDia"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				                <div class="modal fade" id="goodsPhotoDia{{$photo->id}}"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 				                    <div class="modal-dialog">
 				                        <div class="modal-content">
 				                            <div class="modal-body">
-				                                <img src="{{asset('/images/product4.png')}}" width="80%" class="img-responsive center-block" alt="Responsive image"/>
+				                                <img src="{{asset('/').'/'.$photo->address}}" class="img-responsive center-block" alt="Responsive image"/>
 				                            </div>
 				                        </div>
 				                	</div>
 				            	</div>
 						    </div>
-						    <div class="col-sm-6 col-md-3">
-						      	<a href="#" class="thumbnail" data-toggle="modal" data-target="#goodsPhotoDia">
-						         <img src=" {{asset('/images/product4.png')}}"  alt="..." class="img-responsive img-rounded" alt="Responsive image">
-						      	</a>
-						      	<!-- 模态弹出窗内容 -->
-				                <div class="modal fade" id="goodsPhotoDia"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-				                    <div class="modal-dialog">
-				                        <div class="modal-content">
-				                            <div class="modal-body">
-				                                <img src="{{asset('/images/product4.png')}}" width="80%" class="img-responsive center-block" alt="Responsive image"/>
-				                            </div>
-				                        </div>
-				                	</div>
-				            	</div>
-				    		</div>
+						    @endforeach
 				        </div>
+				        <input type="hidden" name="goods_enid" id="goods_enid" value="{{$goods->id}}"/>
 			        </form>
 				</div>
 			</div>
@@ -133,8 +140,7 @@
 </div>
 @endsection
 @section('js')
-<script src="{{ asset('/js/goods/newgoods.js')}}"></script>
+<script src="{{ asset('/js/goods/modifygoods.js')}}"></script>
 <script src="{{ asset('/lib/swf_uploadify/jquery.uploadify-3.1.min.js')}}"></script>
 <script src="{{ asset('/js/goods/uploadify.js')}}"></script>
 @endsection
-

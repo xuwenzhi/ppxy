@@ -64,7 +64,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 	border-radius: 3px;
 	font: 11px Verdana, Geneva, sans-serif;
 	margin-top: 5px;
-	max-width: 350px;
+	max-width: 100%;
 	padding: 10px;
 }
 .uploadify-error {
