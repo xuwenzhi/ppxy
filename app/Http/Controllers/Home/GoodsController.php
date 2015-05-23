@@ -70,6 +70,7 @@ class GoodsController extends HomeController {
 		if(isset($arrData['goods_type']) && $arrData['goods_type'] == ''){
 			return false;
 		}
+		return true;
 	}
 
 	/**
