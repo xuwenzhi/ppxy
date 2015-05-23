@@ -185,7 +185,6 @@ class GoodsController extends HomeController {
 		$crt_first_type_code = Util::encryptData($crt_first_type_code);
 		$arrGoods['id'] = Util::encryptData($arrGoods['id']);
 		$arrGoods['type'] = Util::encryptData($arrGoods['type']);
-		var_dump($arrGoods);
 		$data = array(
 			'goods' => $arrGoods,
 			'types'=>$goods_types,
@@ -227,6 +226,38 @@ class GoodsController extends HomeController {
 			->orderBy('ctime', 'desc')
 			->paginate(6);
 		return $same_goods;
+	}
+
+	public function upload(Request $request){
+		$file = $request -> file('Filedata');
+		if (!$file -> isValid()) {
+		    return Util::json_format('error', '上传的图片有误,请重新选择。');
+		}
+		$goods_id = Util::encryptData($request->get('goodsenid'), true);
+		$mimeType = $file->getMimeType();
+		if(!Util::is_in_array($mimeType, GoodsPhoto::$permit_mimetype)){
+			return Util::json_format('error', '图片格式错误,请重新选择。');
+		}
+		$upload_path = GoodsPhoto::UPLOAD_PATH."".date('Y-m-d');
+		if(!is_dir($upload_path)){
+			if(!mkdir($upload_path)){
+				Log::error("【创建路径失败】- 路径为".$upload_path);
+				return Util::json_format('error', '上传失败,请重试。');
+			}
+		}
+		//生成一个新名称
+		$origin_name = $file -> getClientOriginalName();
+		$extension_name = Util::ext_name($origin_name);
+		$new_name = Util::generate_unique_str($origin_name).'.'.$extension_name;
+		if(!$file -> move($upload_path, $new_name)){
+			return Util::json_format('error', '图片上传失败,请重试。');
+		}
+		$img_system_path = GoodsPhoto::UPLOAD_PATH.''.$new_name;
+		if(!GoodsPhoto::newGoodsPhoto($goods_id, $img_system_path)){
+			return Util::json_format('error', '上传失败,请重试。');
+		}
+		$response_data = array('img_path'=>$img_system_path);
+		return Util::json_format('success', '上传成功!', $response_data);
 	}
 
 }

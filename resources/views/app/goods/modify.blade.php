@@ -1,6 +1,9 @@
 @extends('app')
 @section('html', "<html>")
 @section('title', $goods->title.'-修改')
+@section('css')
+<link href="{{ asset('/lib/swf_uploadify/uploadify.css') }}" rel="stylesheet" />
+@endsection
 @section('content')
 <div class="container">
 	<ol class="breadcrumb">
@@ -13,7 +16,7 @@
 				<div class="panel-heading">上架我的商品</div>
 				<div class="panel-body">
 					<form action="{{ url('/goods/doNew') }}" method="post" name="goodsForm" id="newGoodsForm">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+						<input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
 				        <div class="form-group">
 				        	<label for="goods_title" class="control-label">给你的东东加个标题 &nbsp;&nbsp;<span class="label label-danger">必填</span></label>
 				            <input class="form-control" type="text" id="goods_title" value="{{$goods->title}}" name="goods_title" required>
@@ -48,7 +51,7 @@
 				            <select class="form-control" id="goods_newlevel" name="goods_newlevel" required>
 							  	<?php
 							  		foreach ($new_level as $key => $value) {
-							  			if($value == $goods->new_level){
+							  			if($key == $goods->new_level){
 							  				echo "<option value='".$key."' selected='selected'>".$value."</option>";
 							  			} else {
 							  				echo "<option value=".$key.">".$value."</option>";
@@ -63,8 +66,7 @@
 				            	 disabled="disabled" 
 				            	placeholder="哈尔滨理工大学" />
 							<input class="form-control" id="goods_dealplace_ext" name="goods_dealplace_ext"  
-				            	placeholder="西区 or 东区 or 南区" value="{{$goods->deal_place_ext}}"/>&nbsp;&nbsp;<br/><span class="label label-info">其他学校，敬请期待</span>
-				            <input type="file" name="xxx" />	
+				            	placeholder="西区 or 东区 or 南区" value="{{$goods->deal_place_ext}}"/>&nbsp;&nbsp;<br/><span class="label label-info">其他学校，敬请期待</span>	
 				        </div>
 				        <div class="form-group">
 				        <label for="goods_price" class="control-label">出个价<span id="size12 gray"></span>&nbsp;&nbsp;<span class="label label-danger">必填</span></label>
@@ -74,14 +76,55 @@
 				            <label for="content" class="control-label">来个简要介绍吧:</label>
 				            	<textarea class="form-control" id="goods_content" name="goods_content" rows="6">{{$goods->content}}</textarea>
 				        </div>
-				        
+				        @if(!$isMobile)
+				        <div class="form-group">
+				            <label for="content" class="control-label">加几个图 ?</label>
+				            <input type="file" name="file_upload" id="file_upload" />
+							<a id="doUploadPhoto" class="button green" 
+							href="javascript:$('#file_upload').uploadify('settings', 'formData', {'_token':document.getElementById('_token').value,'goodsenid':document.getElementById('goods_enid').value});$('#file_upload').uploadify('upload','*')">上传</a>
+							<input type="hidden" id="goods_enid" value="{{$goods->id}}"/>
+							<a id="doAgainUploadPhoto" class="button green" style="display:none;" href="#again" onclick="showUploadLink(this)"><font color='white'>再次添加图片</font></a>						
+				        </div>
+				        @endif
+				        <div class="row" id="upload_photo_block">
+				        	<div class="col-sm-6 col-md-3">
+						      	<a href="#" class="thumbnail" data-toggle="modal" data-target="#goodsPhotoDia">
+						         <img src=" {{asset('/images/product4.png')}}"  alt="..." class="img-responsive img-rounded" alt="Responsive image">
+						      	</a>
+						      	<!-- 模态弹出窗内容 -->
+				                <div class="modal fade" id="goodsPhotoDia"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				                    <div class="modal-dialog">
+				                        <div class="modal-content">
+				                            <div class="modal-body">
+				                                <img src="{{asset('/images/product4.png')}}" width="80%" class="img-responsive center-block" alt="Responsive image"/>
+				                            </div>
+				                        </div>
+				                	</div>
+				            	</div>
+						    </div>
+						    <div class="col-sm-6 col-md-3">
+						      	<a href="#" class="thumbnail" data-toggle="modal" data-target="#goodsPhotoDia">
+						         <img src=" {{asset('/images/product4.png')}}"  alt="..." class="img-responsive img-rounded" alt="Responsive image">
+						      	</a>
+						      	<!-- 模态弹出窗内容 -->
+				                <div class="modal fade" id="goodsPhotoDia"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				                    <div class="modal-dialog">
+				                        <div class="modal-content">
+				                            <div class="modal-body">
+				                                <img src="{{asset('/images/product4.png')}}" width="80%" class="img-responsive center-block" alt="Responsive image"/>
+				                            </div>
+				                        </div>
+				                	</div>
+				            	</div>
+				    		</div>
+				        </div>
 			        </form>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<br/><br/>
+<br/><br/><br/><br/>
 @endsection
 @section('footer')
 <div class="form-group">
@@ -91,5 +134,7 @@
 @endsection
 @section('js')
 <script src="{{ asset('/js/goods/newgoods.js')}}"></script>
+<script src="{{ asset('/lib/swf_uploadify/jquery.uploadify-3.1.min.js')}}"></script>
+<script src="{{ asset('/js/goods/uploadify.js')}}"></script>
 @endsection
 

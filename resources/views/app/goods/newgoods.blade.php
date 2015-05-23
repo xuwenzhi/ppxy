@@ -58,7 +58,6 @@
 				            <label for="goods_content" class="control-label">来个简要介绍吧:</label>
 				            	<textarea class="form-control" id="goods_content" name="goods_content" rows="6"></textarea>
 				        </div>
-				        
 			        </form>
 				</div>
 			</div>

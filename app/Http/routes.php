@@ -37,6 +37,7 @@ Route::group(['prefix' => '/goods'], function()
 	Route::get('mine', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@mine']);
 	Route::get('modify/{enId}', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@modify']);
 	Route::post('subtype', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@getsubtype']);
+	Route::any('upload', ['middleware' => 'auth', 'uses' => 'Home\GoodsController@upload']);
 });
 
 

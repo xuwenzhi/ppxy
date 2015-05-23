@@ -10,7 +10,7 @@
 @if ($belong_crt_user == true)
 @if ($photo_count == 0)
     <div class="alert alert-warning" role="alert">
-    	您还没有为它上图噢,如需添加,
+    	您还没有为它上图噢,如需加图,
     	@if($isMobile == 1)
     		请打开个人电脑来上图
     	@else

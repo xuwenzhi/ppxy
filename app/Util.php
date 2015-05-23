@@ -242,7 +242,21 @@ class Util {
 		return substr($phone_nu, 0, 3).'****'.substr($phone_nu, 7);
 	}
 
+	public static function generate_unique_str($sign = ''){
+		return md5(date('ymdhis').''.$sign);
+	}
 
+	public static function ext_name($file){
+		$info = pathinfo($file);
+		return $info['extension'];
+	}
+
+	public static function is_in_array($str, $arr){
+		if(in_array($str, $arr)){
+			return true;
+		}
+		return false;
+	}
 
 
 }

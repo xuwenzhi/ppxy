@@ -10,5 +10,26 @@ class GoodsPhoto extends Base {
 
 	public $timestamps = false;
 
+	const UPLOAD_PATH = "upload/imgs/";
+
+	const SPECIAL_COVER = 'cover';
+	const SPECIAL_NORMAL = 'narmal';
+
+	public static $permit_mimetype = array(
+		"image/jpeg",
+		"image/jpg",
+		"image/png",
+		"image/gif",
+	);
+
+	public static function newGoodsPhoto($goods_id, $photo_path){
+		$obj = new GoodsPhoto;
+		$obj->goods_id = $goods_id;
+		$obj->address = $photo_path;
+		$obj->special = self::SPECIAL_NORMAL;
+		return $obj->save();
+	}
+
+
 }
 
