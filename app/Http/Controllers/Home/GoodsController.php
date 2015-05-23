@@ -61,13 +61,13 @@ class GoodsController extends HomeController {
 	 * post 商品数据检查
 	 */
 	private function checkPostGoods($arrData){
-		if(isset($arrData['goods_title']) && $arrData['goods_title'] != ''){
+		if(isset($arrData['goods_title']) && $arrData['goods_title'] == ''){
 			return false;
 		}
 		if(isset($arrData['goods_price']) && !Util::reg_price($arrData['goods_price'])){
 			return false;
 		}
-		if(isset($arrData['goods_type']) && $arrData['goods_type'] != ''){
+		if(isset($arrData['goods_type']) && $arrData['goods_type'] == ''){
 			return false;
 		}
 	}
