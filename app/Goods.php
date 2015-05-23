@@ -81,7 +81,6 @@ class Goods extends Base {
 		$arrStatus      = self::$arrStatus;
 		$arrDealType    = self::$arrDealType;
 		$arrDestination = self::$arrDestination;
-
 		$arrUid  = Util::column($arrGoods, 'uid');
 		$arrUser = User::whereIn('id', $arrUid)->select('id', 'name')->get();
 		$arrUser = Util::setKey($arrUser, 'id');

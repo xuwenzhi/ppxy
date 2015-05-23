@@ -9,7 +9,7 @@
 	</ol>
 @if ($belong_crt_user == true)
 @if ($photo_count == 0)
-    <div class="alert alert-success" role="alert">
+    <div class="alert alert-warning" role="alert">
     	您还没有为它上图噢,如需添加,
     	@if($isMobile == 1)
     		请打开个人电脑来上图
@@ -18,14 +18,13 @@
     	@endif
     </div>
 @elseif($photo_count != 0)
-	<div class="alert alert-success" role="alert">
+	<div class="alert alert-warning" role="alert">
 		如需修改它,请<a  class="alert-link" href="{{ url('/goods/modify').'/'.$goods->id }}">戳这里</a>
     </div>
 @endif
 @endif
 <div class="row">
   	<div class="col-md-9">
-  		
   		<div class="panel panel-success">
 	  		<div class="panel-heading">
 	  			<h5>{{$title}}</h5><span class="label label-danger">{{$goods->special == $special_recommend ? '推荐' : ''}}</span>
@@ -87,10 +86,13 @@
 		</div>
   	</div>
   	<div class="col-md-3">
-  		这里放同类商品
+  		@include('app.goods.same',['same_goods' => $same_goods])
   	</div>
 </div>
 </div>
+<br/>
+<br/>
+<br/>
 @endsection
 @section('footer')
 <button type="button" class="btn btn-success btn-lg btn-block">{{$footer_show_txt}}</button>

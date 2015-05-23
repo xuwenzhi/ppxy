@@ -116,6 +116,12 @@ class GoodsController extends HomeController {
 		$arrGoods = Goods::decorateList($arrGoods);
 		$arrPhoto = GoodsPhoto::whereIn('goods_id', array($id))->get();
 		$arrGoods = $arrGoods[0];
+		if($uid) {
+			$arrSame = $this->getSameTypeGoods($arrGoods['type'], $id, array($uid));
+		}else{
+			$arrSame = $this->getSameTypeGoods($arrGoods['type'], $id);
+		}
+		$arrSame = Goods::decorateList($arrSame);
 		$arrGoods['school_name'] = School::getNameById($arrGoods['school_id']);
 		$strFooterTxt = "立即下单";
 		$arrGoods['type'] = GoodsType::getNameByCode($arrGoods['type']);
@@ -129,6 +135,7 @@ class GoodsController extends HomeController {
 			'view_times' => GoodsView::getUserViewsByGoods($id),
 			'belong_crt_user' => $boolBelongUser,
 			'isMobile' => Util::isMobile(),
+			'same_goods'=>$arrSame,
 		);
 		return view('app.goods.detail', $data);
 	}
@@ -159,12 +166,33 @@ class GoodsController extends HomeController {
 	public function modify($enId){
 		$id = intval(Util::encryptData($enId, true));
 		if(!$id){
-			Redirect::to('/404');
+			return Redirect::to('/404');
 		}
 		$arrGoods = Goods::where(array('id' => $id)) -> get();
+		$arrGoods = $arrGoods[0];
+		$uid = $this->getLogUid();
+		if($arrGoods['uid'] != $uid){
+			return Redirect::to('/404');
+		}
+		$goods_types = GoodsType::getFirstType();
+		$second_types = array();
+		if($goods_types){
+			$crt_first_type_code = GoodsType::getFirstCodeBySecond($arrGoods['type']);
+			$second_types = GoodsType::getSecondTypeByFirst($crt_first_type_code);
+		}
+		$goods_types = GoodsType::encryptCode($goods_types);
+		$second_types = GoodsType::encryptCode($second_types);
+		$crt_first_type_code = Util::encryptData($crt_first_type_code);
+		$arrGoods['id'] = Util::encryptData($arrGoods['id']);
+		$arrGoods['type'] = Util::encryptData($arrGoods['type']);
 		var_dump($arrGoods);
 		$data = array(
-
+			'goods' => $arrGoods,
+			'types'=>$goods_types,
+			'second_types'=>$second_types,
+			'new_level' =>Goods::$arrNewLevel,
+			'crt_first_type_code' => $crt_first_type_code,
+			'isMobile'=>Util::isMobile(),
 		);
 		return view('app.goods.modify', $data);
 	}
@@ -180,6 +208,25 @@ class GoodsController extends HomeController {
 		}
 		$second_types = GoodsType::encryptCode($second_types);
 		return Util::json_format('success', '', $second_types);
+	}
+
+	/**
+	 * 获取同类产品
+	 */
+	public function getSameTypeGoods($type_code, $crt_goods_id, $uid = null){
+		if($type_code == ''){
+			return array();
+		}
+		if(!$uid){
+			$uid = array();
+		}
+		$same_goods = Goods::where(array('type'=>$type_code))
+			->whereNotIn('uid', $uid)
+			->whereNotIn('id', array($crt_goods_id))
+			->select('id', 'title', 'price', 'uid', 'ctime')
+			->orderBy('ctime', 'desc')
+			->paginate(6);
+		return $same_goods;
 	}
 
 }

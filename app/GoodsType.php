@@ -58,4 +58,11 @@ class GoodsType extends Base {
 		}
 	}
 
+	/**
+	 * 根据小类查找大类code
+	 */
+	public static function getFirstCodeBySecond($second_code){
+		return substr($second_code, 0, 2);
+	}
+
 }
