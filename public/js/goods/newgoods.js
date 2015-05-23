@@ -9,7 +9,7 @@ $(document).ready(function(){
 		}
 		$("#goods_type").empty();
 		$.ajax({
-			url:APP+"goods/subtype",
+			url:APP+"/goods/subtype",
 			type :'post',
 			dataType:'json',
 			data :{'first_type_code':first_type_code, '_token':$('meta[name="_token"]').attr('content')},
@@ -41,6 +41,41 @@ $(document).ready(function(){
 	});
 
 	$("#goods_title").on('keyup', function(){
-		
+		var goods_price = $("#goods_price").val().trim();
+		var goods_title = $(this).val().trim();
+		if(checkPrice(goods_price) && goods_title!=''){
+			$("#newgoods_btn_info").hide();
+			$("#newgoods_btn_sub").show();
+		}else{
+			$("#newgoods_btn_info").show();
+			$("#newgoods_btn_sub").hide();
+		}
+	});
+	$("#goods_price").on('keyup', function(){
+		var goods_title = $("#goods_title").val().trim();
+		var goods_price = $(this).val().trim();
+		if(goods_price != '' && !checkPrice(goods_price)){
+			$("#newgoods_btn_info").html("请输入正确的价格");
+		}else{
+			$("#newgoods_btn_info").html("先填写必填项吧~");
+		}
+		if(goods_title != '' ){
+			$("#newgoods_btn_info").hide();
+			$("#newgoods_btn_sub").show();
+		}else{
+			$("#newgoods_btn_info").show();
+			$("#newgoods_btn_sub").hide();
+		}
 	});
 });
+
+function checkPrice(price){
+	if(price == ''){
+		return false;
+	}
+	var re = /^(([1-9][0-9]*\.[0-9][0-9]*)|([0]\.[0-9][0-9]*)|([1-9][0-9]*)|([0]{1}))$/; 
+    if(!re.test(price)){
+    	return false;
+    }
+    return true;
+}

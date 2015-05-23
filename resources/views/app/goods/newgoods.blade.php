@@ -51,19 +51,14 @@
 				            	placeholder="西区 or 东区 or 南区"/>&nbsp;&nbsp;<br/><span class="label label-info">其他学校，敬请期待</span>
 				        </div>
 				        <div class="form-group">
-				            <label for="goods_price" class="control-label">出个价&nbsp;&nbsp;<span class="label label-danger">必填</span></label>
-				            <input type="text" id="goods_price" class="form-control" name="goods_price" ng-model="goods.goods_price" required>
+				        <label for="goods_price" class="control-label">出个价<span id="size12 gray"></span>&nbsp;&nbsp;<span class="label label-danger">必填</span></label>
+				            <input type="text" id="goods_price" class="form-control" name="goods_price" ng-model="goods.goods_price" placeholder="(例如:5.20)" required>
 				        </div>
 				        <div class="form-group">
 				            <label for="goods_content" class="control-label">来个简要介绍吧:</label>
-				            	<textarea class="form-control" id="goods_content" name="goods_content" rows="6">
-				            		
-				            	</textarea>
+				            	<textarea class="form-control" id="goods_content" name="goods_content" rows="6"></textarea>
 				        </div>
-				        <div class="form-group">
-				            <button type="submit" class="btn btn-success btn-block" style="display:none;">现在就发出去</button>
-				            <button type="button" class="btn btn-info btn-block" disabled="disabled">先把上面的填完吧</button>
-				        </div>
+				        
 			        </form>
 				</div>
 			</div>
@@ -84,6 +79,10 @@
 </div>
 @endsection
 @section('footer')
+<div class="form-group">
+    <button type="submit" id="newgoods_btn_sub" class="btn btn-success btn-block" style="display:none;">现在就发出去</button>
+    <button type="button" id="newgoods_btn_info" class="btn btn-info btn-block" disabled="disabled">先把上面的填完吧</button>
+</div>
 @endsection
 @section('js')
 <script src="{{ asset('/js/goods/newgoods.js')}}"></script>
