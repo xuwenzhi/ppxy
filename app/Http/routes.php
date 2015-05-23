@@ -21,8 +21,8 @@ Route::get('/', 'Home\IndexController@index');
  */
 //Route::get('people/{username}', 'Home\IndividualController@page');
 Route::get('setting', 'Home\IndividualController@setting');
-Route::any('verifyphone', 'Home\IndividualController@verifyphone');
-Route::any('doverifyphone', 'Home\IndividualController@doverifyphone');
+Route::post('verifyphone', 'Home\IndividualController@verifyphone');
+Route::post('doverifyphone', 'Home\IndividualController@doverifyphone');
 
 
 /**
@@ -36,6 +36,7 @@ Route::group(['prefix' => '/goods'], function()
 	Route::get('find', 'Home\GoodsController@find');
 	Route::get('mine', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@mine']);
 	Route::get('modify/{enId}', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@modify']);
+	Route::post('subtype', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@getsubtype']);
 });
 
 

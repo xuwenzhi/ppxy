@@ -18,7 +18,6 @@
 </div>
 @endsection
 @section('footer')
-
 @endsection
 @section('js')
 @endsection

@@ -1,5 +1,5 @@
 @extends('app')
-@section('html','<html lang="zh-CN" ng-app="newGoodsModule">')
+@section('html','<html lang="zh-CN">')
 @section('title', $title)
 @section('content')
 <div class="container">
@@ -32,14 +32,26 @@
 	  		</div>
 			<div class="panel-body">
 				<ul class="list-group">
-					<li class="list-group-item"><span class="label label-success">{{$goods->status_txt}}</span></li>
+					<li class="list-group-item">
+						<span class="label label-success">{{$goods->status_txt}}</span>
+						<span class="label label-success">{{$goods->type}}</span>
+					</li>
 					<li class="list-group-item">¥{{$goods->price}}</li>
 					<li class="list-group-item"><mark>{{$goods->school_name}}{{$goods->deal_place_ext}}</mark>交易噢~</li>
-					<li class="list-group-item">{{$goods->username}}发布于{{$goods->trans_time}}</li>
 					<li class="list-group-item">它被查看了<mark>{{$view_times}}</mark>次</li>
+					<li class="list-group-item">{{$goods->username}}发布于{{$goods->trans_time}}</li>
 				</ul>
+				<div class="page-header">
+				  	<h1>主人寄语</h1>
+				</div>
 				<div class="jumbotron">
-				  	<p>{{$goods->content}}</p>
+				  	<p>
+				  		@if($goods->content != '')
+				  			{{$goods->content}}
+				  		@else
+				  			主人没有为它填写描述~
+				  		@endif
+				  	</p>
 				</div>
 				<div class="page-header">
 				  	<h1>图片写真</h1>
@@ -84,5 +96,4 @@
 <button type="button" class="btn btn-success btn-lg btn-block">{{$footer_show_txt}}</button>
 @endsection
 @section('js')
-<script src="{{ asset('/js/goods/newgoods.js')}}"></script>
 @endsection

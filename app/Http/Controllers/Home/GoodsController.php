@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\GoodsPhoto;
 use App\GoodsView;
 use App\School;
+use App\GoodsType;
 
 class GoodsController extends HomeController {
 
@@ -24,9 +25,17 @@ class GoodsController extends HomeController {
 	 * 发布新商品页面
 	 */
 	public function tplNew() {
+		$goods_types = GoodsType::getFirstType();
+		$second_types = array();
+		if($goods_types){
+			$second_types = GoodsType::getSecondTypeByFirst($goods_types[0]['code']);
+		}
+		$goods_types = GoodsType::encryptCode($goods_types);
+		$second_types = GoodsType::encryptCode($second_types);
 		$data = array(
 			'new_level' => Goods::$arrNewLevel,
-			'types' => array(array('id'=>1, 'name'=>'电子类'), array('id'=>2, 'name'=>'生活类'),),
+			'types' => $goods_types,
+			'second_types'=>$second_types,
 		);
 		return view('app.goods.newgoods', $data);
 	}
@@ -35,6 +44,7 @@ class GoodsController extends HomeController {
 		$arrRequest = $request -> all();
 		$uid = $this->getLogUid();
 		$arrRequest['uid'] = $uid;
+		$arrRequest['goods_type'] = Util::encryptData($arrRequest['goods_type'], true);
 		$lastId = $this->_insert($arrRequest);
 		if($lastId){
 			return Redirect::to('/goods/detail/'.Util::encryptData($lastId));
@@ -51,7 +61,7 @@ class GoodsController extends HomeController {
 		$objGoods->title = $arrData['goods_title'];
 		$objGoods->type = $arrData['goods_type'];
 		$objGoods->price = $arrData['goods_price'];
-		$objGoods->content = $arrData['goods_content'];
+		$objGoods->content = trim($arrData['goods_content']);
 		$objGoods->uid = $arrData['uid'];
 		$objGoods->special = Goods::SPECIAL_NORMAL;
 		$objGoods->status  = Goods::STATUS_SELL;
@@ -87,7 +97,8 @@ class GoodsController extends HomeController {
 		$arrPhoto = GoodsPhoto::whereIn('goods_id', array($id))->get();
 		$arrGoods = $arrGoods[0];
 		$arrGoods['school_name'] = School::getNameById($arrGoods['school_id']);
-		$strFooterTxt = "立即购买";
+		$strFooterTxt = "立即下单";
+		$arrGoods['type'] = GoodsType::getNameByCode($arrGoods['type']);
 		$data = array(
 			'goods' => $arrGoods,
 			'title' => $arrGoods['title'],
@@ -136,6 +147,19 @@ class GoodsController extends HomeController {
 
 		);
 		return view('app.goods.modify', $data);
+	}
+
+	/**
+	 * 根据商品大类获取子类
+	 */
+	public function getsubtype(Request $request){
+		$first_type = $request->get('first_type_code');
+		$second_types = GoodsType::getSecondTypeByFirst(Util::encryptData($first_type, true));
+		if(!$second_types){
+			return Util::json_format('error', '数据加载失败,请重试');
+		}
+		$second_types = GoodsType::encryptCode($second_types);
+		return Util::json_format('success', '', $second_types);
 	}
 
 }
