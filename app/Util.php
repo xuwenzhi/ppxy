@@ -228,6 +228,16 @@ class Util {
 		}
 	}
 
+	public static function reg_price($price = ''){
+		if($price == ''){
+			return false;
+		}
+		if(!preg_match("/^(([1-9][0-9]*\.[0-9][0-9]*)|([0]\.[0-9][0-9]*)|([1-9][0-9]*)|([0]{1}))$/", $price)){
+			return false;
+		}
+		return true;
+	}
+
 	public static function mask_phone_nu($phone_nu){
 		return substr($phone_nu, 0, 3).'****'.substr($phone_nu, 7);
 	}

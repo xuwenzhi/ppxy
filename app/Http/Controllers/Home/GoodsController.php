@@ -42,6 +42,10 @@ class GoodsController extends HomeController {
 
 	public function doNew(Request $request){
 		$arrRequest = $request -> all();
+		//数据检查
+		if(!$this->checkPostGoods($arrRequest)){
+			return Redirect::to('/404');
+		}
 		$uid = $this->getLogUid();
 		$arrRequest['uid'] = $uid;
 		$arrRequest['goods_type'] = Util::encryptData($arrRequest['goods_type'], true);
@@ -50,6 +54,21 @@ class GoodsController extends HomeController {
 			return Redirect::to('/goods/detail/'.Util::encryptData($lastId));
 		} else {
 			echo '很抱歉，添加失败!请重试';
+		}
+	}
+
+	/**
+	 * post 商品数据检查
+	 */
+	private function checkPostGoods($arrData){
+		if(isset($arrData['goods_title']) && $arrData['goods_title'] != ''){
+			return false;
+		}
+		if(isset($arrData['goods_price']) && !Util::reg_price($arrData['goods_price'])){
+			return false;
+		}
+		if(isset($arrData['goods_type']) && $arrData['goods_type'] != ''){
+			return false;
 		}
 	}
 
@@ -69,7 +88,7 @@ class GoodsController extends HomeController {
 		$objGoods->destination = Goods::DESTINATION_SELL;
 		$objGoods->new_level = $arrData['goods_newlevel'];
 		$objGoods->extra_welfare = '';
-		$objGoods->school_id = 480;
+		$objGoods->school_id = 480;//学校ID
 		$objGoods->deal_place_ext = $arrData['goods_dealplace_ext'];
 		$res = $objGoods->save();
 		if(!$res){

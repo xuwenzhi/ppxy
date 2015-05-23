@@ -14,6 +14,7 @@ $(document).ready(function(){
 			dataType:'json',
 			data :{'first_type_code':first_type_code, '_token':$('meta[name="_token"]').attr('content')},
 			success:function(data){
+				$("#goods_type").empty();
 				if(data.status == 'success'){
 					var second_types = data.data;
 					for(var one in second_types) {
@@ -36,6 +37,9 @@ $(document).ready(function(){
 					  	show: true
 					});
 				}
+			},beforeSend:function(){
+				var str = '<option value="">加载中...</option>';
+				$(str).appendTo("#goods_type");
 			}
 		});
 	});
@@ -43,7 +47,8 @@ $(document).ready(function(){
 	$("#goods_title").on('keyup', function(){
 		var goods_price = $("#goods_price").val().trim();
 		var goods_title = $(this).val().trim();
-		if(checkPrice(goods_price) && goods_title!=''){
+		var goods_type = $("#goods_type").val().trim();
+		if(goods_title!='' && checkPrice(goods_price) && goods_type != ''){
 			$("#newgoods_btn_info").hide();
 			$("#newgoods_btn_sub").show();
 		}else{
@@ -54,18 +59,47 @@ $(document).ready(function(){
 	$("#goods_price").on('keyup', function(){
 		var goods_title = $("#goods_title").val().trim();
 		var goods_price = $(this).val().trim();
-		if(goods_price != '' && !checkPrice(goods_price)){
-			$("#newgoods_btn_info").html("请输入正确的价格");
-		}else{
-			$("#newgoods_btn_info").html("先填写必填项吧~");
-		}
-		if(goods_title != '' ){
+		var goods_type = $("#goods_type").val().trim();
+		if(goods_title != '' && checkPrice(goods_price) && goods_type != ''){
 			$("#newgoods_btn_info").hide();
 			$("#newgoods_btn_sub").show();
 		}else{
 			$("#newgoods_btn_info").show();
 			$("#newgoods_btn_sub").hide();
 		}
+	});
+
+	$("#goods_type").on('change', function(){
+		var goods_title = $("#goods_title").val().trim();
+		var goods_price = $("#goods_price").val().trim();
+		var goods_type = $(this).val().trim();
+		if(goods_title != '' && checkPrice(goods_price) && goods_type != ''){
+			$("#newgoods_btn_info").hide();
+			$("#newgoods_btn_sub").show();
+			$("#newgoods_btn_sub").html('现在就发出去');
+		}else{
+			$("#newgoods_btn_info").show();
+			$("#newgoods_btn_sub").hide();
+		}
+	});
+
+	$("#newgoods_btn_sub").on('click', function(){
+		var goods_title = $("#goods_title").val().trim();
+		var goods_price = $("#goods_price").val().trim();
+		var goods_type = $("#goods_type").val().trim();
+		if(goods_title == ''){
+			$(this).html("您还没有填写标题呢。");
+			return false;
+		}
+		if(goods_type == ''){
+			$(this).html("您还没有选择商品类别呢。");
+			return false;
+		}
+		if(goods_price == '' || !checkPrice(goods_price)){
+			$(this).html("请输入正确的价格。");
+			return false;
+		}
+		$("#newGoodsForm").submit();
 	});
 });
 

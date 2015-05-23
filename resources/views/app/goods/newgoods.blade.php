@@ -8,7 +8,7 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading">上架我的商品</div>
 				<div class="panel-body">
-					<form action="{{ url('/goods/doNew') }}" method="post" name="goodsForm" ng-controller="formController">
+					<form action="{{ url('/goods/doNew') }}" method="post" name="goodsForm" id="newGoodsForm">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 				        <div class="form-group">
 				        	<label for="goods_title" class="control-label">给你的东东加个标题 &nbsp;&nbsp;<span class="label label-danger">必填</span></label>
@@ -80,7 +80,7 @@
 @endsection
 @section('footer')
 <div class="form-group">
-    <button type="submit" id="newgoods_btn_sub" class="btn btn-success btn-block" style="display:none;">现在就发出去</button>
+    <button type="button" id="newgoods_btn_sub" class="btn btn-success btn-block" style="display:none;">现在就发出去</button>
     <button type="button" id="newgoods_btn_info" class="btn btn-info btn-block" disabled="disabled">先把上面的填完吧</button>
 </div>
 @endsection
