@@ -30,15 +30,16 @@ Route::post('doverifyphone', 'Home\IndividualController@doverifyphone');
  */
 Route::group(['prefix' => '/goods'], function()
 {
-	Route::get('new', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@tplNew']);
-	Route::post('doNew', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@doNew']);
+	Route::get('new', ['middleware'           => 'auth', 'uses'=>'Home\GoodsController@tplNew']);
+	Route::post('doNew', ['middleware'        => 'auth', 'uses'=>'Home\GoodsController@doNew']);
 	Route::get('detail/{enId}', 'Home\GoodsController@detail');
 	Route::get('find', 'Home\GoodsController@find');
-	Route::get('mine', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@mine']);
+	Route::get('mine', ['middleware'          => 'auth', 'uses'=>'Home\GoodsController@mine']);
 	Route::get('modify/{enId}', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@modify']);
-	Route::post('subtype', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@getsubtype']);
-	Route::post('upload', ['middleware' => 'auth', 'uses' => 'Home\GoodsController@upload']);
-	Route::post('doModify', ['middleware' => 'auth', 'uses' => 'Home\GoodsController@doModify']);
+	Route::post('subtype', ['middleware'      => 'auth', 'uses'=>'Home\GoodsController@getsubtype']);
+	Route::post('upload', ['middleware'       => 'auth', 'uses' => 'Home\GoodsController@upload']);
+	Route::post('doModify', ['middleware'     => 'auth', 'uses' => 'Home\GoodsController@doModify']);
+	Route::post('deletephoto', ['middleware'  => 'auth', 'uses' => 'Home\GoodsController@doDeletePhoto']);
 });
 
 

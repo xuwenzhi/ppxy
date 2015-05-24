@@ -99,6 +99,63 @@ $(document).ready(function(){
 		$("#modifyGoodsForm").submit();
 	});
 
+
+	$("#doEditPhotos").on('click', function(){
+		$("a[id='do_delete']").each(function(){
+			$(this).show();
+		});
+		$(this).hide();
+		$("#exitEditPhoto").show();
+	});
+
+	$("#exitEditPhoto").on('click',function(){
+		$("a[id='do_delete']").each(function(){
+			$(this).hide();
+		});
+		$(this).hide();
+		$("#doEditPhotos").show();
+	});
+
+	$("a[id='do_delete']").on('click', function(){
+		$("#confirm_do_delete").attr('photos-enid', $(this).attr('photos-enid'));
+		$("#delete_photo_modal_body").html('确定删除吗？');
+		$("#delete_photo_modal").modal({
+		  	show: true
+		});
+	});
+
+	$("#confirm_do_delete").on('click', function(){
+		var photos_enid = $(this).attr('photos-enid');
+		if(!photos_enid){
+			$("#delete_photo_modal_body").html('读取图片失败,建议您刷新浏览器重试。');
+			return false;
+		}
+		$("#delete_photo_modal").modal({
+		  	show: false
+		});
+		$.ajax({
+			url:APP+"/goods/deletephoto",
+			type :'post',
+			dataType:'json',
+			data :{'photo_enid':photos_enid, '_token':$('meta[name="_token"]').attr('content')},
+			success:function(data){
+				if(data.status == 'success'){
+					$("#delete_photo_modal_body").html(data.message);
+					$("#delete_photo_modal").modal('hide');
+					$("a[photos-enid='"+photos_enid+"']").parent().parent().hide();
+				}else if(data.status == 'failed'){
+					$("#delete_photo_modal_body").html(data.message);
+				}else if(data.status == 'error'){
+					$("#delete_photo_modal_body").html(data.message);
+				}else{
+					$("#delete_photo_modal_body").html(data.message);
+				}
+			},beforeSend:function(){
+				$("#delete_photo_modal_body").html('玩命删除中...');
+			}
+		});
+	});
+
 });
 
 function checkPrice(price){

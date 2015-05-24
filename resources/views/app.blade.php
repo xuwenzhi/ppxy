@@ -45,6 +45,11 @@
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/goods/new') }}">我要发货</a></li>
 				</ul>
+
+				<ul class="nav navbar-nav">
+					<li><a href="#">智能比价(敬请期待)</a></li>
+				</ul>
+
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
 						<li><a href="{{ url('/auth/login') }}">登录</a></li>

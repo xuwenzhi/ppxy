@@ -34,12 +34,13 @@ class GoodsPhoto extends Base {
 		"JPG",
 	);
 
-	public static function newGoodsPhoto($goods_id, $photo_path, $thumb_photo_path){
+	public static function newGoodsPhoto($goods_id, $photo_path, $thumb_photo_path, $uid = 0){
 		$obj = new GoodsPhoto;
 		$obj->goods_id = $goods_id;
 		$obj->address = $photo_path;
 		$obj->special = self::SPECIAL_NORMAL;
 		$obj->thumb = $thumb_photo_path;
+		$obj->uid = $uid;
 		if(!$obj->save()){
 			return false;
 		}
@@ -54,6 +55,28 @@ class GoodsPhoto extends Base {
 			$val['id'] = Util::encryptData($val['id']);
 		}
 		return $arrData;
+	}
+
+	public static function deleteById($id){
+		$objGoodsPhoto = GoodsPhoto::find($id);
+		if($objGoodsPhoto->delete()){
+			return true;	
+		}
+		return false;
+	}
+
+	/**
+	 * 检查该图片是否属于该用户
+	 */
+	public static function checkIsBelongUser($photo_id, $uid){
+		$arrGoodsPhoto = GoodsPhoto::where(array('id'=>$photo_id))->select('uid')->get();
+		if(!$arrGoodsPhoto){
+			return false;
+		}
+		if($arrGoodsPhoto[0]['uid'] != $uid){
+			return false;
+		}
+		return true;
 	}
 
 }

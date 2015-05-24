@@ -18,11 +18,11 @@
 					<form action="{{ url('/goods/doModify') }}" method="post" name="modifyGoodsForm" id="modifyGoodsForm">
 						<input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
 				        <div class="form-group">
-				        	<label for="goods_title" class="control-label">给你的东东加个标题 &nbsp;&nbsp;<span class="label label-danger">必填</span></label>
+				        	<label for="goods_title" class="control-label">标题 &nbsp;&nbsp;<span class="label label-danger">必填</span></label>
 				            <input class="form-control" type="text" id="goods_title" value="{{$goods->title}}" name="goods_title" required>
 				        </div>
 				        <div class="form-group form-inline">
-				            <label for="goods_first_type" class="control-label">你的东东类别是哪种呢&nbsp;&nbsp;<span class="label label-danger">必选</span></label><br/>
+				            <label for="goods_first_type" class="control-label">类别&nbsp;&nbsp;<span class="label label-danger">必选</span></label><br/>
 				            <select class="form-control" id="goods_first_type" name="goods_first_type" >
 							  	<?php
 							  		foreach ($types as $key => $value) {
@@ -73,14 +73,18 @@
 				            <input type="text" id="goods_price" class="form-control" name="goods_price" value="{{$goods->price}}" placeholder="(例如:5.20)" required>
 				        </div>
 				        <div class="form-group">
-				            <label for="content" class="control-label">来个简要介绍吧:</label>
+				            <label for="content" class="control-label">简要介绍:</label>
 				            	<textarea class="form-control" id="goods_content" name="goods_content" rows="6">{{$goods->content}}</textarea>
 				        </div>
 				        <div class="page-header">
 						  	<h1>图片写真</h1>
 						</div>
 				        @if(!$isMobile)
-				        <a href="#editPhotos" class="btn btn-warning btn-block" data-toggle="modal" data-target="#editPhotos">添加图片</a>
+				        <div class="form-group form-inline">
+				        	<a href="#addPhotos" class="form-control btn-warning" data-toggle="modal" data-target="#editPhotos">添加图片</a>
+				        	<a href="#doEditPhotos" class="form-control btn-warning" id="doEditPhotos">编辑图片</a>
+				        	<a href="#exitEditPhoto" class="form-control btn-info" id="exitEditPhoto" style="display:none;">退出编辑</a>
+				    	</div>
 				        <!-- 模态弹出窗内容 -->
 		                <div class="modal fade" id="editPhotos"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		                    <div class="modal-dialog">
@@ -104,10 +108,15 @@
 		                	</div>
 		            	</div>
 		            	<br/>
+		            	@else
+		            	<div class="alert alert-danger" role="alert">暂时不支持手机操作图片，如需操作，请打开个人电脑。</div>
 				        @endif
 				        <div class="row" id="upload_photo_block">
 				        	@foreach ($photos as $photo)
 							<div class="col-sm-6 col-md-3">
+								<div class="center-block text-center">
+								<a href="#delete" id="do_delete" class="displaynone" photos-enid="{{$photo->id}}">删除</a>
+	                        	</div>
 						      	<a href="#" class="thumbnail" data-toggle="modal" data-target="#goodsPhotoDia{{$photo->id}}">
 						         <img src=" {{asset('/').$photo->thumb}}" alt="..." class="img-responsive img-rounded" />
 						      	</a>
@@ -129,6 +138,19 @@
 						    @endforeach
 				        </div>
 				        <input type="hidden" name="goods_enid" id="goods_enid" value="{{$goods->id}}"/>
+				        <div class="modal fade" id="delete_photo_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					      <div class="modal-dialog">
+					        <div class="modal-content">
+					          	<div class="modal-body" id="delete_photo_modal_body">
+					            	
+					          	</div>
+					          	<div class="modal-footer" id="delete_photo_modal_footer">
+					          	<button type="button" class="btn btn-default" id="confirm_do_delete" photos-enid="">确定</button>
+					            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					          </div>
+					        </div>
+					      </div>
+					    </div>
 			        </form>
 				</div>
 			</div>

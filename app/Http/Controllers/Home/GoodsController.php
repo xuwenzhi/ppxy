@@ -12,6 +12,7 @@ use App\GoodsPhoto;
 use App\GoodsView;
 use App\School;
 use App\GoodsType;
+use App\Services\Protocol;
 
 class GoodsController extends HomeController {
 
@@ -287,7 +288,7 @@ class GoodsController extends HomeController {
 		}
 		$big_img_system_path   = $upload_path.'/'.$new_name;
 		$small_img_system_path = $upload_path.'/'.$thumb_name;
-		$new_photo_id = GoodsPhoto::newGoodsPhoto($goods_id, $big_img_system_path, $small_img_system_path);
+		$new_photo_id = GoodsPhoto::newGoodsPhoto($goods_id, $big_img_system_path, $small_img_system_path, $this->getLogUid());
 		$new_photo_id = Util::encryptData($new_photo_id);
 		echo 'success*'.$small_img_system_path.'*'.$new_photo_id.'*'.$big_img_system_path;
 		exit;
@@ -326,4 +327,22 @@ class GoodsController extends HomeController {
 		return $res;
 	}
 
+	public function doDeletePhoto(Request $request){
+		$goods_photo_id = Util::encryptData($request->get('photo_enid'), true);
+		if(!$goods_photo_id){
+			return Util::json_format(Protocol::JSEND_FAILED, '删除失败,请重试。');
+		}
+		$uid = $this->getLogUid();
+		if(!$uid){
+			return Util::json_format(Protocol::JSEND_FAILED, '请重新登录');
+		}
+		//检查当前的图片是否属于这个用户
+		if(!GoodsPhoto::checkIsBelongUser($goods_photo_id, $uid)){
+			return Util::json_format(Protocol::JSEND_ILLEGAL, '非法操作！');
+		}
+		if(GoodsPhoto::deleteById($goods_photo_id)){
+			return Util::json_format(Protocol::JSEND_SUCCESS, '删除成功');	
+		}
+		return Util::json_format(Protocol::JSEND_ERROR, '删除失败,请重试。');
+	}
 }
