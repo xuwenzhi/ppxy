@@ -278,7 +278,7 @@ class GoodsController extends HomeController {
 		$public_path = str_replace('\\', '/', public_path());
 		$big_img_path = $public_path.'/'.$upload_path.'/'.$new_name;
 		$thumb_img_path = $public_path.'/'.$upload_path.'/thumb_'.$new_name;
-		var_dump(Util::img2thumb($big_img_path, $public_path."\/upload\/".$new_name));
+		var_dump(Util::img2thumb($big_img_path, $public_path."/upload/".$new_name));
 		if(!Util::img2thumb($big_img_path, $thumb_img_path)){
 			return Util::json_format('error', '图片上传失败,请重试。');
 			echo 'error*图片上传失败,请重试。';
