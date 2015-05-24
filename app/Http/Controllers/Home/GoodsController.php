@@ -138,6 +138,9 @@ class GoodsController extends HomeController {
 			'isMobile' => Util::isMobile(),
 			'same_goods'=>$arrSame,
 		);
+
+
+
 		return view('app.goods.detail', $data);
 	}
 
@@ -260,6 +263,17 @@ class GoodsController extends HomeController {
 		$extension_name = Util::ext_name($origin_name);
 		$new_name = Util::generate_unique_str($origin_name).'.'.$extension_name;
 		if(!$file -> move($upload_path, $new_name)){
+			return Util::json_format('error', '图片上传失败,请重试。');
+			echo 'error*图片上传失败,请重试。';
+			return ;
+			exit();
+		}
+		//生成缩略图
+		$public_path = str_replace('\\', '/', public_path());
+		$big_img_path = $public_path.'/'.$upload_path.'/'.$new_name;
+		$thumb_img_path = $public_path.'/'.$upload_path.'/thumb_'.$new_name;
+		var_dump(Util::img2thumb($big_img_path, $public_path."\/upload\/".$new_name));
+		if(!Util::img2thumb($big_img_path, $thumb_img_path)){
 			return Util::json_format('error', '图片上传失败,请重试。');
 			echo 'error*图片上传失败,请重试。';
 			return ;

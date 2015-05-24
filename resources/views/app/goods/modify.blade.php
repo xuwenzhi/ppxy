@@ -88,7 +88,7 @@
 		                    	<div class="modal-header">
 				                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				                	<h4 class="modal-title" id="myModalLabel">添加图片</h4>
-				                	<small>上传的图片应小于2M,格式为jpg/jpeg/png/gif等。</small>
+				                	<small>上传的图片应小于2M,格式为jpg/png/gif等。</small>
 				              	</div>
 		                        <div class="modal-content">
 		                            <div class="modal-body">
