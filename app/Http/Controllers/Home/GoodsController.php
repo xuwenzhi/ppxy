@@ -159,8 +159,11 @@ class GoodsController extends HomeController {
 	 * 我的商品
 	 */
 	public function mine(){
+		$uid = $this->getLogUid();
+		$arrGoods = Goods::where(array('uid'=>$uid))->get();
+		$arrGoods = Goods::decorateList($arrGoods);
 		$data = array(
-
+			'baselist' => $arrGoods,
 		);
 		return view('app.goods.mine', $data);
 	}
