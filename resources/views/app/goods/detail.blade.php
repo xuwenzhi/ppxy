@@ -67,7 +67,11 @@
 		                    <div class="modal-dialog">
 		                        <div class="modal-content">
 		                            <div class="modal-body">
-		                                <img src="{{asset('/').'/'.$photo->address}}" width="80%" class="img-responsive center-block" alt="Responsive image"/>
+		                                @if(!$isMobile)
+		                                <img src="{{asset('/').'/'.$photo->address}}" class="img-responsive center-block" alt="Responsive image"/>
+		                                @else
+		                                <img src="{{asset('/').'/'.$photo->thumb}}" class="img-responsive center-block" alt="Responsive image"/>
+		                                @endif
 		                            </div>
 		                        </div>
 		                	</div>
