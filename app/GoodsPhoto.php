@@ -34,11 +34,12 @@ class GoodsPhoto extends Base {
 		"JPG",
 	);
 
-	public static function newGoodsPhoto($goods_id, $photo_path){
+	public static function newGoodsPhoto($goods_id, $photo_path, $thumb_photo_path){
 		$obj = new GoodsPhoto;
 		$obj->goods_id = $goods_id;
 		$obj->address = $photo_path;
 		$obj->special = self::SPECIAL_NORMAL;
+		$obj->thumb = $thumb_photo_path;
 		if(!$obj->save()){
 			return false;
 		}

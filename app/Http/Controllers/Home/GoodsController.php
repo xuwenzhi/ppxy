@@ -285,11 +285,11 @@ class GoodsController extends HomeController {
 			return ;
 			exit();
 		}
-		$img_system_path = $upload_path.'/'.$thumb_name;
-		$new_photo_id = GoodsPhoto::newGoodsPhoto($goods_id, $img_system_path);
+		$big_img_system_path   = $upload_path.'/'.$new_name;
+		$small_img_system_path = $upload_path.'/'.$thumb_name;
+		$new_photo_id = GoodsPhoto::newGoodsPhoto($goods_id, $big_img_system_path, $small_img_system_path);
 		$new_photo_id = Util::encryptData($new_photo_id);
-		$response_data = $img_system_path;
-		echo 'success*'.$response_data.'*'.$new_photo_id;
+		echo 'success*'.$small_img_system_path.'*'.$new_photo_id.'*'.$big_img_system_path;
 		exit;
 	}
 
