@@ -60,7 +60,7 @@
 					@foreach ($photos as $photo)
 					<div class="col-sm-6 col-md-3">
 				      	<a href="#" class="thumbnail" data-toggle="modal" data-target="#goodsPhotoDia{{$photo->id}}">
-				         <img src=" {{asset('/').$photo->address}}"  alt="..." class="img-responsive img-rounded" alt="Responsive image">
+				         <img src=" {{asset('/').$photo->thumb}}"  alt="..." class="img-responsive img-rounded" alt="Responsive image">
 				      	</a>
 				      	<!-- 模态弹出窗内容 -->
 		                <div class="modal fade" id="goodsPhotoDia{{$photo->id}}"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
