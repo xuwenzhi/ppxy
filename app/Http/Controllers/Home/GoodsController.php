@@ -243,12 +243,13 @@ class GoodsController extends HomeController {
 			exit();
 		}
 		$goods_id = Util::encryptData($request->get('goodsenid'), true);
-		$mimeType = $file->getMimeType();
-		if(!Util::is_in_array($mimeType, GoodsPhoto::$permit_mimetype)){
-			echo 'error*图片格式错误,请重新选择。';
-			return ;
-			exit();
-		}
+		//todo 
+		// $mimeType = $file->getMimeType();
+		// if(!Util::is_in_array($mimeType, GoodsPhoto::$permit_mimetype)){
+		// 	echo 'error*图片格式错误,请重新选择。';
+		// 	return ;
+		// 	exit();
+		// }
 		$upload_path = GoodsPhoto::UPLOAD_PATH."".date('Y-m-d');
 		if(!is_dir($upload_path)){
 			if(!mkdir($upload_path)){
@@ -261,6 +262,11 @@ class GoodsController extends HomeController {
 		//生成一个新名称
 		$origin_name = $file -> getClientOriginalName();
 		$extension_name = Util::ext_name($origin_name);
+		if(!Util::is_in_array(strtoupper($extension_name), GoodsPhoto::$permit_ext)){
+			echo 'error*图片格式错误,请重新选择。';
+			return ;
+		 	exit();
+		}
 		$new_name = Util::generate_unique_str($origin_name).'.'.$extension_name;
 		if(!$file -> move($upload_path, $new_name)){
 			return Util::json_format('error', '图片上传失败,请重试。');

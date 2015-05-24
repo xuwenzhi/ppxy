@@ -15,11 +15,21 @@ class GoodsPhoto extends Base {
 	const SPECIAL_COVER = 'cover';
 	const SPECIAL_NORMAL = 'narmal';
 
+	/**
+	 * 暂时不用这个，等到升级完阿里云再用这个
+	 * @var array
+	 */
 	public static $permit_mimetype = array(
 		"image/jpeg",
 		"image/jpg",
 		"image/png",
 		"image/gif",
+	);
+
+	public static $permit_ext = array(
+		"GIF",
+		"PNG",
+		"JPG",
 	);
 
 	public static function newGoodsPhoto($goods_id, $photo_path){
