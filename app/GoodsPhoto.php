@@ -15,6 +15,8 @@ class GoodsPhoto extends Base {
 	const SPECIAL_COVER = 'cover';
 	const SPECIAL_NORMAL = 'narmal';
 
+	const THUMB = 'thumb_';
+
 	/**
 	 * 暂时不用这个，等到升级完阿里云再用这个
 	 * @var array

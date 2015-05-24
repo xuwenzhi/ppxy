@@ -276,16 +276,16 @@ class GoodsController extends HomeController {
 		}
 		//生成缩略图
 		$public_path = str_replace('\\', '/', public_path());
+		$thumb_name = GoodsPhoto::THUMB.$new_name;
 		$big_img_path = $public_path.'/'.$upload_path.'/'.$new_name;
-		$thumb_img_path = $public_path.'/'.$upload_path.'/thumb_'.$new_name;
-		var_dump(Util::img2thumb($big_img_path, $public_path."/upload/".$new_name));
+		$thumb_img_path = $public_path.'/'.$upload_path.'/'.$thumb_name;
 		if(!Util::img2thumb($big_img_path, $thumb_img_path)){
 			return Util::json_format('error', '图片上传失败,请重试。');
 			echo 'error*图片上传失败,请重试。';
 			return ;
 			exit();
 		}
-		$img_system_path = $upload_path.'/'.$new_name;
+		$img_system_path = $upload_path.'/'.$thumb_name;
 		$new_photo_id = GoodsPhoto::newGoodsPhoto($goods_id, $img_system_path);
 		$new_photo_id = Util::encryptData($new_photo_id);
 		$response_data = $img_system_path;
