@@ -45,9 +45,18 @@ Route::group(['prefix' => '/goods'], function()
 	Route::post('upload', ['middleware'       => 'auth', 'uses' => 'Home\GoodsController@upload']);
 	Route::post('doModify', ['middleware'     => 'auth', 'uses' => 'Home\GoodsController@doModify']);
 	Route::post('deletephoto', ['middleware'  => 'auth', 'uses' => 'Home\GoodsController@doDeletePhoto']);
+	Route::get('null', function(){ return '您要查找的货不存在!'; });
+	Route::get('surprise', function(){ return '该商品被抢光了,下次手要快噢~'; });
 });
 
 
+/**
+ * 订单部分
+ */
+Route::group(['prefix' => '/order'], function()
+{
+	Route::get('new/{enId}', ['middleware' => 'auth', 'uses'=>'Home\OrderController@tplNew']);
+});
 
 
 /**

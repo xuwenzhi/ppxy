@@ -21,20 +21,22 @@ class Goods extends Base {
 	);
 
 	//商品状态
-	const STATUS_NEWBIE = "newbie";
-	const STATUS_SELL   = "sell";
-	const STATUS_RENT   = "rent";
-	const STATUS_HIDE   = "hide";
-	const STATUS_CLOSE  = "close";
-	const STATUS_DEAL   = "deal";
+	const STATUS_NEWBIE  = "newbie";
+	const STATUS_SELL    = "sell";
+	const STATUS_RENT    = "rent";
+	const STATUS_HIDE    = "hide";
+	const STATUS_CLOSE   = "close";
+	const STATUS_DEAL    = "deal";
+	const STATUS_DEALING = "dealing";
 
 	public static $arrStatus = array(
-		self::STATUS_NEWBIE => '待审核',
-		self::STATUS_SELL   => '正在出售',
-		self::STATUS_RENT   => '正在出租',
-		self::STATUS_HIDE   => '已隐藏',
-		self::STATUS_CLOSE  => '已退出平台',
-		self::STATUS_DEAL   => '已成交',
+		self::STATUS_NEWBIE  => '待审核',
+		self::STATUS_SELL    => '正在出售',
+		self::STATUS_RENT    => '正在出租',
+		self::STATUS_HIDE    => '不出售',
+		self::STATUS_CLOSE   => '已退出平台',
+		self::STATUS_DEAL    => '已成交',
+		self::STATUS_DEALING => '正在交易',
 	);
 
 	//交易方式
@@ -95,6 +97,16 @@ class Goods extends Base {
 			$goods['trans_time']      = Util::timeTrans($goods['ctime']);
 		}
 		return $arrGoods;
+	}
+
+	/**
+	 * 检查该商品是否可以出售
+	 * @param  string $status 商品状态
+	 */
+	public static function checkGoodsCanDeal($status){
+		if($status == self::STATUS_SELL){
+			return true;
+		}
 	}
 
 }

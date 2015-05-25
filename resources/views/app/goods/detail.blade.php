@@ -99,7 +99,9 @@
 <br/>
 @endsection
 @section('footer')
-<button type="button" class="btn btn-success btn-lg btn-block">{{$footer_show_txt}}</button>
+@if ($belong_crt_user == false)
+<a href="{{ asset('order/new').'/'.$goods->id }}" class="btn btn-success btn-lg btn-block" id="newOrderGo">{{$footer_show_txt}}</a>
+@endif
 @endsection
 @section('js')
 @endsection
