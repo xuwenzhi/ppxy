@@ -83,7 +83,7 @@ class IndividualController extends HomeController {
 		if(SmsVerifyRecord::TOP_USER < SmsVerifyRecord::getVerifyPhoneTimesByUid($arrUser['id'])){
 			return Util::json_format('error', '您今日的验证次数已达上限,请明日再试,多谢配合!');
 		}
-		//SmsVerifyRecord::generateSend($arrUser['id'], $strPhoneNu);
+		SmsVerifyRecord::generateSend($arrUser['id'], $strPhoneNu);
 		return Util::json_format('success');
 	}
 
