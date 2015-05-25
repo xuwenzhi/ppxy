@@ -239,8 +239,8 @@ class Util {
 	}
 
 	public static function ext_name($file){
-		/*$info = pathinfo($file);
-		return $info['extension'];*/
+		$info = pathinfo($file);
+		return $info['extension'];
 		return 'png';
 	}
 

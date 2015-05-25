@@ -252,12 +252,12 @@ class GoodsController extends HomeController {
 		}
 		$goods_id = Util::encryptData($request->get('goodsenid'), true);
 		//todo 
-		// $mimeType = $file->getMimeType();
-		// if(!Util::is_in_array($mimeType, GoodsPhoto::$permit_mimetype)){
-		// 	echo 'error*图片格式错误,请重新选择。';
-		// 	return ;
-		// 	exit();
-		// }
+		$mimeType = $file->getMimeType();
+		if(!Util::is_in_array($mimeType, GoodsPhoto::$permit_mimetype)){
+		 	echo 'error*图片格式错误,请重新选择。';
+		 	return ;
+		 	exit();
+		}
 		$upload_path = GoodsPhoto::UPLOAD_PATH."".date('Y-m-d');
 		if(!is_dir($upload_path)){
 			if(!mkdir($upload_path)){
