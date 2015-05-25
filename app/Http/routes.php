@@ -16,6 +16,11 @@ Route::get('/home', 'Home\IndexController@index');
 
 Route::get('/', 'Home\IndexController@index');
 
+Route::group(['prefix' => '/user'], function()
+{
+	Route::post('checkemail', 'Home\UserController@checkEmailRepeat');
+});
+
 /**
  * 个人部分
  */
@@ -55,6 +60,8 @@ Route::controllers([
 Route::get('/error', function(){
 	return '404';
 });
+
+
 
 
 /**

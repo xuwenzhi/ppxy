@@ -120,7 +120,8 @@ $(document).ready(function(){
 		$("#confirm_do_delete").attr('photos-enid', $(this).attr('photos-enid'));
 		$("#delete_photo_modal_body").html('确定删除吗？');
 		$("#delete_photo_modal").modal({
-		  	show: true
+		  	show: true,
+		  	locked:true
 		});
 	});
 
@@ -167,4 +168,8 @@ function checkPrice(price){
     	return false;
     }
     return true;
+}
+
+function do_delete(obj){
+	alert('ff');
 }

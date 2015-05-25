@@ -39,7 +39,7 @@
         <div class="panel-body">
             <div class="jumbotron">
               <h3>为什么需要验证手机号?</h3>
-              <p>&nbsp;&nbsp;验证手机号,保证了交易双方信息的有效性和真实性,我们会充分保护您的个人隐私,谢谢您的合作！</p>
+              <p>&nbsp;&nbsp;手机号将会成为买家和卖家交易的通道,验证手机号，同时也保证了交易双方信息的有效性和真实性,我们会充分保护您的个人隐私,谢谢您的合作！</p>
             </div>
         </div>
     </div>
@@ -53,7 +53,7 @@
                 <h4 class="modal-title" id="myModalLabel">为什么要验证手机号?</h4>
               </div>
               <div class="modal-body">
-                  验证手机号,保证了交易双方信息的有效性和真实性,我们会充分保护您的个人隐私,谢谢您的合作！
+                  手机号将会成为买家和卖家交易的通道,验证手机号，同时也保证了交易双方信息的有效性和真实性,我们会充分保护您的个人隐私,谢谢您的合作！
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

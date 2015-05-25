@@ -9,7 +9,7 @@
 				<div class="panel-body">
 					@if (count($errors) > 0)
 						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
+							发生了一点点错误<br><br>
 							<ul>
 								@foreach ($errors->all() as $error)
 									<li>{{ $error }}</li>
@@ -17,21 +17,23 @@
 							</ul>
 						</div>
 					@endif
-
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
+					<div class="alert alert-danger" id="show_login_issue" style="display:none;">
+						
+					</div>
+					<form class="form-horizontal" id="loginForm" role="form" method="POST" action="{{ url('/auth/login') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">邮件地址</label>
 							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
+								<input type="email" id="email" class="form-control" name="email" value="{{ old('email') }}">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">密码</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
+								<input type="password" id="password" class="form-control" name="password">
 							</div>
 						</div>
 
@@ -47,7 +49,7 @@
 
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">登录</button>
+								<button type="button" id="login_btn" class="btn btn-success">登录</button>
 
 								<a class="btn btn-link" href="{{ url('/password/email') }}">忘记密码?</a>
 							</div>
@@ -58,4 +60,7 @@
 		</div>
 	</div>
 </div>
+@endsection
+@section('js')
+<script src="{{ asset('/js/users/login.js')}}"></script>
 @endsection

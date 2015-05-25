@@ -49,6 +49,9 @@
 				<ul class="nav navbar-nav">
 					<li><a href="#">智能比价(敬请期待)</a></li>
 				</ul>
+				<ul class="nav navbar-nav">
+					<li><a href="#">爱心捐赠(敬请期待)</a></li>
+				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())

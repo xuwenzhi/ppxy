@@ -81,7 +81,7 @@
 						</div>
 				        @if(!$isMobile)
 				        <div class="form-group form-inline">
-				        	<a href="#addPhotos" class="form-control btn-warning" data-toggle="modal" data-target="#editPhotos">添加图片</a>
+				        	<a href="#addPhotos" class="form-control btn-warning" data-backdrop="static" data-toggle="modal" data-target="#editPhotos">添加图片</a>
 				        	<a href="#doEditPhotos" class="form-control btn-warning" id="doEditPhotos">编辑图片</a>
 				        	<a href="#exitEditPhoto" class="form-control btn-info" id="exitEditPhoto" style="display:none;">退出编辑</a>
 				    	</div>
@@ -109,13 +109,19 @@
 		            	</div>
 		            	<br/>
 		            	@else
-		            	<div class="alert alert-danger" role="alert">暂时不支持手机操作图片，如需操作，请打开个人电脑。</div>
+		            	<div class="alert alert-danger" role="alert">暂时不支持手机添加图片，如需添加，请在个人电脑上进行添加。</div>
+		            	<div class="form-group form-inline">
+				        	<a href="#doEditPhotos" class="form-control btn-warning" id="doEditPhotos">编辑图片</a>
+				        	<a href="#exitEditPhoto" class="form-control btn-info" id="exitEditPhoto" style="display:none;">退出编辑</a>
+				    	</div>
 				        @endif
 				        <div class="row" id="upload_photo_block">
 				        	@foreach ($photos as $photo)
 							<div class="col-sm-6 col-md-3">
 								<div class="center-block text-center">
-								<a href="#delete" id="do_delete" class="displaynone" photos-enid="{{$photo->id}}">删除</a>
+								<a href="#delete" id="do_delete" class="displaynone" photos-enid="{{$photo->id}}" title="删除图片">
+									<img src="{{asset('/images/delete_red.png')}}"  class="center-block img-responsive" width="20px"/>
+								</a>
 	                        	</div>
 						      	<a href="#" class="thumbnail" data-toggle="modal" data-target="#goodsPhotoDia{{$photo->id}}">
 						         <img src=" {{asset('/').$photo->thumb}}" alt="..." class="img-responsive img-rounded" />

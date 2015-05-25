@@ -160,7 +160,10 @@ class GoodsController extends HomeController {
 	 */
 	public function mine(){
 		$uid = $this->getLogUid();
-		$arrGoods = Goods::where(array('uid'=>$uid))->get();
+		$arrGoods = Goods::where(array('uid'=>$uid))
+			->orderBy('ctime', 'desc')
+			->select('title', 'id', 'uid', 'ctime')
+			->get();
 		$arrGoods = Goods::decorateList($arrGoods);
 		$data = array(
 			'baselist' => $arrGoods,

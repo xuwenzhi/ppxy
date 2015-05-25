@@ -44,7 +44,7 @@ class GoodsPhoto extends Base {
 		if(!$obj->save()){
 			return false;
 		}
-		return $obj->lastId;
+		return $obj -> id;
 	}
 
 	public static function encryptId($arrData){

@@ -4,7 +4,7 @@
 @section('content')
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
+		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-primary">
 				<div class="panel-heading">上架我的商品</div>
 				<div class="panel-body">

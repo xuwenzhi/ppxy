@@ -7,7 +7,7 @@ $(function() {
         'swf'      : PUBLIC+'lib/swf_uploadify/uploadify.swf',
         'uploader' : APP+'/goods/upload',
         'method'   : 'post',//方法，服务端可以用$_POST数组获取数据
-        'buttonText' : '选择图片',//设置按钮文本
+        'buttonText' : '批量选择图片',//设置按钮文本
         'displayData' : 'speed',
         'multi'    : true,//允许同时上传多张图片
         'uploadLimit' : 6,//一次最多只允许上传6张图片
@@ -17,7 +17,6 @@ $(function() {
         'onUploadSuccess' : function(file, data, response) {//每次成功上传后执行的回调函数，从服务端返回数据到前端
             if(response){
                 var res = data.split('*');
-                console.log(res);
                 if(res[0] == 'success'){
                     var img_path = '<div class="col-sm-6 col-md-3">';
                     img_path += '<a href="#" class="thumbnail" data-toggle="modal" data-target="#goodsPhotoDia'+res[2]+'"><img src="'+PUBLIC+res[1]+'"  alt="..." class="img-responsive img-rounded" alt="Responsive image"></a>';
@@ -34,12 +33,5 @@ $(function() {
         'onComplete':function(evt, queueID, fileObj, response, data){
             //alert('ff');
         }
-    });
-
-    $("#doAgainUploadPhoto").click(function(){
-        $("#file_upload").show();
-        $("#doUploadPhoto").show();
-        $(this).hide();
-        $("#img").html('');
     });
 });
