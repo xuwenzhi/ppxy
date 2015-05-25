@@ -18,7 +18,7 @@ Route::get('/', 'Home\IndexController@index');
 
 Route::group(['prefix' => '/user'], function()
 {
-	Route::post('checkemail', 'Home\UserController@checkEmailRepeat');
+	Route::any('checkemail', 'Home\UserController@checkEmailRepeat');
 });
 
 /**

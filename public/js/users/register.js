@@ -42,7 +42,30 @@ $(document).ready(function(){
 			$("#show_register_issue").show();
 			return false;
 		}else{
-			
+			$.ajax({
+				url:APP+"/user/checkemail",
+				type :'post',
+				dataType:'json',
+				async:false,
+				data :{'email':email, '_token':$('meta[name="_token"]').attr('content')},
+				success:function(data){
+					if(data.status == 'success'){
+						if(data.data > 0){
+							$("#email").focus();
+							$("#show_register_issue").html("该邮箱已经注册过了,请您更换其他邮箱");
+							$("#show_register_issue").show();
+							return false;
+						}else{
+							$("#show_register_issue").hide();
+							return false;
+						}
+					}else if(data.status == 'error'){
+						$("#show_register_issue").html(data.message);
+						$("#show_register_issue").show();
+						return false;
+					}
+				}
+			});
 		}
 	});
 	$("#register_btn").on('click', function(){
@@ -108,6 +131,8 @@ $(document).ready(function(){
 				$("#show_register_issue").html("请输入有效的密码");
 				$("#show_register_issue").show();
 				return false;
+			}else{
+				$("#show_register_issue").hide();
 			}
 			if(password_confirmation == ''){
 				$("#password_confirmation").focus();
@@ -122,7 +147,28 @@ $(document).ready(function(){
 				return false;
 			}
 		}
-		$("#registerForm").submit();
+		$.ajax({
+			url:APP+"/user/checkemail",
+			type :'post',
+			dataType:'json',
+			async:false,
+			data :{'email':email, '_token':$('meta[name="_token"]').attr('content')},
+			success:function(data){
+				if(data.status == 'success'){
+					if(data.data > 0){
+						$("#email").focus();
+						$("#show_register_issue").html("该邮箱已经注册过了,请您更换其他邮箱");
+						$("#show_register_issue").show();
+						return false;
+					}
+					$("#registerForm").submit();
+				}else if(data.status == 'error'){
+					$("#show_register_issue").html(data.message);
+					$("#show_register_issue").show();
+					return false;
+				}
+			}
+		});	
 	});
 });
 function checkNick(nickname){

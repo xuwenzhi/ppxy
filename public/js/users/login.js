@@ -7,13 +7,13 @@ $(document).ready(function(){
 			$("#show_login_issue").show();
 			return false;
 		}
-		if(password == ''){
-			$("#show_login_issue").html("密码还没填写呢~");
+		if(!checkEmail(email)){
+			$("#show_login_issue").html("您填写的邮箱格式似乎不对噢~");
 			$("#show_login_issue").show();
 			return false;
 		}
-		if(!checkEmail(email)){
-			$("#show_login_issue").html("您填写的邮箱格式似乎不对噢~");
+		if(password == ''){
+			$("#show_login_issue").html("密码还没填写呢~");
 			$("#show_login_issue").show();
 			return false;
 		}
