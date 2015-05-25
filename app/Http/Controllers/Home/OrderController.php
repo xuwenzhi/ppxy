@@ -13,12 +13,17 @@ use App\Services\Protocol;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use App\Goods;
+use App\School;
 class OrderController extends HomeController {
 
 	/**
 	 * 创建订单模板
 	 */
 	public function tplNew($enId){
+		//检查用户是否已经验证手机号
+		if(!$this->checkUserRole()){			
+			return Redirect::to('/verify/buygoods');
+		}
 		$goods_id = Util::encryptData($enId, true);
 		if(!$goods_id){
 			return Redirect::to('/goods/null');
@@ -35,8 +40,9 @@ class OrderController extends HomeController {
 			//想下单？但是一瞬间买不了，那怎么办？跳转到一个页面，做一些同类货的推荐
 			return Redirect::to('/goods/surprise');
 		}
+		$goods_info['school_name'] = School::getNameById($goods_info['school_id']);
 		$data = array(
-			
+			'goods_info' => $goods_info,
 		);
 		return view('app.order.new', $data);
 	}

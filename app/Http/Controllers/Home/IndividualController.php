@@ -16,8 +16,8 @@ class IndividualController extends HomeController {
 	const RESOURCE_TYPE_NOTHING  = 'default';
 
 	public static $verify_reason = array(
-		self::RESOURCE_TYPE_NEWGOODS => '您首先需要验证手机号,这样保证了买家可以联系到您。请放心,没有诚意购买的买家,我们不会提供给TA您的手机号。',
-		self::RESOURCE_TYPE_BUYGOODS => '您首先需要验证手机号,这样保证了卖家可以联系到您。',
+		self::RESOURCE_TYPE_NEWGOODS => '您首先需要验证手机号,保证了买家可以联系到您。请放心,没有诚意购买的买家,我们不会提供给TA您的手机号。',
+		self::RESOURCE_TYPE_BUYGOODS => '您首先需要验证手机号,保证卖家可以联系到您。',
 		self::RESOURCE_TYPE_NOTHING  => '',
 	);
 
