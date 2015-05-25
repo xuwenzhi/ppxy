@@ -42,30 +42,7 @@ $(document).ready(function(){
 			$("#show_register_issue").show();
 			return false;
 		}else{
-			$.ajax({
-				url:APP+"/user/checkemail",
-				type :'post',
-				dataType:'json',
-				async:false,
-				data :{'email':email, '_token':$('meta[name="_token"]').attr('content')},
-				success:function(data){
-					if(data.status == 'success'){
-						if(data.data > 0){
-							$("#email").focus();
-							$("#show_register_issue").html("该邮箱已经注册过了,请您更换其他邮箱");
-							$("#show_register_issue").show();
-							return false;
-						}else{
-							$("#show_register_issue").hide();
-							return false;
-						}
-					}else if(data.status == 'error'){
-						$("#show_register_issue").html(data.message);
-						$("#show_register_issue").show();
-						return false;
-					}
-				}
-			});
+			$("#show_register_issue").hide();
 		}
 	});
 	$("#register_btn").on('click', function(){
@@ -147,6 +124,8 @@ $(document).ready(function(){
 				return false;
 			}
 		}
+		$("#register_btn").html("正在注册...");
+		$("#register_btn").attr("disabled", "disabled");
 		$.ajax({
 			url:APP+"/user/checkemail",
 			type :'post',
@@ -159,6 +138,8 @@ $(document).ready(function(){
 						$("#email").focus();
 						$("#show_register_issue").html("该邮箱已经注册过了,请您更换其他邮箱");
 						$("#show_register_issue").show();
+						$("#register_btn").html("点击注册");
+						$("#register_btn").attr("disabled", false);
 						return false;
 					}
 					$("#registerForm").submit();
