@@ -13,19 +13,20 @@ use App\GoodsView;
 use App\School;
 use App\GoodsType;
 use App\Services\Protocol;
+use Illuminate\Http\Response;
 
 class GoodsController extends HomeController {
 
 	protected $boolNeedLogin = false;
 
-	public function myGoodsList(){
-
-	}
-
 	/**
 	 * 发布新商品页面
 	 */
 	public function tplNew() {
+		//检查用户是否已经验证手机号
+		if(!$this->checkUserRole()){			
+			return Redirect::to('/verify/newgoods');
+		}
 		$goods_types = GoodsType::getFirstType();
 		$second_types = array();
 		if($goods_types){

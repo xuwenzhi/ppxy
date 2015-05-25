@@ -25,7 +25,7 @@ Route::group(['prefix' => '/user'], function()
  * 个人部分
  */
 //Route::get('people/{username}', 'Home\IndividualController@page');
-Route::get('setting', 'Home\IndividualController@setting');
+Route::get('verify/{resource?}', 'Home\IndividualController@setting');
 Route::post('verifyphone', 'Home\IndividualController@verifyphone');
 Route::post('doverifyphone', 'Home\IndividualController@doverifyphone');
 

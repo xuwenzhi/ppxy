@@ -91,7 +91,7 @@ $(document).ready(function(){
 		});
 	});
 	$('#verify_modal').on('hidden.bs.modal', function (e) {
-	  	window.location.reload();
+	  	window.location.href = $("#url_back").val().trim();
 	})
 });
 

@@ -45,14 +45,15 @@
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/goods/new') }}">我要发货</a></li>
 				</ul>
-
 				<ul class="nav navbar-nav">
-					<li><a href="#">智能比价(敬请期待)</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">敬请期待<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;&nbsp;<del>智能比价</del></a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;&nbsp;<del>爱心捐赠</del></a></li>
+						</ul>
+					</li>
 				</ul>
-				<ul class="nav navbar-nav">
-					<li><a href="#">爱心捐赠(敬请期待)</a></li>
-				</ul>
-
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
 						<li><a href="{{ url('/auth/login') }}">登录</a></li>
@@ -63,7 +64,7 @@
 							<ul class="dropdown-menu" role="menu">
 								<!--<li><a href="{{ url('/people').'/'.Auth::user()->name  }}">个人中心</a></li> -->
 								<li><a href="{{ url('/goods/mine') }}"><span class="glyphicon glyphicon-jpy" aria-hidden="true"></span>&nbsp;&nbsp;我的商品</a></li>
-								<li><a href="{{ url('/setting') }}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;验证手机号</a></li>
+								<li><a href="{{ url('/verify/default') }}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;验证手机号</a></li>
 								<li><a href="{{ url('/auth/logout') }}"><span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;&nbsp;退出登录</a></li>
 							</ul>
 						</li>

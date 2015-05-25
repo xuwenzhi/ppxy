@@ -13,11 +13,20 @@
           <h5>
             
             @if($baseinfo->role == $role_pending || $baseinfo->phone_nu == '')
-              <div class="alert alert-success" role="alert">
+              @if($verify_reason != '')
+              <div class="alert alert-danger" role="alert">
+                <a href="#qa_verify_phone" data-toggle="modal"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>{{$verify_reason}}
+              </div>
+              @else
+              <div class="alert alert-danger" role="alert">
                 <a href="#qa_verify_phone" data-toggle="modal"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a>您尚未验证手机号,是否现在验证?
               </div>
+              @endif
               
               <form action="" method="post">
+                @if($url_back != '')
+                <input type="hidden" id="url_back" value="{{$url_back}}" />
+                @endif
                 <div class="form-group">
                     <input type="text" id="veryfy_phone" class="form-control" id="veryfy_phone" required placeholder="请输入您的手机号"/>
                 </div>

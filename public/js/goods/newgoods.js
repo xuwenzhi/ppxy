@@ -99,6 +99,8 @@ $(document).ready(function(){
 			$(this).html("请输入正确的价格。");
 			return false;
 		}
+		$(this).html("正在提交...");
+		$(this).attr("disabled", "disabled");
 		$("#newGoodsForm").submit();
 	});
 

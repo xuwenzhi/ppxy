@@ -8,9 +8,9 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
-
+use App\User;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller {
 
@@ -45,14 +45,18 @@ class HomeController extends Controller {
 	/**
 	 * 检查用户是否有购买或发布商品权限
 	 */
-	public static function checkUserRole(){
+	public function checkUserRole(){
 		$arrLogUser = $this->getLogUser();
 		if($arrLogUser){
-			if($arrLogUser[0]['role'] == self::ROLE_MEMBER || $arrLogUser[0]['role'] == self::ROLE_ADMIN){
+			if($arrLogUser['role'] == User::ROLE_MEMBER || $arrLogUser['role'] == User::ROLE_ADMIN){
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public function getPreviousUrl(){
+		return Session::previousUrl();
 	}
 
 }

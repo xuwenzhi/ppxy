@@ -66,7 +66,7 @@ class User extends Base implements AuthenticatableContract, CanResetPasswordCont
 		$objUser->role = User::ROLE_MEMBER;
 		$objUser->phone_nu = $phone_nu;
 		return $objUser->save();
-	}
+	}	
 
 
 }
