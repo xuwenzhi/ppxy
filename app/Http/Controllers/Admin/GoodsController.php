@@ -30,6 +30,8 @@ class GoodsController extends AdminController {
 	 */
 	public function detail($enId){
 		$id = Util::encryptData($enId, true);
+		echo $id;
+		exit;
 		if(!$id){
 			return Redirect::to('/404');
 		}

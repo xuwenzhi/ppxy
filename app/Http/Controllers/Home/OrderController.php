@@ -155,7 +155,8 @@ class OrderController extends HomeController {
 		if($belong_buyer){
 			//获取卖家信息
 			$arrUser = User::where(array('id'=>$arrOrder['goods_uid']))->get();
-			$recommend_widget_body = Goods::getUserOtherGoods($uid, $arrOrder['goods_id']);
+			$recommend_widget_body = Goods::getUserOtherGoods($arrOrder['goods_uid'], $arrOrder['goods_id']);
+			$recommend_widget_body = Goods::decorateList($recommend_widget_body);
 			$recommend_widget_title = '卖家还在卖';
 		} else {
 			//获取买家信息

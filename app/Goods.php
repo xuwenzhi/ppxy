@@ -26,7 +26,7 @@ class Goods extends Base {
 	const STATUS_RENT    = "rent";
 	const STATUS_HIDE    = "hide";
 	const STATUS_CLOSE   = "close";
-	const STATUS_DEAL    = "deal";
+	const STATUS_DEAL    = "已卖出";
 	const STATUS_DEALING = "dealing";
 
 	public static $arrStatus = array(
@@ -113,8 +113,8 @@ class Goods extends Base {
 		if(!$goods_id || !$new_status){
 			return array();
 		}
-		$objGoods = new Goods;
-		$objGoods->status = $goods_id;
+		$objGoods = Goods::find($goods_id);
+		$objGoods->status = $new_status;
 		return $objGoods->save();
 	}
 
@@ -131,6 +131,7 @@ class Goods extends Base {
 		$same_goods = Goods::where(array('type'=>$type_code))
 			->whereNotIn('uid', $uid)
 			->whereNotIn('id', array($crt_goods_id))
+			->where(array('status'=>self::STATUS_SELL))
 			->select('id', 'title', 'price', 'uid', 'ctime')
 			->orderBy('ctime', 'desc')
 			->paginate(6);

@@ -32,7 +32,11 @@
 			<div class="panel-body">
 				<ul class="list-group">
 					<li class="list-group-item">
+						@if($goods->status == 'sell')
 						<span class="label label-success">{{$goods->status_txt}}</span>
+						@else
+						<span class="label label-danger">{{$goods->status_txt}}</span>
+						@endif
 						<span class="label label-success">{{$goods->type}}</span>
 					</li>
 					<li class="list-group-item">¥{{$goods->price}}</li>
@@ -100,8 +104,13 @@
 @endsection
 @section('footer')
 @if ($belong_crt_user == false)
+@if($goods->status == 'sell')
 <a href="{{ asset('order/'.$goods->id.'/precheck') }}" class="btn btn-success btn-lg btn-block" id="newOrderGo">{{$footer_show_txt}}</a>
+@else
+<a href="#" class="btn btn-success btn-lg btn-block" disabled="disabled">已经在交易中,不可下单。</a>
+@endif
 @endif
 @endsection
 @section('js')
+<script type="text/javascript" src="{{ asset('/js/goods/detail.js') }}"></script>
 @endsection
