@@ -9,6 +9,7 @@ use App\Orders;
 use App\User;
 use App\Services\Sms;
 use Illuminate\Support\Facades\Log;
+use App\SmsVerifyRecord;
 class OrdersSms{
 
 	const ORDER_DETAIL_URL = "/order/%s/detail";
@@ -48,6 +49,8 @@ class OrdersSms{
 		$objSms = new Sms;
 		if(!($objSms->setHp($hp) -> setMsg($msg) -> sendSingle())){
 			Log::error("【短信发送失败】【创建订单通知卖家失败】手机号:".$hp."短信内容:".$msg);
+		}else{
+			SmsVerifyRecord::addRecord($order_info['goods_uid'], '', $msg, $hp, SmsVerifyRecord::TYPE_ORDER);
 		}
 		return;
 	}
@@ -62,10 +65,12 @@ class OrdersSms{
 				$arrUser[$order_info['goods_uid']]['phone_nu'],
 				$decorateUrl
 			);
-		$hp = $arrUser[$order_info['goods_uid']]['phone_nu'];
+		$hp = $arrUser[$order_info['uid']]['phone_nu'];
 		$objSms = new Sms;
 		if(!($objSms->setHp($hp) -> setMsg($msg) -> sendSingle())){
 			Log::error("【短信发送失败】【创建订单通知买家失败】手机号:".$hp."短信内容:".$msg);
+		}else{
+			SmsVerifyRecord::addRecord($order_info['uid'], '', $msg, $hp, SmsVerifyRecord::TYPE_ORDER);
 		}
 		return;
 	}

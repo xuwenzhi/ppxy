@@ -11,6 +11,9 @@ class SmsVerifyRecord extends Base {
 	const TOP_USER  = 10;//最高一天5次
 	const VALID_TIME = 1800;
 
+	const TYPE_ORDER = 'order';
+	
+
 	/**
 	 * The database table used by the model.
 	 *
