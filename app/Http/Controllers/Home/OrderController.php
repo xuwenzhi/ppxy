@@ -32,20 +32,20 @@ class OrderController extends HomeController {
 		}
 		$goods_id = Util::encryptData($enId, true);
 		if(!$goods_id){
-			return Redirect::to('/goods/null');
+			return Redirect::to('/goods/surprise/null');
 		}
 		$goods_info = Goods::where(array('id' => $goods_id))
 			-> select('id','title', 'uid', 'status', 'content', 'price', 'deal_type', 'school_id', 'deal_place_ext', 'new_level','ctime') 
 			-> get();
 		$goods_info = Goods::decorateList($goods_info);
 		if(!$goods_info){
-			return Redirect::to('/goods/null');
+			return Redirect::to('/goods/surprise/null');
 		}
 		$goods_info = $goods_info[0];
 		//检查货的状态
 		if(!Goods::checkGoodsCanDeal($goods_info['status'])){
 			//想下单？但是一瞬间买不了，那怎么办？跳转到一个页面，做一些同类货的推荐
-			return Redirect::to('/goods/surprise');
+			return Redirect::to('/goods/surprise/seckill');
 		}
 		$goods_info['school_name'] = School::getNameById($goods_info['school_id']);
 		$data = array(
