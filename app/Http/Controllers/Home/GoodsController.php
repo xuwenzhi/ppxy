@@ -102,7 +102,6 @@ class GoodsController extends HomeController {
 	}
 
 	public function detail($enId){
-		var_dump(Util::encryptData(8));
 		$id = intval(Util::encryptData($enId, true));
 		if(!$id){
 			return Redirect::to('/404');

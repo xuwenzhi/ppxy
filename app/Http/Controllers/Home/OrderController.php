@@ -74,7 +74,7 @@ class OrderController extends HomeController {
 			return Redirect::to('/error');
 		}
 		$goods_info = Goods::where(array('id' => $goods_id))
-			-> select('id','title', 'uid', 'status', 'content', 'price', 'deal_type', 'school_id', 'deal_place_ext', 'new_level','ctime') 
+			-> select('id','title', 'uid', 'status', 'content', 'type', 'price', 'deal_type', 'school_id', 'deal_place_ext', 'new_level','ctime') 
 			-> get();
 		if(!$goods_info){
 			return Redirect::to('/goods/surprise/null');
@@ -117,7 +117,7 @@ class OrderController extends HomeController {
 		$objOrder -> deal_type = $goods_info['deal_type'];
 		$objOrder -> school_id = $goods_info['school_id'];
 		$objOrder -> deal_place_ext = $goods_info['deal_place_ext'];
-		$objOrder -> title = $goods_info['title'];
+		$objOrder -> goods_title = $goods_info['title'];
 		$objOrder -> goods_uid = $goods_info['uid'];
 		$objOrder -> goods_type = $goods_info['type'];
 		$objOrder -> goods_content = $goods_info['content'];

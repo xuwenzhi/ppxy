@@ -21,6 +21,7 @@
 						&nbsp;
 						<span class="label label-success">{{$order->status_txt}}</span>
 					</li>
+					<li class="list-group-item">货物标题 ：{{$order->goods_title}}</li>
 					<li class="list-group-item">交易价格 ：¥{{$order->price}}</li>
 					<li class="list-group-item">交易地点 ：<mark>{{$order->school_name}}{{$order->deal_place_ext}}</mark></li>
 					<li class="list-group-item">下单时间 ：<mark>{{$order->ctime}}</mark></li>

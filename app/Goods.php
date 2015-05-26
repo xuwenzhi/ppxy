@@ -144,10 +144,11 @@ class Goods extends Base {
 		if(!$uid){
 			return array();
 		}
-		$arrRes = Orders::where(array('uid' => $uid ))
+		$arrRes = Goods::where(array('uid' => $uid ))
 				-> where('id', '!=', $crt_goods_id)
-				-> get();
-			return $arrRes;
+				-> where(array('status'=>self::STATUS_SELL))
+				-> paginate(6);
+		return $arrRes;
 	}
 
 }

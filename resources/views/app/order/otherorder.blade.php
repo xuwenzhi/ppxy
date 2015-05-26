@@ -5,10 +5,10 @@
 <div class="panel-body">
 <ul class="list-group">
 @if(count($recommend_widget_body)!=0)
-@foreach($recommend_widget_body as $goods)
+@foreach($recommend_widget_body as $list)
 <a href="{{ url('/goods/detail').'/'.$goods['id'] }}">
   	<li class="list-group-item">
-    {{$goods['title']}}
+    {{$list['title']}}
  	</li>
  </a>
 @endforeach

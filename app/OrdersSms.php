@@ -45,7 +45,6 @@ class OrdersSms{
 				$decorateUrl
 			);
 		$hp = $arrUser[$order_info['goods_uid']]['phone_nu'];
-		return;
 		$objSms = new Sms;
 		if(!($objSms->setHp($hp) -> setMsg($msg) -> sendSingle())){
 			Log::error("【短信发送失败】【创建订单通知卖家失败】手机号:".$hp."短信内容:".$msg);
@@ -64,7 +63,6 @@ class OrdersSms{
 				$decorateUrl
 			);
 		$hp = $arrUser[$order_info['goods_uid']]['phone_nu'];
-		return;
 		$objSms = new Sms;
 		if(!($objSms->setHp($hp) -> setMsg($msg) -> sendSingle())){
 			Log::error("【短信发送失败】【创建订单通知买家失败】手机号:".$hp."短信内容:".$msg);
