@@ -50,7 +50,7 @@ class GoodsType extends Base {
 
 	public static function getNameByCode($code){
 		if(!$code){
-			Log::warn('【商品类别code传递错误】');
+			Log::error('【商品类别code传递错误】');
 		}
 		$second_types = GoodsType::where(array('code'=>$code))->select('name')->get();
 		if($second_types){

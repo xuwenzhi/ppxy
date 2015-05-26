@@ -109,4 +109,45 @@ class Goods extends Base {
 		}
 	}
 
+	public static function updateGoodsStatus($goods_id, $new_status){
+		if(!$goods_id || !$new_status){
+			return array();
+		}
+		$objGoods = new Goods;
+		$objGoods->status = $goods_id;
+		return $objGoods->save();
+	}
+
+	/**
+	 * 获取同类产品
+	 */
+	public static function getSameTypeGoods($type_code, $crt_goods_id, $uid = null){
+		if($type_code == ''){
+			return array();
+		}
+		if(!$uid){
+			$uid = array();
+		}
+		$same_goods = Goods::where(array('type'=>$type_code))
+			->whereNotIn('uid', $uid)
+			->whereNotIn('id', array($crt_goods_id))
+			->select('id', 'title', 'price', 'uid', 'ctime')
+			->orderBy('ctime', 'desc')
+			->paginate(6);
+		return $same_goods;
+	}
+
+	/**
+	 * 获取某用户的其他产品
+	 */
+	public static function getUserOtherGoods($uid, $crt_goods_id){
+		if(!$uid){
+			return array();
+		}
+		$arrRes = Orders::where(array('uid' => $uid ))
+				-> where('id', '!=', $crt_goods_id)
+				-> get();
+			return $arrRes;
+	}
+
 }

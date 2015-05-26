@@ -90,7 +90,7 @@
 		</div>
   	</div>
   	<div class="col-md-3">
-  		@include('app.goods.same',['same_goods' => $same_goods])
+  		@include('app.goods.same',['recommend_widget_title' => $recommend_widget_title, 'recommend_widget_body'=>$recommend_widget_body])
   	</div>
 </div>
 </div>
@@ -100,7 +100,7 @@
 @endsection
 @section('footer')
 @if ($belong_crt_user == false)
-<a href="{{ asset('order/new').'/'.$goods->id }}" class="btn btn-success btn-lg btn-block" id="newOrderGo">{{$footer_show_txt}}</a>
+<a href="{{ asset('order/'.$goods->id.'/precheck') }}" class="btn btn-success btn-lg btn-block" id="newOrderGo">{{$footer_show_txt}}</a>
 @endif
 @endsection
 @section('js')

@@ -29,5 +29,17 @@ class GoodsView extends Base {
 		return $intViewTimes;
 	}
 
+	/**
+	 * 获得用户查看某件商品的次数
+	 */
+	public static function getUserViewsByGoodsid($goods_id, $uid){
+		if(!$goods_id || !$uid ){
+			return array();
+		}
+		$count = GoodsView::where(array('uid' => $uid, 'goods_id' => $goods_id))
+			->count();
+		return $count;
+	}
+
 }
 

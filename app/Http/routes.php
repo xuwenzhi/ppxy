@@ -45,8 +45,7 @@ Route::group(['prefix' => '/goods'], function()
 	Route::post('upload', ['middleware'       => 'auth', 'uses' => 'Home\GoodsController@upload']);
 	Route::post('doModify', ['middleware'     => 'auth', 'uses' => 'Home\GoodsController@doModify']);
 	Route::post('deletephoto', ['middleware'  => 'auth', 'uses' => 'Home\GoodsController@doDeletePhoto']);
-	Route::get('null', function(){ return '您要查找的货不存在!'; });
-	Route::get('surprise', function(){ return '该商品被抢光了,下次手要快噢~'; });
+	Route::get('surprise/{type}', 'Home\GoodsController@surprise');
 });
 
 
@@ -55,7 +54,11 @@ Route::group(['prefix' => '/goods'], function()
  */
 Route::group(['prefix' => '/order'], function()
 {
-	Route::get('new/{enId}', ['middleware' => 'auth', 'uses'=>'Home\OrderController@tplNew']);
+	Route::get('{enId}/precheck', ['middleware' => 'auth', 'uses'=>'Home\OrderController@precheck']);
+	Route::post('create', ['middleware' => 'auth', 'uses'=>'Home\OrderController@create']);
+	Route::get('{enId}/detail', ['middleware' => 'auth', 'uses'=>'Home\OrderController@detail']);
+	Route::get('mime', ['middleware' => 'auth', 'uses'=>'Home\OrderController@mime']);
+	Route::get('surprise/{type}', 'Home\OrderController@surprise');
 });
 
 
@@ -67,9 +70,11 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 Route::get('/error', function(){
+	return 'error';
+});
+Route::get('/404', function(){
 	return '404';
 });
-
 
 
 

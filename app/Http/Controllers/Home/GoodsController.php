@@ -102,6 +102,7 @@ class GoodsController extends HomeController {
 	}
 
 	public function detail($enId){
+		var_dump(Util::encryptData(8));
 		$id = intval(Util::encryptData($enId, true));
 		if(!$id){
 			return Redirect::to('/404');
@@ -120,9 +121,9 @@ class GoodsController extends HomeController {
 		$arrPhoto = GoodsPhoto::encryptId($arrPhoto);
 		$arrGoods = $arrGoods[0];
 		if($uid) {
-			$arrSame = $this->getSameTypeGoods($arrGoods['type'], $id, array($uid));
+			$arrSame = Goods::getSameTypeGoods($arrGoods['type'], $id, array($uid));
 		}else{
-			$arrSame = $this->getSameTypeGoods($arrGoods['type'], $id);
+			$arrSame = Goods::getSameTypeGoods($arrGoods['type'], $id);
 		}
 		$arrSame = Goods::decorateList($arrSame);
 		$arrGoods['school_name'] = School::getNameById($arrGoods['school_id']);
@@ -138,7 +139,8 @@ class GoodsController extends HomeController {
 			'view_times' => GoodsView::getUserViewsByGoods($id),
 			'belong_crt_user' => $boolBelongUser,
 			'isMobile' => Util::isMobile(),
-			'same_goods'=>$arrSame,
+			'recommend_widget_title' => '同类货',
+			'recommend_widget_body'=>$arrSame,
 		);
 
 
@@ -224,24 +226,7 @@ class GoodsController extends HomeController {
 		return Util::json_format('success', '', $second_types);
 	}
 
-	/**
-	 * 获取同类产品
-	 */
-	public function getSameTypeGoods($type_code, $crt_goods_id, $uid = null){
-		if($type_code == ''){
-			return array();
-		}
-		if(!$uid){
-			$uid = array();
-		}
-		$same_goods = Goods::where(array('type'=>$type_code))
-			->whereNotIn('uid', $uid)
-			->whereNotIn('id', array($crt_goods_id))
-			->select('id', 'title', 'price', 'uid', 'ctime')
-			->orderBy('ctime', 'desc')
-			->paginate(6);
-		return $same_goods;
-	}
+	
 
 	public function upload(Request $request){
 		$file = $request -> file('Filedata');
@@ -351,5 +336,18 @@ class GoodsController extends HomeController {
 			return Util::json_format(Protocol::JSEND_SUCCESS, '删除成功');	
 		}
 		return Util::json_format(Protocol::JSEND_ERROR, '删除失败,请重试。');
+	}
+
+	public function surprise($type){
+		$strShow = '';
+		$arrType = array(
+				'null' => '没有找到这货，卖家把它下架了~',
+				'seckill'=>'这货已经被其他人抢走了，下次手要快噢~',
+			);
+		$strShow = isset($arrType[$type]) ? $arrType[$type] : $arrType['null'];
+		$data = array(
+			'show' => $strShow,
+		);
+		return view('app.goods.surprise', $data);
 	}
 }

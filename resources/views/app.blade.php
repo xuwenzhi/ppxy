@@ -63,7 +63,8 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<!--<li><a href="{{ url('/people').'/'.Auth::user()->name  }}">个人中心</a></li> -->
-								<li><a href="{{ url('/goods/mine') }}"><span class="glyphicon glyphicon-jpy" aria-hidden="true"></span>&nbsp;&nbsp;我的商品</a></li>
+								<li><a href="{{ url('/goods/mine') }}"><span class="glyphicon glyphicon-gift" aria-hidden="true"></span>&nbsp;&nbsp;我的商品</a></li>
+								<li><a href="{{ url('/order/mine') }}"><span class="glyphicon glyphicon-jpy" aria-hidden="true"></span>&nbsp;&nbsp;我的订单</a></li>
 								<li><a href="{{ url('/verify/default') }}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;验证手机号</a></li>
 								<li><a href="{{ url('/auth/logout') }}"><span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;&nbsp;退出登录</a></li>
 							</ul>

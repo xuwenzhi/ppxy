@@ -68,5 +68,8 @@ class User extends Base implements AuthenticatableContract, CanResetPasswordCont
 		return $objUser->save();
 	}	
 
+	public static function batchGetUser($arrUid){
+		return User::whereIn('id', $arrUid) -> get();
+	}
 
 }
