@@ -57,7 +57,7 @@ Route::group(['prefix' => '/order'], function()
 	Route::get('{enId}/precheck', ['middleware' => 'auth', 'uses'=>'Home\OrderController@precheck']);
 	Route::post('create', ['middleware' => 'auth', 'uses'=>'Home\OrderController@create']);
 	Route::get('{enId}/detail', ['middleware' => 'auth', 'uses'=>'Home\OrderController@detail']);
-	Route::get('mime', ['middleware' => 'auth', 'uses'=>'Home\OrderController@mime']);
+	Route::get('mine', ['middleware' => 'auth', 'uses'=>'Home\OrderController@mine']);
 	Route::get('surprise/{type}', 'Home\OrderController@surprise');
 });
 

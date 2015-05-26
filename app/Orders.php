@@ -90,4 +90,14 @@ class Orders extends Base {
 		}
 	}
 
+	public static function encryptCode($arrData){
+		if(!$arrData){
+			return array();
+		}
+		foreach($arrData as $val){
+			$val['id'] = Util::encryptData($val['id']);
+		}
+		return $arrData;
+	}
+
 }

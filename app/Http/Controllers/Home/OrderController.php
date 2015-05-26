@@ -178,8 +178,20 @@ class OrderController extends HomeController {
 		return view('app.order.detail', $data);
 	}
 
-	public function mime(){
-
+	public function mine(){
+		$uid = $this->getLogUid();
+		if(!$uid){
+			return Redirect::to('/404');
+		}
+		$arrOrders = Orders::where(array('uid'=>$uid))
+			-> orWhere('goods_uid', $uid)
+			-> orderBy('ctime', 'desc')
+			-> get();
+		$arrOrders = Orders::encryptCode($arrOrders);
+		$data = array(
+			'baselist' => $arrOrders,
+		);
+		return view('app.order.mine', $data);
 	}
 
 
