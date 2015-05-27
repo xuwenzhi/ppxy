@@ -73,7 +73,7 @@ Route::get('/error', function(){
 	return 'error';
 });
 Route::get('/404', function(){
-	return '404';
+	return View::make('errors.404');
 });
 
 

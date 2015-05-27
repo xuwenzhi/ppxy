@@ -376,5 +376,24 @@ class Util {
 	    return pathinfo($file, PATHINFO_EXTENSION);
 	}
 
+	/**
+	 * 批量截取content
+	 */
+	public static function batch_substr_utf8($arrData, $key , $length = 15){
+		if(!$arrData){
+			return array();
+		}
+		foreach ($arrData as $value) {
+			$value[$key] = self::utf8Substr($value[$key], 0, $length).'...';
+		}
+		return $arrData;
+	}
+
+	//截取utf8字符串 
+	public static function utf8Substr($str, $from, $len) { 
+		return preg_replace('#^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$from.'}'. '((?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$len.'}).*#s', '$1',$str); 
+	} 
+
+
 
 }

@@ -86,6 +86,12 @@ class Goods extends Base {
 		$arrUid  = Util::column($arrGoods, 'uid');
 		$arrUser = User::whereIn('id', $arrUid)->select('id', 'name')->get();
 		$arrUser = Util::setKey($arrUser, 'id');
+		$arrSchoolId = Util::column($arrGoods, 'school_id');
+		$arrSchool = School::whereIn('id', $arrSchoolId)->select('id', 'name')->get();
+		$arrSchool = Util::setKey($arrSchool, 'id');
+		$arrGoodsTypeCode = Util::column($arrGoods, 'type');
+		$arrGoodsTypes = GoodsType::whereIn('code', $arrGoodsTypeCode) -> get();		
+		$arrGoodsTypes = Util::setKey($arrGoodsTypes,'code');
 		foreach($arrGoods as $goods){
 			$goods['id']              = Util::encryptData($goods['id']);
 			$goods['username']        = isset($arrUser[$goods['uid']]['name']) ? $arrUser[$goods['uid']]['name'] : '';
@@ -95,6 +101,8 @@ class Goods extends Base {
 			$goods['destination_txt'] = isset($arrDestination[$goods['destination']]) ? $arrDestination[$goods['destination']] : '';
 			$goods['uid']             = Util::encryptData($goods['uid']);
 			$goods['trans_time']      = Util::timeTrans($goods['ctime']);
+			$goods['school_name']     = isset($arrSchool[$goods['school_id']]) ? $arrSchool[$goods['school_id']]['name'] : '';
+			$goods['type_name']     = isset($arrGoodsTypes[$goods['type']]) ? $arrGoodsTypes[$goods['type']]['name'] : '';
 		}
 		return $arrGoods;
 	}
@@ -150,6 +158,13 @@ class Goods extends Base {
 				-> where(array('status'=>self::STATUS_SELL))
 				-> paginate(6);
 		return $arrRes;
+	}
+
+	public static function IndexList(){
+		return Goods::where(array('status' => self::STATUS_SELL))
+		->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type')
+		->orderBy('ctime', 'desc')
+		->paginate(20);
 	}
 
 }

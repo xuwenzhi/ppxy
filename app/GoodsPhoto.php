@@ -79,5 +79,17 @@ class GoodsPhoto extends Base {
 		return true;
 	}
 
+	/**
+	 * 获取商品第一张图片
+	 */
+	public static function getCoverPhotoByGoodsIds($arrGoodsIds){
+		if(!$arrGoodsIds){
+			return array();
+		}
+		$arrRes = GoodsPhoto::whereIn('goods_id', $arrGoodsIds)
+			->get();
+		return $arrRes;
+	}
+
 }
 
