@@ -15,6 +15,12 @@ $router->pattern('id', '[1-9][0-9]*');
 Route::get('/home', 'Home\IndexController@index');
 
 Route::get('/', 'Home\IndexController@index');
+Route::get('complex', 'Home\IndexController@complexList');
+Route::get('big4', 'Home\IndexController@big4List');
+
+
+
+
 
 Route::group(['prefix' => '/user'], function()
 {
@@ -30,9 +36,6 @@ Route::post('verifyphone', 'Home\IndividualController@verifyphone');
 Route::post('doverifyphone', 'Home\IndividualController@doverifyphone');
 
 
-
-
-Route::any('single', 'Home\IndexController@singleList');
 
 
 

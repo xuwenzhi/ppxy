@@ -17,7 +17,7 @@ class IndexController extends HomeController {
 	protected $boolNeedLogin = false;
 
 	public function index() {
-		$arrGoods = Goods::IndexDefaultList();
+		$arrGoods = Goods::IndexSingleList();
 		$arrGoodsIds = Util::column($arrGoods, 'id');
 		$arrGoods = Util::batch_substr_utf8($arrGoods, 'content', 50);
 		//获取图片
@@ -33,8 +33,8 @@ class IndexController extends HomeController {
 		return view('app.index', $data);
 	}
 
-	public function singleList(){
-		$arrGoods = Goods::IndexSingleLst();
+	public function complexList(){
+		$arrGoods = Goods::IndexComplexList();
 		$arrGoodsIds = Util::column($arrGoods, 'id');
 		$arrGoods = Util::batch_substr_utf8($arrGoods, 'content', 50);
 		//获取图片
@@ -44,8 +44,27 @@ class IndexController extends HomeController {
 			$goods['img_thumb_path'] = isset($arrGoodsPhoto[$goods['id']]) && !isset($goods['img_thumb_path']) ? $arrGoodsPhoto[$goods['id']]['thumb'] : '';
 		}
 		$arrGoods = Goods::decorateList($arrGoods);
-		$arrGoods = Util::laravel_data_to_array($arrGoods);
-		return Util::json_format(Protocol::JSEND_SUCCESS, '', $arrGoods);
+		$data = array(
+			'goods'=>$arrGoods,
+		);
+		return view('app.complex', $data);
+	}
+
+	public function big4List(){
+		$arrGoods = Goods::IndexBig4List();
+		$arrGoodsIds = Util::column($arrGoods, 'id');
+		$arrGoods = Util::batch_substr_utf8($arrGoods, 'content', 50);
+		//获取图片
+		$arrGoodsPhoto = GoodsPhoto::getCoverPhotoByGoodsIds($arrGoodsIds);
+		$arrGoodsPhoto = Util::setKey($arrGoodsPhoto, 'goods_id');
+		foreach($arrGoods as $goods){
+			$goods['img_thumb_path'] = isset($arrGoodsPhoto[$goods['id']]) && !isset($goods['img_thumb_path']) ? $arrGoodsPhoto[$goods['id']]['thumb'] : '';
+		}
+		$arrGoods = Goods::decorateList($arrGoods);
+		$data = array(
+			'goods'=>$arrGoods,
+		);
+		return view('app.big4', $data);
 	}
 
 }

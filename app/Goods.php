@@ -160,22 +160,32 @@ class Goods extends Base {
 		return $arrRes;
 	}
 
+
 	/**
-	 * 主页默认列表
+	 * 获取主页单品列表
 	 */
-	public static function IndexDefaultList(){
+	public static function IndexSingleList(){
 		return Goods::where(array('status' => self::STATUS_SELL))
+			->whereNotIn('type', GoodsType::$arrComplex)
 			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type')
 			->orderBy('ctime', 'desc')
 			->paginate(10);
 	}
 
 	/**
-	 * 获取主页单品列表
+	 * 获取大杂烩主页列表
 	 */
-	public static function IndexSingleLst(){
+	public static function IndexComplexList(){
 		return Goods::where(array('status' => self::STATUS_SELL))
-			->whereNotIn('type', GoodsType::$arrComplex)
+			->whereIn('type', GoodsType::$arrComplex)
+			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type')
+			->orderBy('ctime', 'desc')
+			->paginate(10);
+	}
+
+	public static function IndexBig4List(){
+		return Goods::where(array('status' => self::STATUS_SELL))
+			->whereIn('type', GoodsType::$arrBig4)
 			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type')
 			->orderBy('ctime', 'desc')
 			->paginate(10);

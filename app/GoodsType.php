@@ -22,6 +22,14 @@ class GoodsType extends Base {
 	public static $arrComplex = array(
 		'200000',
 		'210000',
+		'200001',
+		'200002',
+	);
+
+	public static $arrBig4 = array(
+		'200000',
+		'200001',
+		'200002',
 	);
 
 	/**
