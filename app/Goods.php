@@ -160,11 +160,25 @@ class Goods extends Base {
 		return $arrRes;
 	}
 
-	public static function IndexList(){
+	/**
+	 * 主页默认列表
+	 */
+	public static function IndexDefaultList(){
 		return Goods::where(array('status' => self::STATUS_SELL))
-		->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type')
-		->orderBy('ctime', 'desc')
-		->paginate(10);
+			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type')
+			->orderBy('ctime', 'desc')
+			->paginate(10);
+	}
+
+	/**
+	 * 获取主页单品列表
+	 */
+	public static function IndexSingleLst(){
+		return Goods::where(array('status' => self::STATUS_SELL))
+			->whereNotIn('type', GoodsType::$arrComplex)
+			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type')
+			->orderBy('ctime', 'desc')
+			->paginate(10);
 	}
 
 }

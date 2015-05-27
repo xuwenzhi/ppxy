@@ -19,6 +19,11 @@ class GoodsType extends Base {
 
 	const SHOW_YES = 'yes';
 
+	public static $arrComplex = array(
+		'200000',
+		'210000',
+	);
+
 	/**
 	 * 获取商品大类
 	 */

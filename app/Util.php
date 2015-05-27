@@ -394,6 +394,14 @@ class Util {
 		return preg_replace('#^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$from.'}'. '((?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$len.'}).*#s', '$1',$str); 
 	} 
 
+	public static function laravel_data_to_array($arrLaravelData){
+		$arr = array();
+		foreach($arrLaravelData as $key => $val){
+			$arr[$key] = $val;
+		}
+		return $arr;
+	}
+
 
 
 }

@@ -30,6 +30,12 @@ Route::post('verifyphone', 'Home\IndividualController@verifyphone');
 Route::post('doverifyphone', 'Home\IndividualController@doverifyphone');
 
 
+
+
+Route::any('single', 'Home\IndexController@singleList');
+
+
+
 /**
  * 商品部分
  */
