@@ -156,6 +156,7 @@ class Goods extends Base {
 		$arrRes = Goods::where(array('uid' => $uid ))
 				-> where('id', '!=', $crt_goods_id)
 				-> where(array('status'=>self::STATUS_SELL))
+				-> orderBy('ctime', 'desc')
 				-> paginate(6);
 		return $arrRes;
 	}

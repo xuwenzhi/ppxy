@@ -12,7 +12,7 @@
 						<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 				        <div class="form-group">
 				        	<label for="goods_title" class="control-label">给你的东东加个标题 &nbsp;&nbsp;<span class="label label-danger">必填</span></label>
-				            <input class="form-control" type="text" id="goods_title" name="goods_title" ng-model="goods.goods_title" required>
+				            <input class="form-control" type="text" id="goods_title" name="goods_title" placeholder="请尽量详细描述您要卖的东东" required>
 				        </div>
 				        <div class="form-group form-inline">
 				            <label for="goods_first_type" class="control-label">你的东东类别是哪种呢&nbsp;&nbsp;<span class="label label-danger">必选</span></label><br/>
