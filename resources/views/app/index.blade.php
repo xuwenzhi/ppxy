@@ -18,7 +18,7 @@
         <div class="row masonry-container">
 
         @foreach($goods as $good)
-          <div id="goods_block" class="col-md-3 col-sm-4 item">
+          <div id="goods_block" class="col-md-3 col-xs-6 item">
             <div class="thumbnail">
             @if($good->img_thumb_path!='')
               	<img src="{{$good->img_thumb_path}}" class="img-responsive img-rounded" width="100%" alt="">
