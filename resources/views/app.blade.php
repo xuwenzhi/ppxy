@@ -7,7 +7,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta name="_token" content="{{ csrf_token() }}" />
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
-	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" />
+	<link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -37,19 +38,16 @@
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}">首页</a></li>
 				</ul>
-
-				<ul class="nav navbar-nav">
-					<li><a href="{{ url('/goods/find') }}">发现</a></li>
-				</ul>
-
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/goods/new') }}">我要发货</a></li>
+				</ul>
+				<ul class="nav navbar-nav">
+					<li><a href="{{ url('/goods/new') }}">关于我们</a></li>
 				</ul>
 				<ul class="nav navbar-nav">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">敬请期待<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;&nbsp;<del>智能比价</del></a></li>
 							<li><a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;&nbsp;<del>爱心捐赠</del></a></li>
 						</ul>
 					</li>
@@ -80,12 +78,8 @@
 	@yield('footer')
 	2015 &copy; PP校园
 	</div>
-       
-   
-	<!-- Scripts -->
-	<script src="{{ asset('/js/jquery.js')}}"></script>
-    <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
-    <script src="{{ asset('/js/angular.js')}}"></script>
+	<script src="http://cdn.bootcss.com/jquery/2.0.2/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     @yield('js')
 </body>
 </html>

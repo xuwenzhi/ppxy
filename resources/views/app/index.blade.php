@@ -27,8 +27,8 @@
 @section('footer')
 @section('js')
 
-<script src="{{asset('/js/masonry.min.js') }}"></script>
-<script type="text/javascript" src="{{asset('/js/imagesLoaded.js')}}"></script>
+<script src="http://cdn.bootcss.com/masonry/3.3.0/masonry.pkgd.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery.imagesloaded/3.1.8/imagesloaded.min.js"></script>
 <script type="text/javascript" src="{{asset('/js/goods/list.js')}}"></script>
 @endsection
 @endsection

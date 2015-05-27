@@ -1,30 +1,31 @@
 @extends('app')
-@section('html', '<html>')
-@section('title', '我的货')
+@section('title', '我的商品')
 @section('content')
-<div class="container">
-	<ol class="breadcrumb">
-		<li>首页</li>
-		<li class="active">我的货</li>
+<div class="container main-container">
+<ol class="breadcrumb">
+	  	<li>首页</li>
+	  	<li class="active">我的商品</li>
 	</ol>
-	<div class="row">
-		<div class="col-md-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">我的货s</div>
-			<div class="panel-body">
-				@foreach($baselist as $list)
-				<a class="btn form-control" href="{{ url('/goods/detail/').'/'.$list->id }}">{{$list->title}}</a>
-				@endforeach
-			</div>
-		</div>
-		</div>
-	</div>
-</div>
-<br/>
-<br/>
+  <div role="tabpanel">
+    <!-- Tab panes -->
+    <div class="tab-content">
+    <br/>
+      <div role="tabpanel" class="tab-pane active" id="panel-1">
+        <div class="row masonry-container">
+          @include('app.listcommon', ['goods' => $goods])
+        </div> <!--/.masonry-container  -->
+      </div><!--/.tab-panel -->
+    </div> <!--/.tab-content -->
+
+  </div> <!--/.tab-panel  -->
+
+</div><!-- /.container -->
 @endsection
 @section('footer')
-@endsection
 @section('js')
-<script src="{{ asset('/js/goods/newgoods.js')}}"></script>
+
+<script src="{{asset('/js/masonry.min.js') }}"></script>
+<script type="text/javascript" src="{{asset('/js/imagesLoaded.js')}}"></script>
+<script type="text/javascript" src="{{asset('/js/goods/list.js')}}"></script>
+@endsection
 @endsection

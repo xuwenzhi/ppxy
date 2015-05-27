@@ -162,13 +162,18 @@ class GoodsController extends HomeController {
 	 */
 	public function mine(){
 		$uid = $this->getLogUid();
-		$arrGoods = Goods::where(array('uid'=>$uid))
-			->orderBy('ctime', 'desc')
-			->select('title', 'id', 'uid', 'ctime')
-			->get();
+		$arrGoods = Goods::getUserOtherGoods($uid);
+		$arrGoodsIds = Util::column($arrGoods, 'id');
+		$arrGoods = Util::batch_substr_utf8($arrGoods, 'content', 50);
+		//获取图片
+		$arrGoodsPhoto = GoodsPhoto::getCoverPhotoByGoodsIds($arrGoodsIds);
+		$arrGoodsPhoto = Util::setKey($arrGoodsPhoto, 'goods_id');
+		foreach($arrGoods as $goods){
+			$goods['img_thumb_path'] = isset($arrGoodsPhoto[$goods['id']]) && !isset($goods['img_thumb_path']) ? $arrGoodsPhoto[$goods['id']]['thumb'] : '';
+		}
 		$arrGoods = Goods::decorateList($arrGoods);
 		$data = array(
-			'baselist' => $arrGoods,
+			'goods'=>$arrGoods,
 		);
 		return view('app.goods.mine', $data);
 	}

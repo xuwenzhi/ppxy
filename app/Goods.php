@@ -149,7 +149,7 @@ class Goods extends Base {
 	/**
 	 * 获取某用户的其他产品
 	 */
-	public static function getUserOtherGoods($uid, $crt_goods_id){
+	public static function getUserOtherGoods($uid, $crt_goods_id = 0){
 		if(!$uid){
 			return array();
 		}
