@@ -164,7 +164,7 @@ class Goods extends Base {
 		return Goods::where(array('status' => self::STATUS_SELL))
 		->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type')
 		->orderBy('ctime', 'desc')
-		->paginate(20);
+		->paginate(10);
 	}
 
 }

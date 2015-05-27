@@ -23,7 +23,11 @@ class GoodsType extends Base {
 	 * 获取商品大类
 	 */
 	public static function getFirstType(){
-		$first_types = GoodsType::where('code', 'like','__')->where(array('show'=>self::SHOW_YES))->select('code', 'name')->get();
+		$first_types = GoodsType::where('code', 'like','__')
+			->where(array('show'=>self::SHOW_YES))
+			->select('code', 'name')
+			->orderBy('order', 'desc')
+			->get();
 		return $first_types;
 	}
 
@@ -34,7 +38,11 @@ class GoodsType extends Base {
 		if(!$first_type_code){
 			return array();
 		}
-		$second_types = GoodsType::where('code', 'like', $first_type_code.'_%')->where(array('show'=>self::SHOW_YES))->select('code', 'name')->get();
+		$second_types = GoodsType::where('code', 'like', $first_type_code.'_%')
+			->where(array('show'=>self::SHOW_YES))
+			->select('code', 'name')
+			->orderBy('order', 'desc')
+			->get();
 		return $second_types;
 	}
 
