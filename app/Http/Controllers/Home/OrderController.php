@@ -37,10 +37,18 @@ class OrderController extends HomeController {
 		$goods_info = Goods::where(array('id' => $goods_id))
 			-> select('id','title', 'uid', 'status', 'content', 'price', 'deal_type', 'school_id', 'deal_place_ext', 'new_level','ctime') 
 			-> get();
-		$goods_info = Goods::decorateList($goods_info);
+		
 		if(!$goods_info){
 			return Redirect::to('/goods/surprise/null');
 		}
+		$uid = $this->getLogUid();
+		$create_btn_active = true;
+		$create_btn_txt = '信息确认无误，创建订单';
+		if($goods_info[0]['uid'] == $uid){
+			$create_btn_active = false;
+			$create_btn_txt = '您不能对自己的商品下单';
+		}
+		$goods_info = Goods::decorateList($goods_info);
 		$goods_info = $goods_info[0];
 		//检查货的状态
 		if(!Goods::checkGoodsCanDeal($goods_info['status'])){
@@ -50,6 +58,8 @@ class OrderController extends HomeController {
 		$goods_info['school_name'] = School::getNameById($goods_info['school_id']);
 		$data = array(
 			'goods_info' => $goods_info,
+			'create_btn_active' => $create_btn_active,
+			'create_btn_txt' => $create_btn_txt,
 		);
 		return view('app.order.precheck', $data);
 	}

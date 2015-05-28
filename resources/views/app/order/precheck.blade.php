@@ -22,7 +22,11 @@
 						<li class="list-group-item">交易金额 : ¥{{$goods_info->price}}</li>
 						<li class="list-group-item">交易地点 : <mark>{{$goods_info->school_name}}{{$goods_info->deal_place_ext}}</mark></li>
 					</ul>
-					<p class="text-right"><input type="button" id="order_create_btn" class="btn btn-danger btn-lg" value="信息确认无误,创建订单"></p>
+					@if($create_btn_active)
+					<p class="text-right"><input type="button" id="order_create_btn" class="btn btn-danger btn-lg" value="{{$create_btn_txt}}"></p>
+					@else
+					<p class="text-right"><input type="button" id="order_create_btn" class="btn btn-danger btn-lg" disabled="disabled" value="{{$create_btn_txt}}"></p>
+					@endif
 				</form>
 				</div>
 			</div>
