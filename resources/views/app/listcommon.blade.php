@@ -2,7 +2,7 @@
   <div id="goods_block" class="col-md-3 col-xs-12 item" width="100%">
     <div class="thumbnail">
     @if($good->img_thumb_path!='')
-      	<img src="{{asset('/').$good->img_thumb_path}}" class="img-responsive img-rounded" alt="">
+      	<img src="{{asset('/').$good->img_thumb_path}}" class="img-responsive img-rounded" width="75%" alt="">
     @endif
       <div class="caption">
         <h3>{{$good->title}}</h3>
