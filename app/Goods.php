@@ -61,6 +61,7 @@ class Goods extends Base {
 
 	//几成新
 	public static $arrNewLevel = array(
+		'ten'  => '全新',
 		'nine'  => '九成新',
 		'eight' => '八成新',
 		'seven' => '七成新',
