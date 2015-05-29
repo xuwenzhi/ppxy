@@ -9,10 +9,11 @@
 				<div class="panel-body">
 					@if (count($errors) > 0)
 						<div class="alert alert-danger">
-							发生了一点点错误<br><br>
 							<ul>
 								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
+									@if($error == 'These credentials do not match our records.')
+										<li>您的邮箱或者密码输入错误,请重试。</li>
+									@endif
 								@endforeach
 							</ul>
 						</div>

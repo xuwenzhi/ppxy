@@ -9,16 +9,21 @@
 				<div class="panel-body">
 					@if (session('status'))
 						<div class="alert alert-success">
-							{{ session('status') }}
+							@if(session('status') == 'We have e-mailed your password reset link!')
+								我们已经向您的邮件地址发送一条重置密码的链接噢~
+							@else
+								{{ session('status') }}
+							@endif
 						</div>
 					@endif
 
 					@if (count($errors) > 0)
 						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
 							<ul>
 								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
+									@if($error == "We can't find a user with that e-mail address.")
+										您好像不是用这个邮件地址注册的PP校园噢，换一个试试吧~
+									@endif
 								@endforeach
 							</ul>
 						</div>
