@@ -147,6 +147,16 @@ class Goods extends Base {
 		return $same_goods;
 	}
 
+	public static function getUserAllGoods($uid){
+		if(!$uid){
+			return array();
+		}
+		$arrRes = Goods::where(array('uid' => $uid ))
+				-> orderBy('ctime', 'desc')
+				-> get();
+		return $arrRes;
+	}
+
 	/**
 	 * 获取某用户的其他产品
 	 */

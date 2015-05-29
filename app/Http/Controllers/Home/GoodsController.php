@@ -141,9 +141,6 @@ class GoodsController extends HomeController {
 			'recommend_widget_title' => '同类货',
 			'recommend_widget_body'=>$arrSame,
 		);
-
-
-
 		return view('app.goods.detail', $data);
 	}
 
@@ -162,7 +159,7 @@ class GoodsController extends HomeController {
 	 */
 	public function mine(){
 		$uid = $this->getLogUid();
-		$arrGoods = Goods::getUserOtherGoods($uid);
+		$arrGoods = Goods::getUserAllGoods($uid);
 		$arrGoodsIds = Util::column($arrGoods, 'id');
 		$arrGoods = Util::batch_substr_utf8($arrGoods, 'content', 50);
 		//获取图片
