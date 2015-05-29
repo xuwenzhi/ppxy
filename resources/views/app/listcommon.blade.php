@@ -13,7 +13,6 @@
         </ul>
         <p>
           <a href="{{ url('/goods/detail/'.$good->id) }}" class="btn btn-primary" role="button">查看详情</a>
-          <a href="{{ url('/order/'.$good->id.'/precheck/') }}" class="btn btn-primary" role="button">立即下单</a>
         </p>
       </div>
     </div>

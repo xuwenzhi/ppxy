@@ -12,7 +12,7 @@
 			<div class="panel panel-success">
 				<div class="panel-heading">您即将对"{{$goods_info->title}}"进行下单</div>
 				<div class="panel-body">
-				<form action="{{ url('order/create') }}" method="post" id="orderCreateForm">
+				<form action="{{ url('/order/create') }}" method="post" id="orderCreateForm">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 				<input type="hidden" name="enId" value="{{ $goods_info->id }}" />
 					<ul class="list-group">

@@ -91,7 +91,7 @@ class OrderController extends HomeController {
 		}
 		//如果有这个用户和这个商品的订单，那跳到该用户的订单列表
 		$arrExistOrder = Orders::checkUserGoodsExist($uid, $goods_id);
-		if(!count($arrExistOrder)){
+		if(count($arrExistOrder) > 0){
 			return Redirect::to('/order/'.Util::encryptData($arrExistOrder[0]['id']).'/detail');
 		}
 		if(!$goods_info){
