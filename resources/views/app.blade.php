@@ -39,7 +39,7 @@
 					<li><a href="{{ url('/goods/new') }}">我要发货</a></li>
 				</ul>
 				<ul class="nav navbar-nav">
-					<li><a href="{{ url('/goods/new') }}">关于我们</a></li>
+					<li><a href="{{ url('/about') }}">关于我们</a></li>
 				</ul>
 				<ul class="nav navbar-nav">
 					<li class="dropdown">

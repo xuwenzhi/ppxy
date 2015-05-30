@@ -22,7 +22,7 @@ class OrdersSms{
 	 */
 	public static function createOrder($oid){
 		$order_info = Orders::where(array('id'=>$oid))
-			->select('id','uid', 'title', 'deal_type', 'school_id', 'deal_place_ext', 'goods_uid')
+			->select('id','uid', 'goods_title', 'deal_type', 'school_id', 'deal_place_ext', 'goods_uid')
 			->get();
 		if($order_info){
 			$order_info = $order_info[0];
@@ -36,18 +36,20 @@ class OrdersSms{
 	//创建成功给卖家发短信
 	public static function createSendSeller($order_info, $arrUser){
 		$url = sprintf(env('DOMAIN_NAME').self::ORDER_DETAIL_URL, Util::encryptData($order_info['id']));
-		$decorateUrl = sprintf("<a href='%s'>%s</a>", $url, '点此进入');
+		$decorateUrl = sprintf("<a href=\"%s\">%s</a>", $url, '点此进入');
 		$msg = sprintf(self::CREATE_SEND_SELLER, 
 				$arrUser[$order_info['goods_uid']]['name'],
 				$arrUser[$order_info['uid']]['name'],
-				$order_info['title'],
+				$order_info['goods_title'],
 				$arrUser[$order_info['uid']]['phone_nu'],
-				$order_info['title'],
-				$decorateUrl
+				$order_info['goods_title'],
+				'订单详情页'
 			);
 		$hp = $arrUser[$order_info['goods_uid']]['phone_nu'];
 		$objSms = new Sms;
-		if(!($objSms->setHp($hp) -> setMsg($msg) -> sendSingle())){
+		Log::info("【订单创建】【创建订单通知卖家】手机号:".$hp."短信内容:".$msg);
+		$res_send = $objSms->setHp($hp) -> setMsg($msg) -> sendSingle();
+		if($res_send){
 			Log::error("【短信发送失败】【创建订单通知卖家失败】手机号:".$hp."短信内容:".$msg);
 		}else{
 			SmsVerifyRecord::addRecord($order_info['goods_uid'], '', $msg, $hp, SmsVerifyRecord::TYPE_ORDER);
@@ -61,13 +63,15 @@ class OrdersSms{
 		$decorateUrl = sprintf("<a href='%s'>%s</a>", $url, '点此进入');
 		$msg = sprintf(self::CREATE_SEND_BUYER, 
 				$arrUser[$order_info['uid']]['name'],
-				$order_info['title'],
+				$order_info['goods_title'],
 				$arrUser[$order_info['goods_uid']]['phone_nu'],
-				$decorateUrl
+				'订单详情页'
 			);
 		$hp = $arrUser[$order_info['uid']]['phone_nu'];
 		$objSms = new Sms;
-		if(!($objSms->setHp($hp) -> setMsg($msg) -> sendSingle())){
+		Log::info("【订单创建】【创建订单通知买家】手机号:".$hp."短信内容:".$msg);
+		$res_send = $objSms->setHp($hp) -> setMsg($msg) -> sendSingle();
+		if($res_send){
 			Log::error("【短信发送失败】【创建订单通知买家失败】手机号:".$hp."短信内容:".$msg);
 		}else{
 			SmsVerifyRecord::addRecord($order_info['uid'], '', $msg, $hp, SmsVerifyRecord::TYPE_ORDER);

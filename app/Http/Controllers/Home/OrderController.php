@@ -19,6 +19,7 @@ use App\GoodsView;
 use App\Orders;
 use App\GoodsType;
 use App\User;
+use App\OrdersSms;
 
 class OrderController extends HomeController {
 
@@ -112,6 +113,7 @@ class OrderController extends HomeController {
 		if(!Goods::updateGoodsStatus($goods_id , Goods::STATUS_DEALING)){
 			Log::error("【更改货物状态失败】货物id:".$goods_id."欲改为".Goods::STATUS_DEALING."用户ID是".$uid."订单ID是".$res_insert);
 		}
+		OrdersSms::createOrder($res_insert);
 		return Redirect::to('/order/'.Util::encryptData($res_insert).'/detail');
 	}
 
