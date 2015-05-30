@@ -176,31 +176,52 @@ class Goods extends Base {
 	/**
 	 * 获取主页单品列表
 	 */
-	public static function IndexSingleList(){
+	public static function IndexSingleList($page = 1, $pagesize = 20){
+		$skip = ($page-1) * $pagesize;
 		return Goods::where(array('status' => self::STATUS_SELL))
-			->whereNotIn('type', GoodsType::$arrComplex)
+			->whereNotIn('type', array_merge(GoodsType::$arrComplex, GoodsType::$arrBig4))
 			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type')
 			->orderBy('ctime', 'desc')
-			->paginate(10);
+			->skip($skip)
+			->take($pagesize)
+			->get();
 	}
 
 	/**
 	 * 获取大杂烩主页列表
 	 */
-	public static function IndexComplexList(){
+	public static function IndexComplexList($page = 1, $pagesize = 20){
+		$skip = ($page-1) * $pagesize;
 		return Goods::where(array('status' => self::STATUS_SELL))
 			->whereIn('type', GoodsType::$arrComplex)
 			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type')
 			->orderBy('ctime', 'desc')
-			->paginate(10);
+			->skip($skip)
+			->take($pagesize)
+			->get();
 	}
 
-	public static function IndexBig4List(){
+	public static function IndexBig4List($page = 1, $pagesize = 20){
+		$skip = ($page-1) * $pagesize;
 		return Goods::where(array('status' => self::STATUS_SELL))
 			->whereIn('type', GoodsType::$arrBig4)
 			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type')
 			->orderBy('ctime', 'desc')
-			->paginate(10);
+			->skip($skip)
+			->take($pagesize)
+			->get();
+	}
+
+	public static function load_more($type, $page, $pagesize = 20){
+		if($type == GoodsType::BIG_TYPE_SINGLE){
+			return self::IndexSingleList($page, $pagesize);
+		}else if($type == GoodsType::BIG_TYPE_COMPLEX){
+			return self::IndexComplexList($page, $pagesize);
+		}else if($type == GoodsType::BIG_TYPE_BIG4){
+			return self::IndexBig4List($page, $pagesize);
+		}else{
+			return array();
+		}
 	}
 
 }

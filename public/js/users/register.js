@@ -2,23 +2,19 @@ $(document).ready(function(){
 	$("#name").on('blur', function(){
 		var name = $(this).val().trim();
 		if(name == ''){
-			$("#name").focus();
 			$("#show_register_issue").html("昵称还没填写");
 			$("#show_register_issue").show();
 			return false;
 		}else{
 			if(name.length < 2){
-				$("#name").focus();
 				$("#show_register_issue").html("昵称过短，请保证在2-16位");
 				$("#show_register_issue").show();
 				return false;
 			}else if(name.length > 16){
-				$("#name").focus();
 				$("#show_register_issue").html("昵称过长,请保证在2-16位");
 				$("#show_register_issue").show();
 				return false;
 			}else if(!checkNick(name)){
-				$("#name").focus();
 				$("#show_register_issue").html("昵称应由下划线_、数字和中英文组成,不能包含特殊符号。");
 				$("#show_register_issue").show();
 				return false;
@@ -32,12 +28,10 @@ $(document).ready(function(){
 	$("#email").on('blur', function(){
 		var email = $(this).val().trim();
 		if(email == ''){
-			$("#email").focus();
 			$("#show_register_issue").html("邮箱还没填写");
 			$("#show_register_issue").show();
 			return false;
 		}else if(!checkEmail(email)){
-			$("#email").focus();
 			$("#show_register_issue").html("请输入正确的邮箱");
 			$("#show_register_issue").show();
 			return false;

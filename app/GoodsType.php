@@ -19,18 +19,21 @@ class GoodsType extends Base {
 
 	const SHOW_YES = 'yes';
 
+	//大杂烩
 	public static $arrComplex = array(
-		'200000',
 		'210000',
-		'200001',
-		'200002',
 	);
 
+	//大四专区
 	public static $arrBig4 = array(
 		'200000',
 		'200001',
 		'200002',
 	);
+
+	const BIG_TYPE_SINGLE = 'single';
+	const BIG_TYPE_COMPLEX = 'complex';
+	const BIG_TYPE_BIG4 = 'big4';
 
 	/**
 	 * 获取商品大类

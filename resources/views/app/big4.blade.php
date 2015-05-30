@@ -24,6 +24,7 @@
 
 </div><!-- /.container -->
 @endsection
+
 @section('footer')
 @section('js')
 

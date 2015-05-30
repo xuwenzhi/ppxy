@@ -1,6 +1,7 @@
 @foreach($goods as $good)
-  <div id="goods_block" class="col-md-3 col-xs-12 item" width="100%">
-    <div class="thumbnail">
+<!--<a href="{{ url('/goods/detail/'.$good->id) }}" class="goods_block_a">-->
+  <div  class="col-md-3 col-xs-12 item" width="100%">
+    <div class="thumbnail" id="goods_block">
     @if($good->img_thumb_path!='')
       	<img src="{{asset('/').$good->img_thumb_path}}" class="img-responsive img-rounded" width="75%" alt="">
     @endif
@@ -16,5 +17,7 @@
         </p>
       </div>
     </div>
-  </div><!--/.item  -->
+  </div>
+<!-- </a> -->
 @endforeach
+
