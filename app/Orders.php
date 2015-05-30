@@ -24,7 +24,7 @@ class Orders extends Base {
 	const STATUS_FAILED  = 'failed';
 
 	public static $arrStatus = array(
-		self::STATUS_DEALING => '交易中',
+		self::STATUS_DEALING => '线下交易中',
 		self::STATUS_DEALED  => '交易完成',
 		self::STATUS_FAILED  => '交易失败',
 	);

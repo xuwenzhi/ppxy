@@ -14,7 +14,7 @@ class OrdersSms{
 
 	const ORDER_DETAIL_URL = "/order/%s/detail";
 
-	const CREATE_SEND_SELLER = "%s先生/女士，[%s]要购买您的[%s]，TA的手机号为 : %s 。您的[%s]当前为不可出售状态，若与买家交易失败，您需要手动操作为出售状态，谢谢合作。详细信息查看: %s ";
+	const CREATE_SEND_SELLER = "%s先生/女士，[%s]要购买您的[%s]，TA的手机号为 : %s 。请注意: 您的[%s]当前为不可出售状态，若与买家线下验货失败，您需要手动操作为出售状态，谢谢合作。详细信息查看: %s ";
 	const CREATE_SEND_BUYER  = "%s先生/女士，恭喜您对[%s]成功下单，卖家的手机号为 : %s ，您可以点击联系卖家。详细信息查看: %s";
 
 	/**
