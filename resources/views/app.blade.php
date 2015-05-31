@@ -3,17 +3,17 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@yield('title') - PP校园</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="renderer" content="webkit">
 	<meta name="_token" content="{{ csrf_token() }}" />
+	<title>@yield('title') - PP校园</title>
 	<link rel="shortcut icon" href="{{asset('/images/favicon.ico')}}" type="image/x-icon" />
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
-	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" />
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" media="all" />
+	<link media="screen" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
 	<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	  <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+	  <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
 	<![endif]-->
 	@yield('css')
 	<script>
@@ -71,6 +71,7 @@
 	</nav>
 
 	@yield('content')
+	<br/><br/>
 	<div id="footer" class="navbar-fixed-bottom">
 	@yield('footer')
 	2015 &copy; PP校园

@@ -27,7 +27,7 @@
                     <li class="list-group-item">{{$good->school_name}}</li>
                   </ul>
                   <p>
-                    <a href="{{ url('/goods/detail/'.$good->id) }}" class="btn btn-primary" role="button">查看详情</a>
+                    <button class="btn btn-primary" onclick="window.location.href={{asset('/').$good->img_thumb_path}}">查看详情</button>
                   </p>
                 </div>
               </div>

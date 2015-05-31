@@ -204,6 +204,11 @@ class Goods extends Base {
 			->get();
 	}
 
+	/**
+	 * 获取大四专区商品
+	 * @param integer $page     [description]
+	 * @param integer $pagesize [description]
+	 */
 	public static function IndexBig4List($page = 1, $pagesize = 20){
 		$skip = ($page-1) * $pagesize;
 		return Goods::where(array('status' => self::STATUS_SELL))
@@ -215,6 +220,13 @@ class Goods extends Base {
 			->get();
 	}
 
+	/**
+	 * 加载更多
+	 * @param  [type]  $type     [description]
+	 * @param  [type]  $page     [description]
+	 * @param  integer $pagesize [description]
+	 * @return [type]            [description]
+	 */
 	public static function load_more($type, $page, $pagesize = 20){
 		if($type == GoodsType::BIG_TYPE_SINGLE){
 			return self::IndexSingleList($page, $pagesize);

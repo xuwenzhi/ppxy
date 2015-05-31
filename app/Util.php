@@ -402,6 +402,25 @@ class Util {
 		return $arr;
 	}
 
-
+	public static function get_browser(){
+		$agent = $_SERVER["HTTP_USER_AGENT"];
+		if(strpos($agent,"MSIE 8.0"))
+			return 'IE8';
+		else if(strpos($agent,"MSIE 7.0"))
+			return 'IE7';
+		else if(strpos($agent,"MSIE 6.0"))
+			return 'IE6';
+		else if(strpos($agent,"Firefox/3"))
+			return "FF3";
+		else if(strpos($agent,"Firefox/2"))
+			return "FF2";
+		else if(strpos($agent,"Chrome"))
+			return 'chrome';
+		else if(strpos($agent,"Safari"))
+			return "safari";
+		else if(strpos($agent,"Opera"))
+			return "Opera";
+		return 'other';
+	}
 
 }
