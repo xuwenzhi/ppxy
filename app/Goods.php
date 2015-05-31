@@ -147,13 +147,16 @@ class Goods extends Base {
 		return $same_goods;
 	}
 
-	public static function getUserAllGoods($uid){
+	public static function getUserAllGoods($uid, $page = 1, $pagesize = 20){
 		if(!$uid){
 			return array();
 		}
+		$skip = ($page-1) * $pagesize;
 		$arrRes = Goods::where(array('uid' => $uid ))
-				-> orderBy('ctime', 'desc')
-				-> get();
+				->orderBy('ctime', 'desc')
+				->skip($skip)
+				->take($pagesize)
+				->get();
 		return $arrRes;
 	}
 

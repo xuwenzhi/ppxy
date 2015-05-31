@@ -60,11 +60,11 @@
 }
 
 #goods_block{
-    color   :   #999;
-    border:4px;
-    -webkit-box-shadow   :    0 4px 4px rgba(0,0,0,.5);
-    -moz-box-shadow   :    0 4px 4px rgba(0,0,0,.5);
-    box-shadow   :    0 4px 4px rgba(0,0,0,.5);
+    border:rgba(0,0,0,.6) 0px solid;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=rgba(0,0,0,.6),strength=4);/*ie*/
+    -moz-box-shadow: 0 0 20px rgba(0,0,0,.6);/*firefox*/
+    -webkit-box-shadow: 0 0 20px rgba(0,0,0,.6);/*safari或chrome*/
+    box-shadow: 0 0 20px rgba(0,0,0,.6);/*opera或ie9*/
 }
 
 a.goods_block_a {

@@ -16,7 +16,7 @@
       <div role="tabpanel" class="tab-pane active">
         <div class="row masonry-container" id="goods_block_container">
           @foreach($goods as $good)
-          <!--<a href="{{ url('/goods/detail/'.$good->id) }}" class="goods_block_a">-->
+          <a href="{{ url('/goods/detail/'.$good->id) }}" class="goods_block_a">
             <div  class="col-md-3 col-xs-12 item" width="100%">
               <div class="thumbnail" id="goods_block">
               @if($good->img_thumb_path!='')
@@ -35,7 +35,7 @@
                 </div>
               </div>
             </div>
-          <!-- </a> -->
+          </a>
           @endforeach
         </div>
       </div>

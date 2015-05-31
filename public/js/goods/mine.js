@@ -12,20 +12,19 @@ $(document).ready(function(){
 	//滚动
 	$(window).scroll(function(){
 	    // 当滚动到最底部以上100像素时， 加载新内容
-	    if ($(document).height() - $(this).scrollTop() - $(this).height()<100) {
-	       	var $type = $("#big_type").attr("data-type");
+	    if ($(document).height() - $(this).scrollTop() - $(this).height()<10) {
 	       	var $page = parseInt($("#page").attr("data-type"));
-	       	load_more_goods($type, $page);
+	       	load_more_goods($page);
 	    }
 	});
 });
-function load_more_goods($type, $page){
+function load_more_goods($page){
 	$.ajax({
-		url:APP+"/loadmore",
+		url:APP+"/goods/ajaxmine",
 		type :'post',
 		dataType:'json',
 		async : false,
-		data :{'type':$type, 'page':$page,'_token':$('meta[name="_token"]').attr('content')},
+		data :{'page':$page,'_token':$('meta[name="_token"]').attr('content')},
 		success:function(data){
 			if(data.status == 'success'){
 				var list = data.data;

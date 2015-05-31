@@ -56,6 +56,7 @@ Route::group(['prefix' => '/goods'], function()
 	Route::post('doModify', ['middleware'     => 'auth', 'uses' => 'Home\GoodsController@doModify']);
 	Route::post('deletephoto', ['middleware'  => 'auth', 'uses' => 'Home\GoodsController@doDeletePhoto']);
 	Route::get('surprise/{type}', 'Home\GoodsController@surprise');
+	Route::post('ajaxmine', 'Home\GoodsController@ajax_mine');
 });
 
 
