@@ -45,8 +45,6 @@
 </div>
 <input type="hidden" id="big_type" data-type="{{$type}}" />
 <input type="hidden" id="page" data-type="1" />
-  <a href="#" class="btn btn-primary" >加载更多...</a>
-<br/><br/>
 @endsection
 @section('footer')
 @section('js')

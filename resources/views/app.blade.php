@@ -73,6 +73,7 @@
 	@yield('content')
 	<br/><br/>
 	<div id="footer" class="navbar-fixed-bottom">
+		<span id="load" class="text-center" style="display:none;"></span>
 	@yield('footer')
 	2015 &copy; PP校园
 	</div>
