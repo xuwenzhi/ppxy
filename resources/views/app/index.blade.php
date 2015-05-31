@@ -46,16 +46,11 @@
 </div>
 <input type="hidden" id="big_type" data-type="{{$type}}" />
 <input type="hidden" id="page" data-type="1" />
-<div id="aa" align="center">         <!-- 页面导航-->  
-        <a href="{{url('/loadmore/1')}}"></a>        <!-- 此处可以是url，可以是action，要注意不是每种html都可以加，是跟当前网页有相同布局的才可以。另外一个重要的地方是page参数，这个一定要加在这里，它的作用是指出当前页面页码，没加载一次数据，page自动+1,我们可以从服务器用request拿到他然后进行后面的分页处理。-->  
-    </div>
 @endsection
 @section('footer')
 @section('js')
 <script src="{{asset('/js/masonry.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('/js/imagesLoaded.js')}}"></script>
-<!-- <script src="http://cdn.bootcss.com/masonry/3.3.0/masonry.pkgd.min.js"></script>
-<script src="http://cdn.bootcss.com/jquery.imagesloaded/3.1.8/imagesloaded.min.js"></script> -->
 <script type="text/javascript" src="{{asset('/js/goods/load_more_goods.js')}}"></script>
 @endsection
 @endsection

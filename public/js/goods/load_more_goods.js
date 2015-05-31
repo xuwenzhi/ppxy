@@ -32,7 +32,7 @@ function load_more_goods($type, $page){
 					for(var one in list) {
 						var $boxes = '<div class="col-md-3 col-xs-12 item"><div class="thumbnail" id="goods_block">';
 						if(list[one]['img_thumb_path'] != ''){
-		            		$boxes += '<img src="'+PUBLIC+''+list[one]['img_thumb_path']+'" alt="">';
+		            		$boxes += '<img src="'+PUBLIC+''+list[one]['img_thumb_path']+'" width="100%" alt="">';
 						}
 						$boxes += '<div class="caption"><h3>'+list[one]['title']+'</h3>';
 						$boxes += '<ul class="list-group">';
