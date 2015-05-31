@@ -13,7 +13,7 @@
 	  	</div>
 	  	<div class="panel-body">
 	    	<ul style="list-style-type:none;padding-top:10px;padding-bottom:10px;">
-				<li>最贴心的二手交易平台</li>
+				<li>最贴心的校园交易平台</li>
 			</ul>
 	  	</div>
 	</div>
