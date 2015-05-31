@@ -8,10 +8,13 @@ use App\Http\Controllers\Admin\AdminController;
 use App\User;
 class IndexController extends AdminController {
 	
-	public function index() {
+	public function __construct(){
 		if($this->strAdminRole != 'admin'){
 			return Redirect::to('/error');
 		}
+	}
+
+	public function index() {
 		$data = array(
         	'name' => 'Laravel',
 	    );

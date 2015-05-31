@@ -17,13 +17,11 @@ class GoodsController extends AdminController {
 			return Redirect::to('/error');
 		}
 	}
+	
 	/**
 	 * 全部商品列表
 	 */
 	public function all() {
-		if($this->strAdminRole != 'admin'){
-			return Redirect::to('/error');
-		}
 		$arrGoods = Goods::paginate($this->intPageSize);
 		$arrGoods = $this->_decorateList($arrGoods);
 		$data = array(
