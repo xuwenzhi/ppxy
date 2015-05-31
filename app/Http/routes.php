@@ -17,7 +17,10 @@ Route::get('/home', 'Home\IndexController@index');
 Route::get('/', 'Home\IndexController@index');
 Route::get('complex', 'Home\IndexController@complexList');
 Route::get('big4', 'Home\IndexController@big4List');
-Route::any('/loadmore', 'Home\IndexController@load_more');
+Route::post('/loadmore', 'Home\IndexController@load_more');
+Route::get('/about', function(){
+	return View::make('app.other.about');
+});
 
 
 

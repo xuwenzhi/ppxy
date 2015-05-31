@@ -10,7 +10,6 @@
 	<link rel="shortcut icon" href="{{asset('/images/favicon.ico')}}" type="image/x-icon" />
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" media="all" />
-	<link media="screen" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
 	<!--[if lt IE 9]>
 	  <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
 	  <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
@@ -59,7 +58,7 @@
 							<ul class="dropdown-menu" role="menu">
 								<!--<li><a href="{{ url('/people').'/'.Auth::user()->name  }}">个人中心</a></li> -->
 								<li><a href="{{ url('/goods/mine') }}"><span class="glyphicon glyphicon-gift" aria-hidden="true"></span>&nbsp;&nbsp;我的商品</a></li>
-								<li><a href="{{ url('/order/mine') }}"><span class="glyphicon glyphicon-jpy" aria-hidden="true"></span>&nbsp;&nbsp;我的订单</a></li>
+								<!--<li><a href="{{ url('/order/mine') }}"><span class="glyphicon glyphicon-jpy" aria-hidden="true"></span>&nbsp;&nbsp;我的订单</a></li>-->
 								<li><a href="{{ url('/verify/default') }}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;验证手机号</a></li>
 								<li><a href="{{ url('/auth/logout') }}"><span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;&nbsp;退出登录</a></li>
 							</ul>

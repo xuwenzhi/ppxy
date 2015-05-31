@@ -88,14 +88,15 @@ class Util {
 	    $sjcm = $newsjc - $fbsjc;
 	    $yifz = 60;
 	    $yixs = 3600;
-		$yitian = 864000;
+		$yitian = 86400;
 		$yigy = 2592000;
 		$yinian = 31104000;
 		if($sjcm > $yinian){
 			$nian = floor($sjcm/$yinian);
 			return $nian."年前";
-		} else {
-			if($sjcm > $yigy) {
+		}
+		else{
+			if($sjcm >$yigy){
 				$yue = floor($sjcm/$yigy);
 				return $yue."个月前";
 			}

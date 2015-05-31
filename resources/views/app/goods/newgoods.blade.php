@@ -82,7 +82,7 @@
 @section('footer')
 <div class="form-group">
     <button type="button" id="newgoods_btn_sub" class="btn btn-success btn-block" style="display:none;">现在就发出去</button>
-    <button type="button" id="newgoods_btn_info" class="btn btn-info btn-block" disabled="disabled">先把上面的填完吧</button>
+    <button type="button" id="newgoods_btn_info" class="btn btn-info btn-block" disabled="disabled">先把上面的必填项填完吧</button>
 </div>
 @endsection
 @section('js')
