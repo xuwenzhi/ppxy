@@ -3,6 +3,10 @@
 @section('title', '上架我的商品')
 @section('content')
 <div class="container-fluid">
+<div class="alert alert-warning alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>提示信息 : </strong> 请不要提交和上传任何不雅信息，多谢合作。
+</div>
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-primary">
@@ -51,7 +55,7 @@
 				            	placeholder="西区 or 东区 or 南区"/>&nbsp;&nbsp;<br/><span class="label label-info">其他学校，敬请期待</span>
 				        </div>
 				        <div class="form-group">
-				        <label for="goods_price" class="control-label">出个价<span id="size12 gray"></span>&nbsp;&nbsp;<span class="label label-danger">必填</span></label>
+				        <label for="goods_price" class="control-label">出个价(只输入数字即可)<span id="size12 gray"></span>&nbsp;&nbsp;<span class="label label-danger">必填</span></label>
 				            <input type="text" id="goods_price" class="form-control" name="goods_price" ng-model="goods.goods_price" placeholder="(例如:5.20)" required>
 				        </div>
 				        <div class="form-group">
