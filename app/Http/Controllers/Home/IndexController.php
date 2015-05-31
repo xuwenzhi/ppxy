@@ -78,7 +78,7 @@ class IndexController extends HomeController {
 	 * 处理ajax加载更多
 	 */
 	public function load_more(Request $request){
-		$page = $request->get('page');
+		$page = $request->get('page') + 1;
 		$type = $request->get('type');
 		$pagesize = $this->_generate_pagesize();
 		$arrGoods = Goods::load_more($type, $page, $pagesize);
@@ -99,9 +99,9 @@ class IndexController extends HomeController {
 	 */
 	private function _generate_pagesize(){
 		if(Util::isMobile()){
-			return 10;
+			return 3;
 		}
-		return 30;
+		return 5;
 	}
 
 }

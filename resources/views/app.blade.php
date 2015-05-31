@@ -7,8 +7,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta name="_token" content="{{ csrf_token() }}" />
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
-	<link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" rel="stylesheet">
-	<link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<!-- <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"> -->
+	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" />
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -75,8 +76,10 @@
 	@yield('footer')
 	2015 &copy; PP校园
 	</div>
-	<script src="http://cdn.bootcss.com/jquery/2.0.2/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="{{ asset('/js/jquery.js')}}"></script>
+    <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
+	<!--<script src="http://cdn.bootcss.com/jquery/2.0.2/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
     @yield('js')
 </body>
 </html>
