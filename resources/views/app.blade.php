@@ -6,6 +6,7 @@
 	<title>@yield('title') - PP校园</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta name="_token" content="{{ csrf_token() }}" />
+	<link rel="shortcut icon" href="{{asset('/images/favicon.ico')}}" type="image/x-icon" />
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" />
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
