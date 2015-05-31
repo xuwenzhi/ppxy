@@ -9,9 +9,12 @@ use App\User;
 class IndexController extends AdminController {
 	
 	public function index() {
+		if($this->strAdminRole != 'admin'){
+			return Redirect::to('/error');
+		}
 		$data = array(
         	'name' => 'Laravel',
-	    );  
+	    );
 	    return view('admin.index', $data);
 	}
 

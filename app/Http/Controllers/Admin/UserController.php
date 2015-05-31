@@ -9,6 +9,11 @@ use App\Util;
 
 class UserController extends AdminController {
 
+	public function __construct(){
+		if($this->strAdminRole != 'admin'){
+			return Redirect::to('/error');
+		}
+	}
 	/**
 	 * 所有用户列表
 	 */
