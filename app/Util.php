@@ -21,7 +21,9 @@ class Util {
 
 	public static function setKey($arrData, $key = 'id') {
 		foreach ($arrData as $value) {
-			$arrData[$value[$key]] = $value;
+			if(!isset($arrData[$value[$key]])){
+				$arrData[$value[$key]] = $value;
+			}
 		}
 		return $arrData;
 	}
