@@ -28,7 +28,6 @@
                     <li class="list-group-item"><span class="label label-danger">¥{{$good->price}}</span>&nbsp;&nbsp;<span class="label label-danger">{{$good->type_name}}</span></li>                  
                     <li class="list-group-item">{{$good->trans_time}}</li>
                     <li class="list-group-item">{{$good->school_name}}</li>
-                    <li class="list-group-item">{{$good->school_name}}</li>
                   </ul>
                   <p>
                   <button class="btn btn-primary" onclick="window.location.href={{asset('/').$good->img_thumb_path}}">查看详情</button>
