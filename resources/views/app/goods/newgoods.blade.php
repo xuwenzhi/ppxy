@@ -60,7 +60,7 @@
 				        </div>
 				        <div class="form-group">
 				            <label for="goods_content" class="control-label">来个简要介绍吧:</label>
-				            	<textarea class="form-control" id="goods_content" name="goods_content" rows="6"></textarea>
+				            	<textarea class="form-control" id="goods_content" name="goods_content" rows="6" placeholder="简要介绍下您的东东，为您的个人隐私，请不要暴露您的手机号噢~"></textarea>
 				        </div>
 			        </form>
 				</div>
