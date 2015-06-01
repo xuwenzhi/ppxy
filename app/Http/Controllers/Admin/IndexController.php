@@ -7,14 +7,11 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Admin\AdminController;
 use App\User;
 class IndexController extends AdminController {
-	
-	public function __construct(){
-		if($this->strAdminRole != 'admin'){
-			return Redirect::to('/error');
-		}
-	}
 
 	public function index() {
+		if(!$this->checkRole()){
+			return Redirect::to('/error');
+		}
 		$data = array(
         	'name' => 'Laravel',
 	    );

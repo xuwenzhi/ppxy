@@ -20,7 +20,7 @@ class AdminController extends Controller {
 
 	protected function checkRole(){
 		$arrUser = $this->getLogUser();
-		$this->strAdminRole = $arrUser['role'];
+		return $arrUser['role'] == 'admin';
 	}
 
 	protected function getLogUser(){
