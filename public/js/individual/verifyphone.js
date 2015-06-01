@@ -31,11 +31,14 @@ $(document).ready(function(){
 						$("#verify_button").show();
 						$("#verify_code").val('');
 					}else{
-						$("#verify_modal_body").html(data.message);
-						$("#verify_modal").modal({
+						$("#verify_error_modal_body").html(data.message);
+						$("#verify_error_modal").modal({
 						  	show: true
 						});
-						$(this).attr('disabled', false);
+						$("#get_verify_button").attr('disabled', false);
+						$("#get_verify_button_txt").html('重新获取');
+						$("#verify_code_block").hide();
+						$("#time_flee").hide();
 					}
 				}
 			});
