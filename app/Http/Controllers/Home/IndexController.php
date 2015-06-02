@@ -32,6 +32,7 @@ class IndexController extends HomeController {
 		$data = array(
 			'goods'=>$arrGoods,
 			'type' =>GoodsType::BIG_TYPE_SINGLE,
+			'active'=>'index',
 		);
 		return view('app.index', $data);
 	}
@@ -51,8 +52,9 @@ class IndexController extends HomeController {
 		$data = array(
 			'goods'=>$arrGoods,
 			'type' =>GoodsType::BIG_TYPE_COMPLEX,
+			'active'=>'complex',
 		);
-		return view('app.complex', $data);
+		return view('app.index', $data);
 	}
 
 	public function big4List(){
@@ -70,8 +72,9 @@ class IndexController extends HomeController {
 		$data = array(
 			'goods'=>$arrGoods,
 			'type' =>GoodsType::BIG_TYPE_BIG4,
+			'active'=>'big4',
 		);
-		return view('app.big4', $data);
+		return view('app.index', $data);
 	}
 
 	/**
@@ -95,13 +98,22 @@ class IndexController extends HomeController {
 	}
 
 	/**
-	 * 每页显示条数，如果PC每页30条，如果H5每页10个
+	 * 生成导航
+	 */
+	private function _generate_navbar($type = 'index'){
+		$arrNavArea = self::$areaNav;
+		$arrNavArea[$type]['active'] = true;
+		return $arrNavArea;
+	}
+
+	/**
+	 * 每页显示条数，如果PC每页15条，如果H5每页5个
 	 */
 	private function _generate_pagesize(){
 		if(Util::isMobile()){
-			return 5;
+			return 3;
 		}
-		return 15;
+		return 3;
 	}
 
 }

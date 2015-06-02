@@ -6,9 +6,19 @@
   <div role="tabpanel">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
+    @if($active == 'index')
       <li role="presentation" class="active"><a href="{{url('/')}}">单品</a></li>
       <li role="presentation"><a href="{{url('/complex')}}">大杂烩</a></li>
       <li role="presentation"><a href="{{url('/big4')}}">大四专区</a></li>
+    @elseif($active == 'complex')
+      <li role="presentation"><a href="{{url('/')}}">单品</a></li>
+      <li role="presentation" class="active"><a href="{{url('/complex')}}">大杂烩</a></li>
+      <li role="presentation"><a href="{{url('/big4')}}">大四专区</a></li>
+    @else
+      <li role="presentation"><a href="{{url('/')}}">单品</a></li>
+      <li role="presentation"><a href="{{url('/complex')}}">大杂烩</a></li>
+      <li role="presentation" class="active"><a href="{{url('/big4')}}">大四专区</a></li>
+    @endif
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
@@ -27,7 +37,7 @@
                   <ul class="list-group">
                     <li class="list-group-item"><span class="label label-danger">¥{{$good->price}}</span>&nbsp;&nbsp;<span class="label label-danger">{{$good->type_name}}</span></li>                  
                     <li class="list-group-item">{{$good->trans_time}}</li>
-                    <li class="list-group-item">{{$good->school_name}}</li>
+                    <li class="list-group-item">{{$good->school_name}}&nbsp;{{$good->deal_place_ext}}</li>
                   </ul>
                   <p>
                   <button class="btn btn-primary" onclick="window.location.href={{asset('/').$good->img_thumb_path}}">查看详情</button>
@@ -41,6 +51,9 @@
       </div>
     </div>
   </div>
+</div>
+<div id="load_res_txt" style="display:none;" class="alert alert-danger alert-dismissible text-center" role="alert">
+  服务器没有更多资源了~
 </div>
 <input type="hidden" id="big_type" data-type="{{$type}}" />
 <input type="hidden" id="page" data-type="1" />

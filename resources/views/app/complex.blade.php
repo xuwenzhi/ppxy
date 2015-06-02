@@ -45,11 +45,13 @@
 
 </div><!-- /.container -->
 @endsection
+<div id="load_res_txt" style="display:none;" class="alert alert-danger alert-dismissible text-center" role="alert">
+  服务器没有更多资源了~
+</div>
 <input type="hidden" id="big_type" data-type="{{$type}}" />
 <input type="hidden" id="page" data-type="1" />
 @section('footer')
 @section('js')
-
 <script src="{{asset('/js/masonry.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('/js/imagesLoaded.js')}}"></script>
 <script type="text/javascript" src="{{asset('/js/goods/load_more_goods.js')}}"></script>
