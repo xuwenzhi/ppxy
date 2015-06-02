@@ -22,7 +22,11 @@
                 <div class="caption">
                   <h3>{{$good->title}}</h3>
                   <ul class="list-group">
-                    <li class="list-group-item"><span class="label label-danger">¥{{$good->price}}</span>&nbsp;&nbsp;<span class="label label-danger">{{$good->type_name}}</span></li>                  
+                    <li class="list-group-item">
+                      <span class="label label-danger">¥{{$good->price}}</span>&nbsp;
+                      <span class="label label-danger">{{$good->type_name}}</span>&nbsp;
+                      <span class="label label-danger">{{$good->new_level}}</span>
+                    </li>
                     <li class="list-group-item">{{$good->trans_time}}</li>
                     <li class="list-group-item">{{$good->school_name}}</li>
                   </ul>
@@ -41,12 +45,16 @@
   </div> <!--/.tab-panel  -->
 
 </div><!-- /.container -->
-@endsection
+<br/>
+<div id="load_res_txt" style="display:none;" class="alert alert-danger alert-dismissible text-center" role="alert">
+  服务器没有更多资源了~
+</div>
 <input type="hidden" id="page" data-type="1" />
+@endsection
 @section('footer')
+@endsection
 @section('js')
 <script src="{{asset('/js/masonry.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('/js/imagesLoaded.js')}}"></script>
 <script type="text/javascript" src="{{asset('/js/goods/mine.js')}}"></script>
-@endsection
 @endsection

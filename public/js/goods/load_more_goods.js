@@ -2,7 +2,6 @@ var page = 1;
 var temp_page = 1;
 var needle = new Array();
 var time = Date.parse(new Date());
-var loadFlag = true;
 var canLoad = true;
 $(document).ready(function(){
 	var $container = $('.masonry-container');
@@ -18,12 +17,15 @@ $(document).ready(function(){
 	//滚动
 	$(window).scroll(function(){
 	    // 当滚动到最底部以上100像素时， 加载新内容
-	    if ($(document).height() - $(this).scrollTop() - $(this).height() <100 ) {
+	    var scrollTop = $(this).scrollTop();
+        var scrollHeight = $(document).height();
+        var windowHeight = $(this).height();
+	    var minus_tmp = $(document).height() - $(this).scrollTop() - $(this).height();
+	    if (minus_tmp < 100 ) {
 	       	var $type = $("#big_type").attr("data-type");
 	       	var $page = parseInt($("#page").attr("data-type"));
-	       	if(loadFlag && canLoad && Date.parse(new Date()) - time > 900){
+	       	if(canLoad && Date.parse(new Date()) - time > 500){
 	       		load_more_goods($type, $page);
-	       		loadFlat = false;
 	       		time = Date.parse(new Date());
 	       	}
 	    }
@@ -34,7 +36,7 @@ function load_more_goods($type, $page){
 		url:APP+"/loadmore",
 		type :'post',
 		dataType:'json',
-		async : true,
+		async : false,
 		data :{'type':$type, 'page':$page,'_token':$('meta[name="_token"]').attr('content')},
 		success:function(data){
 			$("#load").hide();
@@ -59,16 +61,17 @@ function load_more_goods($type, $page){
 	            	needle.push($page, $page);
 	            	$("#page").attr("data-type", $page+1);
 	            	var t = $(window).scrollTop();
+					$('body').animate({'scrollTop':t+200},700);
 				}else{
 					canLoad = false;
 					$("#load_res_txt").show();
+					var t = $(window).scrollTop();
+					$('body').animate({'scrollTop':t+200},700);
 				}
-				$('body,html').animate({'scrollTop':t+200},200);
 			} else if(data.status == 'error'){
 				alert('数据加载失败,请重试！');
 				return false;
 			}
-			loadFlag = true;
 		},beforeSend:function(){
 			var loading_html = "<img src='"+PUBLIC+"/images/loading_default.gif' width='30px' height='30px' />";
 			$("#load").html(loading_html);

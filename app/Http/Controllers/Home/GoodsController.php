@@ -159,9 +159,8 @@ class GoodsController extends HomeController {
 	 */
 	public function mine(){
 		$uid = $this->getLogUid();
-		$arrGoods = Goods::getUserAllGoods($uid, 1, 10);
+		$arrGoods = Goods::getUserAllGoods($uid, 1, 6);
 		$arrGoodsIds = Util::column($arrGoods, 'id');
-		$arrGoods = Util::batch_substr_utf8($arrGoods, 'content', 50);
 		//获取图片
 		$arrGoodsPhoto = GoodsPhoto::getCoverPhotoByGoodsIds($arrGoodsIds);
 		$arrGoodsPhoto = Util::setKey($arrGoodsPhoto, 'goods_id');
@@ -177,7 +176,7 @@ class GoodsController extends HomeController {
 
 	public function ajax_mine(Request $request){
 		$page = $request->get('page') + 1;
-		$pagesize = 10;
+		$pagesize = 6;
 		$uid = $this->getLogUid();
 		$arrGoods = Goods::getUserAllGoods($uid, $page, $pagesize);
 		$arrGoodsIds = Util::column($arrGoods, 'id');
