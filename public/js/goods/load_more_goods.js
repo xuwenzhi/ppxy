@@ -22,7 +22,6 @@ $(document).ready(function(){
 	       	var $type = $("#big_type").attr("data-type");
 	       	var $page = parseInt($("#page").attr("data-type"));
 	       	if(loadFlag && canLoad && Date.parse(new Date()) - time > 900){
-	       		console.log(time);
 	       		load_more_goods($type, $page);
 	       		loadFlat = false;
 	       		time = Date.parse(new Date());
