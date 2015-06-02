@@ -23,14 +23,14 @@
 				            <select class="form-control" id="goods_first_type" name="goods_first_type" ng-model="goods.goods_first_type">
 							  	<?php
 							  		foreach ($types as $key => $value) {
-							  			echo "<option value=".$value['code'].">".$value['name']."</option>";
+							  			echo "<option value='".$value['code']."'>".$value['name']."</option>";
 							  		}
 							  	?>
 							</select>
 							<select class="form-control" id="goods_type" name="goods_type" ng-model="goods.goods_type" required>
 							  	<?php
 							  		foreach ($second_types as $key => $value) {
-							  			echo "<option value=".$value['code'].">".$value['name']."</option>";
+							  			echo "<option value='".$value['code']."'>".$value['name']."</option>";
 							  		}
 							  	?>
 							</select>
@@ -40,7 +40,7 @@
 				            <select class="form-control" id="goods_newlevel" name="goods_newlevel" ng-model="goods.goods_newlevel" required>
 							  	<?php
 							  		foreach ($new_level as $key => $value) {
-							  			echo "<option value=".$key.">".$value."</option>";
+							  			echo "<option value='".$key."'>".$value."</option>";
 							  		}
 							  	?>
 							</select>

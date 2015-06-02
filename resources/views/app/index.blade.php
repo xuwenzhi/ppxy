@@ -35,7 +35,11 @@
                 <div class="caption">
                   <h3>{{$good->title}}</h3>
                   <ul class="list-group">
-                    <li class="list-group-item"><span class="label label-danger">¥{{$good->price}}</span>&nbsp;&nbsp;<span class="label label-danger">{{$good->type_name}}</span></li>                  
+                    <li class="list-group-item">
+                      <span class="label label-danger">¥{{$good->price}}</span>&nbsp;
+                      <span class="label label-danger">{{$good->type_name}}</span>&nbsp;
+                      <span class="label label-danger">{{$good->new_level}}</span>
+                    </li>                  
                     <li class="list-group-item">{{$good->trans_time}}</li>
                     <li class="list-group-item">{{$good->school_name}}&nbsp;{{$good->deal_place_ext}}</li>
                   </ul>

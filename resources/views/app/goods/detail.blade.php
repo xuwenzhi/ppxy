@@ -38,6 +38,7 @@
 						<span class="label label-danger">{{$goods->status_txt}}</span>
 						@endif
 						<span class="label label-success">{{$goods->type}}</span>
+						<span class="label label-success">{{$goods->new_level}}</span>
 					</li>
 					<li class="list-group-item">¥{{$goods->price}}</li>
 					<li class="list-group-item"><mark>{{$goods->school_name}}{{$goods->deal_place_ext}}</mark>交易噢~</li>

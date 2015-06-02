@@ -84,6 +84,7 @@ class Goods extends Base {
 		$arrStatus      = self::$arrStatus;
 		$arrDealType    = self::$arrDealType;
 		$arrDestination = self::$arrDestination;
+		$arrNewLevel    = self::$arrNewLevel;
 		$arrUid  = Util::column($arrGoods, 'uid');
 		$arrUser = User::whereIn('id', $arrUid)->select('id', 'name')->get();
 		$arrUser = Util::setKey($arrUser, 'id');
@@ -91,7 +92,7 @@ class Goods extends Base {
 		$arrSchool = School::whereIn('id', $arrSchoolId)->select('id', 'name')->get();
 		$arrSchool = Util::setKey($arrSchool, 'id');
 		$arrGoodsTypeCode = Util::column($arrGoods, 'type');
-		$arrGoodsTypes = GoodsType::whereIn('code', $arrGoodsTypeCode) -> get();		
+		$arrGoodsTypes = GoodsType::whereIn('code', $arrGoodsTypeCode) -> get();
 		$arrGoodsTypes = Util::setKey($arrGoodsTypes,'code');
 		foreach($arrGoods as $goods){
 			$goods['id']              = Util::encryptData($goods['id']);
@@ -104,6 +105,7 @@ class Goods extends Base {
 			$goods['trans_time']      = Util::timeTrans($goods['ctime']);
 			$goods['school_name']     = isset($arrSchool[$goods['school_id']]) ? $arrSchool[$goods['school_id']]['name'] : '';
 			$goods['type_name']     = isset($arrGoodsTypes[$goods['type']]) ? $arrGoodsTypes[$goods['type']]['name'] : '';
+			$goods['new_level']     = isset($arrNewLevel[$goods['new_level']]) ? $arrNewLevel[$goods['new_level']] : '';
 		}
 		return $arrGoods;
 	}
@@ -183,7 +185,7 @@ class Goods extends Base {
 		$skip = ($page-1) * $pagesize;
 		return Goods::where(array('status' => self::STATUS_SELL))
 			->whereNotIn('type', array_merge(GoodsType::$arrComplex, GoodsType::$arrBig4))
-			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type')
+			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
 			->orderBy('ctime', 'desc')
 			->skip($skip)
 			->take($pagesize)
@@ -197,7 +199,7 @@ class Goods extends Base {
 		$skip = ($page-1) * $pagesize;
 		return Goods::where(array('status' => self::STATUS_SELL))
 			->whereIn('type', GoodsType::$arrComplex)
-			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type')
+			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
 			->orderBy('ctime', 'desc')
 			->skip($skip)
 			->take($pagesize)
@@ -213,7 +215,7 @@ class Goods extends Base {
 		$skip = ($page-1) * $pagesize;
 		return Goods::where(array('status' => self::STATUS_SELL))
 			->whereIn('type', GoodsType::$arrBig4)
-			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type')
+			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
 			->orderBy('ctime', 'desc')
 			->skip($skip)
 			->take($pagesize)
