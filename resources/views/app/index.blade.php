@@ -35,13 +35,13 @@
                 <div class="caption">
                   <h3>{{$good->title}}</h3>
                   <ul class="list-group">
-                    <li class="list-group-item">
+                    <li class="list-group-item"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>&nbsp;
                       <span class="label label-danger">¥{{$good->price}}</span>&nbsp;
                       <span class="label label-danger">{{$good->type_name}}</span>&nbsp;
                       <span class="label label-danger">{{$good->new_level}}</span>
-                    </li>                  
-                    <li class="list-group-item">{{$good->trans_time}}</li>
-                    <li class="list-group-item">{{$good->school_name}}&nbsp;{{$good->deal_place_ext}}</li>
+                    </li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;{{$good->trans_time}}</li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;{{$good->school_name}}&nbsp;{{$good->deal_place_ext}}</li>
                   </ul>
                   <p>
                   <button class="btn btn-primary" onclick="window.location.href={{asset('/').$good->img_thumb_path}}">查看详情</button>

@@ -51,9 +51,9 @@ function load_more_goods($type, $page){
 						}
 						$boxes += '<div class="caption"><h3>'+list[one]['title']+'</h3>';
 						$boxes += '<ul class="list-group">';
-	                    $boxes += '<li class="list-group-item"><span class="label label-danger">¥'+list[one]['price']+'</span>&nbsp;<span class="label label-danger">'+list[one]['type_name']+'</span>&nbsp;<span class="label label-danger">'+list[one]['new_level']+'</span></li>';
-	                    $boxes += '<li class="list-group-item">'+list[one]['trans_time']+'</li>';
-	                    $boxes += '<li class="list-group-item">'+list[one]['school_name']+'&nbsp;'+list[one]['deal_place_ext']+'</li></ul>';
+	                    $boxes += '<li class="list-group-item"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>&nbsp;<span class="label label-danger">¥'+list[one]['price']+'</span>&nbsp;<span class="label label-danger">'+list[one]['type_name']+'</span>&nbsp;<span class="label label-danger">'+list[one]['new_level']+'</span></li>';
+	                    $boxes += '<li class="list-group-item"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;'+list[one]['trans_time']+'</li>';
+	                    $boxes += '<li class="list-group-item"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;'+list[one]['school_name']+'&nbsp;'+list[one]['deal_place_ext']+'</li></ul>';
 	                    $boxes += '<p><button class="btn btn-primary" onclick="window.location.href='+APP+'/goods/detail/'+list[one]['id']+'">查看详情</button> </p></div></div></div></a>';
 					}
 					var el = jQuery($boxes);
