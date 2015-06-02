@@ -21,7 +21,7 @@ $(document).ready(function(){
 	    if ($(document).height() - $(this).scrollTop() - $(this).height() <100 ) {
 	       	var $type = $("#big_type").attr("data-type");
 	       	var $page = parseInt($("#page").attr("data-type"));
-	       	if(loadFlag && canLoad && Date.parse(new Date()) - time > 600){
+	       	if(loadFlag && canLoad && Date.parse(new Date()) - time > 900){
 	       		console.log(time);
 	       		load_more_goods($type, $page);
 	       		loadFlat = false;
@@ -59,10 +59,12 @@ function load_more_goods($type, $page){
 	            	jQuery(".masonry-container").append(el).masonry( 'appended', el, true );
 	            	needle.push($page, $page);
 	            	$("#page").attr("data-type", $page+1);
+	            	var t = $(window).scrollTop();
 				}else{
 					canLoad = false;
 					$("#load_res_txt").show();
 				}
+				$('body,html').animate({'scrollTop':t+200},200);
 			} else if(data.status == 'error'){
 				alert('数据加载失败,请重试！');
 				return false;
