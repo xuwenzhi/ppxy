@@ -1,5 +1,5 @@
 @extends('app')
-@section('title', '主页')
+@section('title', '')
 @section('content')
 <div class="container main-container">
 

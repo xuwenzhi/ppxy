@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta name="renderer" content="webkit">
 	<meta name="_token" content="{{ csrf_token() }}" />
-	<title>@yield('title') - PP校园 - 最贴心的校园交易平台</title>
+	<title>@yield('title')   PP校园 - 最贴心的校园交易平台</title>
 	<link rel="shortcut icon" href="{{asset('/images/favicon.ico')}}" type="image/x-icon" />
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet" />
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" media="all" />
