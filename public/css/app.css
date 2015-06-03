@@ -1,0 +1,80 @@
+/* footer */
+#footer {
+    background: #f0f0f0;
+    bottom: 0;
+    color:#757575 ;
+    font-size: 12px;
+    padding: 10px;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    z-index: 102;
+}
+
+#footer .goto {
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: -8px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    font-size: 16px;
+    background-color: #111;
+    opacity: 0.8;
+    padding: 8px 12px;
+    opacity:0.4;
+    filter: alpha(opacity = 40);
+}
+
+#footer .goto:hover {
+    background: #4a8bc2;
+    opacity: 1;
+    transition-duration: 500ms;
+    transition-property: width, background;
+    transition-timing-function: ease;
+    -webkit-transition-duration: 500ms;
+    -webkit-transition-property: width, background;
+    -webkit-transition-timing-function: ease;
+}
+
+#footer .goto  {
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+    opacity: 1;
+}
+
+
+#input_border{
+    border:1px solid red;
+}
+
+.displaynone{
+    display:none;
+}
+
+
+.img_small{
+    width:50px;
+    height:50px;
+}
+
+#goods_block{
+    border:rgba(0,0,0,.6) 0px solid;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=rgba(0,0,0,.6),strength=4);/*ie*/
+    -moz-box-shadow: 0 0 20px rgba(0,0,0,.6);/*firefox*/
+    -webkit-box-shadow: 0 0 20px rgba(0,0,0,.6);/*safari或chrome*/
+    box-shadow: 0 0 20px rgba(0,0,0,.6);/*opera或ie9*/
+}
+
+a.goods_block_a {
+    color:gray;
+    text-decoration   :   none;
+}
+a.goods_block_a:link {
+    color:gray;
+    text-decoration   :   none;
+}
+a.goods_block_a:hover {
+    text-decoration   :   none;
+}
