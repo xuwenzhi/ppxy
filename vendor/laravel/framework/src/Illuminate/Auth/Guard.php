@@ -31,7 +31,7 @@ class Guard implements GuardContract {
 	 *
 	 * @var bool
 	 */
-	protected $viaRemember = false;
+	protected $viaRemember = true;
 
 	/**
 	 * The user provider implementation.
