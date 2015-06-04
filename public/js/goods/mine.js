@@ -72,8 +72,6 @@ function load_more_goods($page){
 				return false;
 			}
 		},beforeSend:function(){
-			var loading_html = "<img src='"+PUBLIC+"/images/loading_default.gif' width='30px' height='30px' />";
-			$("#load").html(loading_html);
 			$("#load").show();
 		}
 	});
