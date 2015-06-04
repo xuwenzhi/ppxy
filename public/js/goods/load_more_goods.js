@@ -21,7 +21,6 @@ $(document).ready(function(){
         var scrollHeight = $(document).height();
         var windowHeight = $(this).height();
 	    var minus_tmp = $(document).height() - $(this).scrollTop() - $(this).height();
-	    console.log(minus_tmp);
 	    if (minus_tmp < 200 ) {
 	       	var $type = $("#big_type").attr("data-type");
 	       	var $page = parseInt($("#page").attr("data-type"));
