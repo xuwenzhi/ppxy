@@ -388,6 +388,6 @@ class GoodsController extends HomeController {
 		if (!$res) {
 			return Util::json_format(Protocol::JSEND_ERROR,'修改商品状态失败');
 		}
-		return Util::json_format(Protocol::JSEND_SUCCESS,'修改商品状态成功，刷新浏览器生效。');
+		return Util::json_format(Protocol::JSEND_SUCCESS,'修改商品状态成功，将在刷新浏览器后生效。');
 	}
 }

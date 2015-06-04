@@ -127,7 +127,7 @@ function changeStatus(){
 		success:function(data){
 			if(data.status == 'success'){
 				$("#modify_goods_status_body").html(data.message);
-				setTimeout(hideModal, 1000);
+				setTimeout(hideModal, 2000);
 			}else if (data.status == 'error'){
 				$("#modify_goods_status_body").html(data.message);
 				window.location.href = App+"/goods/mine";
@@ -135,9 +135,11 @@ function changeStatus(){
 				$("#modify_goods_status_body").html(data.message);
 				window.location.href = App+"/goods/mine";
 			}else{
-				alert('修改失败,建议您刷新浏览器重试');
+				$("#modify_goods_status_body").html('修改失败,建议您刷新浏览器重试');
 				return false;
 			}
+		},beforeSend:function(){
+			$("#modify_goods_status_body").html('玩命修改中...');
 		}
 	});
 }
