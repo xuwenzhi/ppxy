@@ -72,7 +72,7 @@
 	@yield('content')
 	<br/>
 	<div id="footer" class="navbar-fixed-bottom">
-		<img src="asset('/images/loading_default.gif')" style="display:none;"/>
+		<img src="{{asset('/images/loading_default.gif')}}" style="display:none;"/>
 		<span id="load" class="text-center" style="display:none;"></span>
 	@yield('footer')
 	2015 &copy; PP校园
