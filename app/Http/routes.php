@@ -60,6 +60,7 @@ Route::group(['prefix' => '/goods'], function()
 	Route::post('deletephoto', ['middleware'  => 'auth', 'uses' => 'Home\GoodsController@doDeletePhoto']);
 	Route::get('surprise/{type}', 'Home\GoodsController@surprise');
 	Route::post('ajaxmine', 'Home\GoodsController@ajax_mine');
+	Route::post('ajaxstatus','Home\GoodsController@ajax_status');
 });
 
 

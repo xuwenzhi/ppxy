@@ -26,16 +26,16 @@ class Goods extends Base {
 	const STATUS_RENT    = "rent";
 	const STATUS_HIDE    = "hide";
 	const STATUS_CLOSE   = "close";
-	const STATUS_DEAL    = "已卖出";
+	const STATUS_DEAL    = "dealed";
 	const STATUS_DEALING = "dealing";
 
 	public static $arrStatus = array(
 		self::STATUS_NEWBIE  => '待审核',
 		self::STATUS_SELL    => '正在出售',
 		self::STATUS_RENT    => '正在出租',
-		self::STATUS_HIDE    => '不出售',
+		self::STATUS_HIDE    => '暂不出售',
 		self::STATUS_CLOSE   => '已退出平台',
-		self::STATUS_DEAL    => '已成交',
+		self::STATUS_DEAL    => '已卖出',
 		self::STATUS_DEALING => '正在交易',
 	);
 

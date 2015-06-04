@@ -111,9 +111,9 @@ class IndexController extends HomeController {
 	 */
 	private function _generate_pagesize(){
 		if(Util::isMobile()){
-			return 5;
+			return 10;
 		}
-		return 10;
+		return 20;
 	}
 
 }

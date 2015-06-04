@@ -10,12 +10,13 @@
 @if ($belong_crt_user == true)
 @if ($photo_count == 0)
     <div class="alert alert-warning" role="alert">
-    	
     	@if($isMobile == 1)
-    	暂时不支持手机加图，如需加图，请使用个人电脑添加。如需修改，<a href="{{ url('/goods/modify').'/'.$goods->id }}">戳这里</a>
+    	暂时不支持手机加图，如需加图，请使用个人电脑添加。如需修改，<a href="{{ url('/goods/modify').'/'.$goods->id }}">戳这里。</a>
     	@else
-    		您还没有为它上图噢,如需加图,<a class="alert-link" href="{{ url('/goods/modify').'/'.$goods->id }}">戳这里</a>
+    		您还没有为它上图噢,如需加图,<a class="alert-link" href="{{ url('/goods/modify').'/'.$goods->id }}">戳这里。</a>
     	@endif
+    	<br/>
+    	<a class="alert-link" href="{{url('/goods/mine')}}">去看看我的商品</a>
     </div>
 @elseif($photo_count != 0)
 	<div class="alert alert-warning" role="alert">

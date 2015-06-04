@@ -367,4 +367,27 @@ class GoodsController extends HomeController {
 		);
 		return view('app.goods.surprise', $data);
 	}
+
+	/**
+	 * 商品暂不处理 商品状态修改
+	 * @author jv
+	 */
+	public function ajax_status(Request $request){
+		$goods_id = intval(Util::encryptData($request->get('enId'), true));
+		$status   = $request->get('to_be_status');
+		if(!isset(Goods::$arrStatus[$status])){
+			return Util::json_format(Protocol::JSEND_ERROR,'提交错误,建议您刷新浏览器重试');
+		}
+		$arrGoods = Goods::find($goods_id);
+		if($arrGoods['uid'] != $this->getLogUid()){
+			return Util::json_format(Protocol::JSEND_ILLEGAL,'非法操作!');	
+		}
+		$objGoods = Goods::find($goods_id);
+		$objGoods->status = $status;
+		$res = $objGoods->save();
+		if (!$res) {
+			return Util::json_format(Protocol::JSEND_ERROR,'修改商品状态失败');
+		}
+		return Util::json_format(Protocol::JSEND_SUCCESS,'修改商品状态成功，刷新浏览器生效。');
+	}
 }

@@ -29,6 +29,7 @@ $(document).ready(function(){
 	       	}
 	    }
 	});
+
 });
 function load_more_goods($page){
 	$("div[id='load']").show(10);
@@ -44,16 +45,31 @@ function load_more_goods($page){
 				if(list.length != 0 && !in_array($page,needle)) {
 					var $boxes = '';
 					for(var one in list) {
-						$boxes += '<a href="'+APP+'/goods/detail/'+list[one]['id']+'" class="goods_block_a"><div class="col-md-3 col-xs-12 item"><div class="thumbnail" id="goods_block">';
+						$boxes += '<div class="col-md-3 col-xs-12 item"><div class="thumbnail" id="goods_block">';
 						if(list[one]['img_thumb_path'] != ''){
 		            		$boxes += '<img src="'+PUBLIC+''+list[one]['img_thumb_path']+'" class="img-responsive img-rounded" width="100%" alt="">';
 						}
 						$boxes += '<div class="caption"><h3>'+list[one]['title']+'</h3>';
 						$boxes += '<ul class="list-group">';
+						$boxes += '<li class="list-group-item"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span>&nbsp;';
+						if(list[one]['status'] == 'sell'){
+							$boxes += '<span class="label label-success">'+list[one]['status_txt']+'</span>';
+						}else{
+							$boxes += '<span class="label label-warning">'+list[one]['status_txt']+'</span>';
+						}
+						$boxes += '</li>';
 	                    $boxes += '<li class="list-group-item"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>&nbsp;<span class="label label-danger">¥'+list[one]['price']+'</span>&nbsp;<span class="label label-danger">'+list[one]['type_name']+'</span>&nbsp;<span class="label label-danger">'+list[one]['new_level']+'</span></li>';
 	                    $boxes += '<li class="list-group-item"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;'+list[one]['trans_time']+'</li>';
 	                    $boxes += '<li class="list-group-item"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;'+list[one]['school_name']+'&nbsp;'+list[one]['deal_place_ext']+'</li></ul>';
-	                    $boxes += '<p><button class="btn btn-primary" onclick="window.location.href='+APP+'/goods/detail/'+list[one]['id']+'">查看详情</button> </p></div></div></div></a>';
+	                    $boxes += '<p><button class="btn btn-primary" onclick="window.location.href='+APP+'/goods/modify/'+list[one]['id']+'">修改信息</button> ';
+	                    if(list[one]['status'] == 'sell'){
+	                    	$boxes += '<button class="btn btn-default"  onclick="startChangeStatus(this)" date-enId="'+list[one]['id']+'" data-value="hide">改为不出售</button>';
+	                    }else if(list[one]['status'] == 'dealing'){
+	                    	$boxes += '<button class="btn btn-warning"  onclick="startChangeStatus(this)" date-enId="'+list[one]['id']+'" data-value="sell">改为可出售</button>';
+	                    }else if(list[one]['status'] == 'hide'){
+	                    		$boxes += '<button class="btn btn-warning"  onclick="startChangeStatus(this)" date-enId="'+list[one]['id']+'" data-value="sell">改为可出售</button>';
+	                    }
+	                    $boxes += '</p></div></div></div>';
 					}
 					var el = jQuery($boxes);
 	            	jQuery(".masonry-container").append(el).masonry( 'appended', el, true );
@@ -65,7 +81,7 @@ function load_more_goods($page){
 					canLoad = false;
 					$("#load_res_txt").show();
 					var t = $(window).scrollTop();
-					$('body,html').animate({'scrollTop':t+70},700);
+					$('body,html').animate({'scrollTop':t+200},700);
 				}
 				$("div[id='load']").hide();
 			} else if(data.status == 'error'){
@@ -82,4 +98,49 @@ function in_array(search,array){
         }
     }
     return false;
+}
+function startChangeStatus(obj){
+	clearInterval(hideModal);
+	$("#modify_goods_btn").attr('date-enId', obj.getAttribute("date-enId"));
+	$("#modify_goods_btn").attr('data-value', obj.getAttribute("data-value"));
+	$("#modify_goods_status_body").html("确认更改吗？");
+	$("#modify_goods_status").modal({
+		show: true
+	});
+}
+function changeStatus(){
+	var enId = $("#modify_goods_btn").attr("date-enId");
+	var to_be_status = $("#modify_goods_btn").attr("data-value");
+	if(enId == '' || to_be_status == ''){
+		alert('修改失败，建议您刷新浏览器重试。');
+		return false;
+	}
+	$.ajax({
+		url:APP+"/goods/ajaxstatus",
+		type:'post',
+		dataType:'json',
+		data:{'enId':enId, 'to_be_status':to_be_status,'_token':$('meta[name="_token"]').attr('content')},
+		error:function(){
+			alert('修改失败，建议您刷新浏览器重试。');
+			return false;
+		},
+		success:function(data){
+			if(data.status == 'success'){
+				$("#modify_goods_status_body").html(data.message);
+				setTimeout(hideModal, 1000);
+			}else if (data.status == 'error'){
+				$("#modify_goods_status_body").html(data.message);
+				window.location.href = App+"/goods/mine";
+			}else if(data.status == 'illegal'){
+				$("#modify_goods_status_body").html(data.message);
+				window.location.href = App+"/goods/mine";
+			}else{
+				alert('修改失败,建议您刷新浏览器重试');
+				return false;
+			}
+		}
+	});
+}
+function hideModal(){
+	$('#modify_goods_status').modal('hide');
 }

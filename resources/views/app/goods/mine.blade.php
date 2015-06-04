@@ -13,7 +13,6 @@
       <div role="tabpanel" class="tab-pane active" id="panel-1">
         <div class="row masonry-container">
           @foreach($goods as $good)
-          <a href="{{ url('/goods/detail/'.$good->id) }}" class="goods_block_a">
             <div  class="col-md-3 col-xs-12 item" width="100%">
               <div class="thumbnail" id="goods_block">
               @if($good->img_thumb_path!='')
@@ -22,6 +21,13 @@
                 <div class="caption">
                   <h3>{{$good->title}}</h3>
                   <ul class="list-group">
+                    <li class="list-group-item"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span>&nbsp;
+                    @if($good->status == 'sell')
+                      <span class="label label-success">{{$good->status_txt}}</span>
+                    @else
+                      <span class="label label-warning">{{$good->status_txt}}</span>
+                    @endif
+                    </li>
                     <li class="list-group-item"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span>&nbsp;
                       <span class="label label-danger">¥{{$good->price}}</span>&nbsp;
                       <span class="label label-danger">{{$good->type_name}}</span>&nbsp;
@@ -31,12 +37,18 @@
                     <li class="list-group-item"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;{{$good->school_name}}&nbsp;{{$good->deal_place_ext}}</li>
                   </ul>
                   <p>
-                    <button class="btn btn-primary" onclick="window.location.href={{asset('/').$good->img_thumb_path}}">查看详情</button>
+                    <button class="btn btn-primary" onclick="window.location.href='{{url('/goods/modify/'.$good->id)}}'">修改信息</button>
+                    @if($good->status =='dealing')
+                    <button class="btn btn-warning" onclick="startChangeStatus(this)" date-enId="{{$good->id}}" data-value="sell">改为可出售</button>
+                    @elseif($good->status == "sell")
+                    <button class="btn btn-default"  onclick="startChangeStatus(this)" date-enId="{{$good->id}}" data-value="hide">改为不出售</button>
+                    @elseif($good->status == "hide")
+                    <button class="btn btn-warning" onclick="startChangeStatus(this)" date-enId="{{$good->id}}" data-value="sell">改为可出售</button>                    
+                    @endif
                   </p>
                 </div>
               </div>
             </div>
-          </a>
           @endforeach
         </div> <!--/.masonry-container  -->
       </div><!--/.tab-panel -->
@@ -45,6 +57,21 @@
   </div> <!--/.tab-panel  -->
 
 </div><!-- /.container -->
+<!-- Modal -->
+<div class="modal fade" id="modify_goods_status" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" id="modify_goods_status_body">
+          <input type="hidden" id="to_be_goods_enid" value="" />
+          <input type="hidden" id="to_be_status" value="" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="modify_goods_btn" onclick="changeStatus()" date-enId="" data-value="">确定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
 <br/>
 <div id="load_res_txt" style="display:none;" class="alert alert-danger alert-dismissible text-center" role="alert">
   服务器没有更多资源了~
