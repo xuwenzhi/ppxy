@@ -68,7 +68,7 @@
 			</div>
 		</div>
 	</nav>
-
+	<br/><br/><br/>
 	@yield('content')
 	<br/>
 	<div id="footer" class="navbar-fixed-bottom">
