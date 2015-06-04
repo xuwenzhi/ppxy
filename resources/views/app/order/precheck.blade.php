@@ -23,7 +23,7 @@
 						<li class="list-group-item">交易地点 : <mark>{{$goods_info->school_name}}{{$goods_info->deal_place_ext}}</mark></li>
 					</ul>
 					@if($create_btn_active)
-					<p class="text-right"><input type="button" id="order_create_btn" class="btn btn-danger btn-lg" value="{{$create_btn_txt}}"></p>
+					<p class="text-right"><input type="submit" id="order_create_btn" class="btn btn-danger btn-lg" value="{{$create_btn_txt}}"></p>
 					@else
 					<p class="text-right"><input type="button" id="order_create_btn" class="btn btn-danger btn-lg" disabled="disabled" value="{{$create_btn_txt}}"></p>
 					@endif

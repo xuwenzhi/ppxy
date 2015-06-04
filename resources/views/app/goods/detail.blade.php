@@ -106,7 +106,7 @@
 @section('footer')
 @if ($belong_crt_user == false)
 @if($goods->status == 'sell')
-<a href="{{ asset('order/'.$goods->id.'/precheck') }}" class="btn btn-success btn-lg btn-block" id="newOrderGo">{{$footer_show_txt}}</a>
+<a href="{{ asset('order/'.$goods->id.'/precheck') }}" class="btn btn-success btn-lg btn-block">{{$footer_show_txt}}</a>
 @else
 <a href="#" class="btn btn-success btn-lg btn-block" disabled="disabled">已经在交易中,不可下单。</a>
 @endif
