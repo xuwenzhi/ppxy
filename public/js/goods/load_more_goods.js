@@ -39,7 +39,7 @@ function load_more_goods($type, $page){
 		async : false,
 		data :{'type':$type, 'page':$page,'_token':$('meta[name="_token"]').attr('content')},
 		success:function(data){
-			$("#load").hide();
+			$("#load").css('display', 'none');
 			if(data.status == 'success'){
 				var list = data.data;
 				if(list.length != 0 && !in_array($page,needle)) {
@@ -73,7 +73,7 @@ function load_more_goods($type, $page){
 				return false;
 			}
 		},beforeSend:function(){
-			$("#load").show();
+			$("#load").show('fast');
 		}
 	});
 }
