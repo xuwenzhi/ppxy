@@ -36,12 +36,12 @@
 	  	</div>
 	  	<div class="panel-body">
 	    	<ul style="list-style-type:none;padding-top:10px;padding-bottom:10px;">
-			<li>QQ群:<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=370b2513b37fcbf2591bab0e2ad91538a556937057e21fbc2b93eff189530740"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="PP校园意见交流群" title="PP校园意见交流群"></a></li>
+			<li>QQ群:<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=370b2513b37fcbf2591bab0e2ad91538a556937057e21fbc2b93eff189530740">点击入群</a></li>
 			<li>微信：358350782</li>
 			<li>电话：18345199232</li>
+			<li>邮箱：358350782@qq.com</li>
 			<li>地址：哈尔滨理工大学南区</li>
 			<li>负责人：徐文志</li>
-			<li>邮箱：358350782@qq.com</li>
 		</ul>
 	  	</div>
 	</div>
