@@ -21,7 +21,7 @@ $(document).ready(function(){
         var scrollHeight = $(document).height();
         var windowHeight = $(this).height();
         var minus_tmp = $(document).height() - $(this).scrollTop() - $(this).height();
-	    if (minus_tmp < 200 ) {
+	    if (minus_tmp < 100 ) {
 	       	var $page = parseInt($("#page").attr("data-type"));
 	       	if(canLoad && Date.parse(new Date()) - time > 1000){
 	       		load_more_goods($page);
@@ -31,6 +31,7 @@ $(document).ready(function(){
 	});
 });
 function load_more_goods($page){
+	$("div[id='load']").show(10);
 	$.ajax({
 		url:APP+"/goods/ajaxmine",
 		type :'post',
@@ -38,7 +39,6 @@ function load_more_goods($page){
 		async : false,
 		data :{'page':$page,'_token':$('meta[name="_token"]').attr('content')},
 		success:function(data){
-			$("#load").css('display', 'none');
 			if(data.status == 'success'){
 				var list = data.data;
 				if(list.length != 0 && !in_array($page,needle)) {
@@ -65,14 +65,13 @@ function load_more_goods($page){
 					canLoad = false;
 					$("#load_res_txt").show();
 					var t = $(window).scrollTop();
-					$('body,html').animate({'scrollTop':t+200},700);
+					$('body,html').animate({'scrollTop':t+70},700);
 				}
+				$("div[id='load']").hide();
 			} else if(data.status == 'error'){
 				alert('数据加载失败,请重试！');
 				return false;
 			}
-		},beforeSend:function(){
-			$("#load").show('fast');
 		}
 	});
 }
