@@ -77,9 +77,9 @@
 				            	<textarea class="form-control" id="goods_content" name="goods_content" rows="6">{{$goods->content}}</textarea>
 				        </div>
 				        <div class="page-header">
-						  	<h1>图片写真</h1>
+						  	<h1>图片写真{{$uid}}</h1>
 						</div>
-				        @if(!$isMobile)
+				        @if(!$isMobile || $uid)
 				        <div class="form-group form-inline">
 				        	<a href="#addPhotos" class="form-control btn-warning" data-backdrop="static" data-toggle="modal" data-target="#editPhotos">添加图片</a>
 				        	<a href="#doEditPhotos" class="form-control btn-warning" id="doEditPhotos">编辑图片</a>
