@@ -201,6 +201,6 @@
 <script src="{{ asset('/js/goods/uploadify.js')}}"></script>
 @else
 <script src="{{ asset('/js/jquery.form.js')}}"></script>
-<script src="{{ asset('/js/goods/modifygoods.js')}}"></script>
 @endif
+<script src="{{ asset('/js/goods/modifygoods.js')}}"></script>
 @endsection
