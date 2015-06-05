@@ -226,7 +226,6 @@ class GoodsController extends HomeController {
 			'new_level' =>Goods::$arrNewLevel,
 			'crt_first_type_code' => $crt_first_type_code,
 			'isMobile'=>Util::isMobile(),
-			'uid' => $uid == 11,
 		);
 		return view('app.goods.modify', $data);
 	}

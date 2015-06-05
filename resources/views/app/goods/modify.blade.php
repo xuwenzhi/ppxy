@@ -15,12 +15,6 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading">修改我的货</div>
 				<div class="panel-body">
-					@if($uid)
-			        <form action="{{url('/test/upload')}}">
-			        	<input id="File2" name="images" runat="server" type="file" accept="image/*" capture="camera" style="width:100%"   />
-			        	<input type="submit" value="上传" />
-			    	</form>
-			        @endif
 					<form action="{{ url('/goods/doModify') }}" method="post" name="modifyGoodsForm" id="modifyGoodsForm">
 						<input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
 				        <div class="form-group">
