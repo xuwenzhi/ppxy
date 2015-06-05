@@ -264,7 +264,7 @@ class Util {
 	 * @param int/float  缩放{0:不缩放, 0<this<1:缩放到相应比例(此时宽高限制和裁切均失效)}
 	 * @return boolean
 	 */
-	public static function img2thumb($src_img, $dst_img, $width = 300, $height = 300, $cut = 0, $proportion = 0){
+	public static function img2thumb($src_img, $dst_img, $width = 200, $height = 200, $cut = 0, $proportion = 0){
 	    if(!is_file($src_img)) {
 	        return false;
 	    }
