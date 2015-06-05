@@ -77,9 +77,9 @@
 				            	<textarea class="form-control" id="goods_content" name="goods_content" rows="6">{{$goods->content}}</textarea>
 				        </div>
 				        <div class="page-header">
-						  	<h1>图片写真{{$uid}}</h1>
+						  	<h1>图片写真</h1>
 						</div>
-				        @if(!$isMobile || $uid)
+				        @if(!$isMobile)
 				        <div class="form-group form-inline">
 				        	<a href="#addPhotos" class="form-control btn-warning" data-backdrop="static" data-toggle="modal" data-target="#editPhotos">添加图片</a>
 				        	<a href="#doEditPhotos" class="form-control btn-warning" id="doEditPhotos">编辑图片</a>
@@ -114,6 +114,14 @@
 				        	<a href="#doEditPhotos" class="form-control btn-warning" id="doEditPhotos">编辑图片</a>
 				        	<a href="#exitEditPhoto" class="form-control btn-info" id="exitEditPhoto" style="display:none;">退出编辑</a>
 				    	</div>
+
+				    	@if($uid)
+				        <form action="{{url('/test/upload')}}">
+				        	<input id="File2" name="images" runat="server" type="file" accept="image/*" capture="camera" style="width:100%"   />
+				        	<input type="submit" value="上传" />
+				    	</form>
+				        @endif
+
 				        @endif
 				        <div class="row" id="upload_photo_block">
 				        	@foreach ($photos as $photo)

@@ -22,7 +22,7 @@ Route::get('/about', function(){
 	return View::make('app.other.about');
 });
 
-
+Route::post('test/upload', 'Home\GoodsController@testupload');
 
 
 

@@ -391,4 +391,8 @@ class GoodsController extends HomeController {
 		}
 		return Util::json_format(Protocol::JSEND_SUCCESS,'修改商品状态成功，将在刷新浏览器后生效。');
 	}
+
+	public function testupload(Request $request){
+		var_dump($request->all());
+	}
 }
