@@ -391,7 +391,53 @@ class GoodsController extends HomeController {
 		return Util::json_format(Protocol::JSEND_SUCCESS,'修改商品状态成功，将在刷新浏览器后生效。');
 	}
 
-	public function testupload(Request $request){
-		var_dump($request->all());
+	public function uploadImgReturnPath(Request $request){
+		$file = $request -> file('Filedata');
+		if (!$file -> isValid()) {
+		    echo Protocol::JSEND_ERROR.'*图片过大,请重新选择,请控制在2M以下。';
+		    return;
+		}
+		$goods_id = Util::encryptData($request->get('goods_enid'), true);
+		//todo 
+		$mimeType = $file->getMimeType();
+		if(!Util::is_in_array($mimeType, GoodsPhoto::$permit_mimetype)){
+		 	echo Protocol::JSEND_ERROR.'*图片格式错误,请重新选择';
+			return ;
+		}
+		$upload_path = GoodsPhoto::UPLOAD_PATH."".date('Y-m-d');
+		if(!is_dir($upload_path)){
+			if(!mkdir($upload_path)){
+				Log::error("【创建路径失败】- 路径为".$upload_path);
+				echo Protocol::JSEND_ERROR.'*图片上传失败,请重试';
+				return ;
+			}
+		}
+		//生成一个新名称
+		$origin_name = $file -> getClientOriginalName();
+		$extension_name = Util::ext_name($origin_name);
+		if(!Util::is_in_array(strtoupper($extension_name), GoodsPhoto::$permit_ext)){
+			echo Protocol::JSEND_ERROR.'*图片上传失败,请重试';
+			return ;
+		}
+		$new_name = Util::generate_unique_str($origin_name).'.'.$extension_name;
+		if(!$file -> move($upload_path, $new_name)){
+			echo Protocol::JSEND_ERROR.'*图片上传失败,请重试';
+			return ;
+		}
+		//生成缩略图
+		$public_path = str_replace('\\', '/', public_path());
+		$thumb_name = GoodsPhoto::THUMB.$new_name;
+		$big_img_path = $public_path.'/'.$upload_path.'/'.$new_name;
+		$thumb_img_path = $public_path.'/'.$upload_path.'/'.$thumb_name;
+		if(!Util::img2thumb($big_img_path, $thumb_img_path)){
+			echo Protocol::JSEND_ERROR.'*图片上传失败,请重试';
+			return ;
+		}
+		$big_img_system_path   = $upload_path.'/'.$new_name;
+		$small_img_system_path = $upload_path.'/'.$thumb_name;
+		$new_photo_id = GoodsPhoto::newGoodsPhoto($goods_id, $big_img_system_path, $small_img_system_path, $this->getLogUid());
+		$new_photo_id = Util::encryptData($new_photo_id);
+		echo Protocol::JSEND_SUCCESS.'*'.$new_photo_id.'*'.$small_img_system_path.'*'.$big_img_system_path;
+		return ;
 	}
 }

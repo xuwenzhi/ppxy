@@ -25,6 +25,7 @@ Route::get('/about', function(){
 
 
 
+
 Route::group(['prefix' => '/user'], function()
 {
 	Route::any('checkemail', 'Home\UserController@checkEmailRepeat');
@@ -60,6 +61,7 @@ Route::group(['prefix' => '/goods'], function()
 	Route::get('surprise/{type}', 'Home\GoodsController@surprise');
 	Route::post('ajaxmine', 'Home\GoodsController@ajax_mine');
 	Route::post('ajaxstatus','Home\GoodsController@ajax_status');
+	Route::post('/h5upload', 'Home\GoodsController@uploadImgReturnPath');
 });
 
 

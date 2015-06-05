@@ -22,7 +22,7 @@ $(function() {
                     img_path += '<a href="#" class="thumbnail" data-toggle="modal" data-target="#goodsPhotoDia'+res[2]+'"><img src="'+PUBLIC+res[1]+'"  alt="..." class="img-responsive img-rounded" alt="Responsive image"></a>';
                     img_path += '<div class="modal fade" id="goodsPhotoDia'+res[2]+'"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">';
                     img_path += '<div class="modal-dialog"><div class="modal-content"><div class="modal-body"><img src="'+PUBLIC+res[3]+'" width="80%" class="img-responsive center-block" alt="Responsive image"/></div></div></div></div></div>';
-                    $("#upload_photo_block").append(img_path);
+                    $("#upload_photo_block").prepend(img_path);
                 }else{
                     alert(res[1]);
                 }

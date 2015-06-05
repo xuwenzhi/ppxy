@@ -11,7 +11,7 @@
 @if ($photo_count == 0)
     <div class="alert alert-warning" role="alert">
     	@if($isMobile == 1)
-    	暂时不支持手机加图，如需加图，请使用个人电脑添加。如需修改，<a href="{{ url('/goods/modify').'/'.$goods->id }}">戳这里。</a>
+    		如需修改它，<a href="{{ url('/goods/modify').'/'.$goods->id }}">戳这里。</a>
     	@else
     		您还没有为它上图噢,如需加图,<a class="alert-link" href="{{ url('/goods/modify').'/'.$goods->id }}">戳这里。</a>
     	@endif
@@ -20,7 +20,8 @@
     </div>
 @elseif($photo_count != 0)
 	<div class="alert alert-warning" role="alert">
-		如需修改它,请<a  class="alert-link" href="{{ url('/goods/modify').'/'.$goods->id }}">戳这里</a>
+		如需修改它,请<a  class="alert-link" href="{{ url('/goods/modify').'/'.$goods->id }}">戳这里</a><br/>
+		<a class="alert-link" href="{{url('/goods/mine')}}">去看看我的商品</a>
     </div>
 @endif
 @endif
@@ -76,7 +77,7 @@
 		                                @if(!$isMobile)
 		                                <img src="{{asset('/').'/'.$photo->address}}" class="img-responsive center-block" alt="Responsive image"/>
 		                                @else
-		                                <img src="{{asset('/').'/'.$photo->thumb}}" class="img-responsive center-block" alt="Responsive image"/>
+		                                <img src="{{asset('/').'/'.$photo->address}}" class="img-responsive center-block" alt="Responsive image"/>
 		                                @endif
 		                            </div>
 		                        </div>

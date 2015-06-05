@@ -76,6 +76,8 @@
 				            <label for="content" class="control-label">简要介绍:</label>
 				            	<textarea class="form-control" id="goods_content" name="goods_content" rows="6">{{$goods->content}}</textarea>
 				        </div>
+				        <input type="hidden" name="goods_enid" id="goods_enid" value="{{$goods->id}}"/>
+			        </form>
 				        <div class="page-header">
 						  	<h1>图片写真</h1>
 						</div>
@@ -109,11 +111,35 @@
 		            	</div>
 		            	<br/>
 		            	@else
-		            	<div class="alert alert-danger" role="alert">暂时不支持手机添加图片，如需添加，请在个人电脑上进行添加。</div>
-		            	<div class="form-group form-inline">
+				    	<div class="form-group form-inline">
+				        	<a href="#addPhotos" class="form-control btn-warning" data-backdrop="static" data-toggle="modal" data-target="#editPhotos">添加图片</a>
 				        	<a href="#doEditPhotos" class="form-control btn-warning" id="doEditPhotos">编辑图片</a>
 				        	<a href="#exitEditPhoto" class="form-control btn-info" id="exitEditPhoto" style="display:none;">退出编辑</a>
 				    	</div>
+				        <div class="modal fade" id="editPhotos"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		                    <div class="modal-dialog">
+		                    <div class="modal-content">
+		                    	<div class="modal-header">
+				                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				                	<h4 class="modal-title" id="myModalLabel">添加图片</h4>
+				                	<small><font color="red">我们强烈建议您选择已经拍好的照片并上传。</font><br/>上传的图片应小于2M,格式为jpg/png/gif等。</small>
+				              	</div>
+		                        <div class="modal-content">
+		                            <div class="modal-body">
+		                                <div class="form-group">
+								            <form id="mobileUploadForm" action="{{url('/test/upload')}}" method="post" enctype="multipart/form-data">
+									        	<input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
+									        	<input type="hidden" name="goods_enid" id="goods_enid" value="{{$goods->id}}"/>
+									        	<input id="Filedata" class="form-control" name="Filedata" runat="server" type="file" accept="image/*" capture="camera"/>
+									        	<br/>
+									        	<input type="button" id="mobileUploadBtn" value="点击上传" class="btn btn-warning btn-block"/>
+									    	</form>
+								        </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                	</div>
+		            	</div>
 				        @endif
 				        <div class="row" id="upload_photo_block">
 				        	@foreach ($photos as $photo)
@@ -143,7 +169,6 @@
 						    </div>
 						    @endforeach
 				        </div>
-				        <input type="hidden" name="goods_enid" id="goods_enid" value="{{$goods->id}}"/>
 				        <div class="modal fade" id="delete_photo_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					      <div class="modal-dialog">
 					        <div class="modal-content">
@@ -157,7 +182,6 @@
 					        </div>
 					      </div>
 					    </div>
-			        </form>
 				</div>
 			</div>
 		</div>
@@ -172,7 +196,11 @@
 </div>
 @endsection
 @section('js')
-<script src="{{ asset('/js/goods/modifygoods.js')}}"></script>
+@if(!$isMobile)
 <script src="{{ asset('/lib/swf_uploadify/jquery.uploadify-3.1.min.js')}}"></script>
 <script src="{{ asset('/js/goods/uploadify.js')}}"></script>
+@else
+<script src="{{ asset('/js/jquery.form.js')}}"></script>
+<script src="{{ asset('/js/goods/modifygoods.js')}}"></script>
+@endif
 @endsection
