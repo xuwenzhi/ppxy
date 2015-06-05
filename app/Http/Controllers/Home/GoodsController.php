@@ -394,7 +394,7 @@ class GoodsController extends HomeController {
 	public function uploadImgReturnPath(Request $request){
 		$file = $request -> file('Filedata');
 		if (!$file -> isValid()) {
-		    echo Protocol::JSEND_ERROR.'*图片过大,请重新选择,请控制在2M以下。';
+		    echo Protocol::JSEND_ERROR.'*图片过大,请控制在2M以下。';
 		    return;
 		}
 		$goods_id = Util::encryptData($request->get('goods_enid'), true);

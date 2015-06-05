@@ -44,7 +44,7 @@
                     <li class="list-group-item"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;{{$good->school_name}}&nbsp;{{$good->deal_place_ext}}</li>
                   </ul>
                   <p>
-                  <button class="btn btn-primary" onclick="window.location.href={{asset('/').$good->img_thumb_path}}">查看详情</button>
+                  <button class="btn btn-primary" onclick="window.location.href={{asset('/goods/detail').$good->id}}">查看详情</button>
                   </p>
                 </div>
               </div>

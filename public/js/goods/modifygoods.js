@@ -166,6 +166,7 @@ $(document).ready(function(){
 	    	type:"POST",
 	    	url:APP+'/goods/h5upload',
 	    	data:$("#mobileUploadForm").formSerialize(),
+	    	timeout:30000,
 	    	beforeSerialize:function(){
 	     		
 	    	},
@@ -175,23 +176,32 @@ $(document).ready(function(){
 	    	},
 	    	success:function(data){
 	    		$("#Filedata").val('');
-	    		$("#mobileUploadBtn").val('上传成功!');
-	    		setTimeout(modifyMobileUploadBtn, 2000);
-	     		$("#mobileUploadBtn").attr('disabled', false);
+	    		$("#mobileUploadBtn").attr('disabled', false);
 	     		var res = data.split('*');
                 if(res[0] == 'success'){
+                	$("#mobileUploadBtn").val('上传成功!');
+	    			setTimeout(modifyMobileUploadBtn, 2000);
 	      			var photo_data = data.data;
 	      			var img_path = '<div class="col-sm-6 col-md-3">';
                     img_path += '<a href="#" class="thumbnail" data-toggle="modal" data-target="#goodsPhotoDia'+res[1]+'"><img src="'+PUBLIC+res[2]+'"  alt="..." class="img-responsive img-rounded" alt="Responsive image"></a>';
                     img_path += '<div class="modal fade" id="goodsPhotoDia'+res[1]+'"  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">';
-                    img_path += '<div class="modal-dialog"><div class="modal-content"><div class="modal-body"><img src="'+PUBLIC+res[3]+'" width="80%" class="img-responsive center-block" alt="Responsive image"/></div></div></div></div></div>';
+                    img_path += '<div class="modal-dialog"><div class="modal-content"><div class="modal-body"><img src="'+PUBLIC+res[2]+'" width="80%" class="img-responsive center-block" alt="Responsive image"/></div></div></div></div></div>';
                     $("#upload_photo_block").prepend(img_path);
+	      		}else{
+	      			$("#mobileUploadBtn").val(res[1]);
+	    			setTimeout(modifyMobileUploadBtn, 4000);
 	      		}
-	    	},
-	    	error:function(err){
-	      		alert("很抱歉,您的手机浏览器不支持上传图片,请您更换浏览器重试！");
-	      		return false;
-	     	}
+	    	},error:function(jqXHR, textStatus, errorThrown){   
+	    		$("#mobileUploadBtn").attr('disabled', false);
+	    		$("#mobileUploadBtn").val('重新上传');
+                if(textStatus=="timeout"){
+                    alert("网络不好。");  
+                    return false;
+                }else{
+                    alert("很抱歉,您的手机浏览器不支持上传图片,请您更换浏览器重试！"+textStatus);
+	      			return false;
+                }  
+            }
 	    };
 		$("#mobileUploadForm").ajaxSubmit(options);
 		return false;
