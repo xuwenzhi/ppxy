@@ -9,7 +9,7 @@ $(document).ready(function(){
 		$container.masonry({
 			columnWidth: '.item',
 			itemSelector: '.item',
-			gutterWidth : 2,
+			//gutterWidth : 2,
 			isAnimated: true
 		});
 	});
@@ -72,6 +72,7 @@ function load_more_goods($page){
 	                    }
 	                    $boxes += '</p></div></div></div>';
 	                    var el = jQuery($boxes);
+	                    setTimeout('', 300);
 		            	jQuery(".masonry-container").append(el).masonry( 'appended', el, true );
 					}
 					needle.push($page, $page);
