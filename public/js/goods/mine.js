@@ -7,10 +7,14 @@ $(document).ready(function(){
 	var $container = $('.masonry-container');
 	$container.imagesLoaded( function () {
 		$container.masonry({
-			columnWidth: '.item',
 			itemSelector: '.item',
-			//gutterWidth : 2,
-			isAnimated: true
+			columnWidth: 4,
+            isAnimated:true,
+            animationOptions: {
+                duration: 800,
+                easing:'linear',
+                queue :false
+           }
 		});
 	});
 
