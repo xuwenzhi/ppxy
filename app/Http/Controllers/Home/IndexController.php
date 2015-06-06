@@ -115,5 +115,4 @@ class IndexController extends HomeController {
 		}
 		return 20;
 	}
-
 }

@@ -21,6 +21,7 @@ Route::post('/loadmore', 'Home\IndexController@load_more');
 Route::get('/about', function(){
 	return View::make('app.other.about');
 });
+Route::get('/lookfor/{keyword}','Home\GoodsController@lookFor');
 
 
 
@@ -61,6 +62,7 @@ Route::group(['prefix' => '/goods'], function()
 	Route::get('surprise/{type}', 'Home\GoodsController@surprise');
 	Route::post('ajaxmine', 'Home\GoodsController@ajax_mine');
 	Route::post('ajaxstatus','Home\GoodsController@ajax_status');
+	Route::post('ajaxlookfor','Home\GoodsController@ajax_lookfor');
 });
 
 

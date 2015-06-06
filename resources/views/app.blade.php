@@ -48,6 +48,10 @@
 						</ul>
 					</li>
 				</ul>
+				<ul class="nav navbar-nav">
+					<li style="margin-top:10px;"><input type="text" name="find" /></li>
+					<li><a href="#" data-value="{{ url('/lookfor') }}" id="find">搜索</a></li>
+				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
 						<li><a href="{{ url('/auth/login') }}">登录</a></li>
@@ -78,6 +82,9 @@
 	</div>
 	<script src="{{ asset('/js/jquery.js')}}"></script>
     <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('/js/index/find.js')}}"></script>
     @yield('js')
+    
+
 </body>
 </html>
