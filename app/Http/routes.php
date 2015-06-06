@@ -49,7 +49,7 @@ Route::group(['prefix' => '/goods'], function()
 {
 	Route::get('new', ['middleware'           => 'auth', 'uses'=>'Home\GoodsController@tplNew']);
 	Route::post('doNew', ['middleware'        => 'auth', 'uses'=>'Home\GoodsController@doNew']);
-Route::get('detail/{enId}', 'Home\GoodsController@detail');
+	Route::get('detail/{enId}', 'Home\GoodsController@detail');
 	Route::get('find', 'Home\GoodsController@find');
 	Route::get('mine', ['middleware'          => 'auth', 'uses'=>'Home\GoodsController@mine']);
 	Route::get('modify/{enId}', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@modify']);

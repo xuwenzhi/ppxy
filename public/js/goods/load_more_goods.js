@@ -9,7 +9,7 @@ $(document).ready(function(){
 		$container.masonry({
 			columnWidth: '.item',
 			itemSelector: '.item',
-			gutterWidth : 2,
+			//gutterWidth : 2,
 			isAnimated: true
 		});
 	});
@@ -62,7 +62,7 @@ function load_more_goods($type, $page){
 	            	needle.push($page, $page);
 	            	$("#page").attr("data-type", $page+1);
 	            	var t = $(window).scrollTop();
-					$('body').animate({'scrollTop':t+260},1500);
+					$('body').animate({'scrollTop':t+240},1300);
 				}else{
 					canLoad = false;
 					$("#load_res_txt").show();
