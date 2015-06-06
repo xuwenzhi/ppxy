@@ -448,7 +448,7 @@ class GoodsController extends HomeController {
 	public function lookFor(Request $request){
 		$keyword = $request->route('keyword');
 		$keyword = urldecode(str_replace('ppxy','%', $keyword));
-		$arrGoods = Goods::find_goods($keyword,1,6);
+		$arrGoods = Goods::find_goods($keyword,1,$this->_generate_pagesize());
 		$arrGoodsIds = Util::column($arrGoods, 'id');
 		//获取图片
 		$arrGoodsPhoto = GoodsPhoto::getCoverPhotoByGoodsIds($arrGoodsIds);
@@ -459,7 +459,8 @@ class GoodsController extends HomeController {
 		$arrGoods = Goods::decorateList($arrGoods);
 		$data = array(
 			'goods'=>$arrGoods,
-			'keyword'=>$keyword
+			'keyword'=>$keyword,
+			'isMobile'=>Util::isMobile(),
 		);
 		return view('app.goods.search', $data);
 	}
@@ -483,5 +484,15 @@ class GoodsController extends HomeController {
 		$arrGoods = Goods::decorateList($arrGoods);
 		$arrGoods = Util::laravel_data_to_array($arrGoods);
 		return Util::json_format(Protocol::JSEND_SUCCESS, '', $arrGoods);
+	}
+
+	/**
+	 * 每页显示条数，如果PC每页15条，如果H5每页7个
+	 */
+	private function _generate_pagesize(){
+		if(Util::isMobile()){
+			return 7;
+		}
+		return 15;
 	}
 }

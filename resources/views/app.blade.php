@@ -32,17 +32,18 @@
 				</button>
 				<a class="navbar-brand" href="{{ url('/') }}">PP校园</a>
 			</div>
-
+			
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li>
-					<div class="form-group">
-			          <input type="text" class="form-control" name="find" placeholder="想搜点啥??">
-			        </div>
-			        <button type="submit" data-value="{{ url('/search') }}" id="find" class="btn btn-default">搜索</button>
-					</li>
-				</ul>
-
+			<form class="navbar-form navbar-left" role="search">
+	        	<div class="form-group">
+	        	@if(isset($keyword) && $keyword != '')
+	          		<input type="text" class="form-control" name="find" placeholder="想搜点啥??" value="{{$keyword}}"/>
+	          	@else
+	          		<input type="text" class="form-control" name="find" placeholder="想搜点啥??" />
+	          	@endif
+	        	</div>
+	        	<input type="button" class="btn btn-primary" data-value="{{ url('/search') }}" id="find" value="搜索" />
+	      	</form>
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/goods/new') }}">我要发货</a></li>
 				</ul>
