@@ -61,8 +61,9 @@ function load_more_goods($type, $page){
 	                    $boxes += '<li class="list-group-item"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;'+list[one]['school_name']+'&nbsp;'+list[one]['deal_place_ext']+'</li></ul>';
 	                    $boxes += '<p><button class="btn btn-primary" onclick="window.location.href='+APP+'/goods/detail/'+list[one]['id']+'">查看详情</button> </p></div></div></div></a>';
 	                    var el = jQuery($boxes);
-	                    setTimeout('', 200);
-	            		jQuery(".masonry-container").append(el).masonry( 'appended', el, true );
+	                    //setTimeout('', 200);
+	            		//jQuery(".masonry-container").append(el).masonry( 'appended', el, true );
+	            		$(".masonry-container").append(el).masonry('appended', el, 'reloadItems');
 					}
 	            	needle.push($page, $page);
 	            	$("#page").attr("data-type", $page+1);

@@ -76,8 +76,8 @@ function load_more_goods($page){
 	                    }
 	                    $boxes += '</p></div></div></div>';
 	                    var el = jQuery($boxes);
-	                    setTimeout('', 300);
-		            	jQuery(".masonry-container").append(el).masonry( 'appended', el, true );
+	                    //setTimeout('', 200);
+		            	$(".masonry-container").append(el).masonry('appended', el, 'reloadItems');
 					}
 					needle.push($page, $page);
 	            	$("#page").attr("data-type", $page+1);
