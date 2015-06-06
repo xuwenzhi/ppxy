@@ -45,6 +45,7 @@ function load_more_goods($page){
 				if(list.length != 0 && !in_array($page,needle)) {
 					var $boxes = '';
 					for(var one in list) {
+						$boxes = '';
 						$boxes += '<div class="col-md-3 col-xs-12 item"><div class="thumbnail" id="goods_block">';
 						if(list[one]['img_thumb_path'] != ''){
 		            		$boxes += '<img src="'+PUBLIC+''+list[one]['img_thumb_path']+'" class="img-responsive img-rounded" width="100%" alt="">';
@@ -70,13 +71,13 @@ function load_more_goods($page){
 	                    		$boxes += '<button class="btn btn-warning"  onclick="startChangeStatus(this)" date-enId="'+list[one]['id']+'" data-value="sell">改为可出售</button>';
 	                    }
 	                    $boxes += '</p></div></div></div>';
+	                    var el = jQuery($boxes);
+		            	jQuery(".masonry-container").append(el).masonry( 'appended', el, true );
 					}
-					var el = jQuery($boxes);
-	            	jQuery(".masonry-container").append(el).masonry( 'appended', el, true );
-	            	needle.push($page, $page);
+					needle.push($page, $page);
 	            	$("#page").attr("data-type", $page+1);
 	            	var t = $(window).scrollTop();
-					$('body,html').animate({'scrollTop':t+200},700);
+					$('body,html').animate({'scrollTop':t+250},1500);
 				}else{
 					canLoad = false;
 					$("#load_res_txt").show();

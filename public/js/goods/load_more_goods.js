@@ -45,6 +45,7 @@ function load_more_goods($type, $page){
 				if(list.length != 0 && !in_array($page,needle)) {
 					var $boxes = '';
 					for(var one in list) {
+						$boxes = '';
 						$boxes += '<a href="'+APP+'/goods/detail/'+list[one]['id']+'" class="goods_block_a"><div class="col-md-3 col-xs-12 item"><div class="thumbnail" id="goods_block">';
 						if(list[one]['img_thumb_path'] != ''){
 		            		$boxes += '<img src="'+PUBLIC+''+list[one]['img_thumb_path']+'" class="img-responsive img-rounded" width="100%" alt="">';
@@ -55,13 +56,13 @@ function load_more_goods($type, $page){
 	                    $boxes += '<li class="list-group-item"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;'+list[one]['trans_time']+'</li>';
 	                    $boxes += '<li class="list-group-item"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;'+list[one]['school_name']+'&nbsp;'+list[one]['deal_place_ext']+'</li></ul>';
 	                    $boxes += '<p><button class="btn btn-primary" onclick="window.location.href='+APP+'/goods/detail/'+list[one]['id']+'">查看详情</button> </p></div></div></div></a>';
+	                    var el = jQuery($boxes);
+	            		jQuery(".masonry-container").append(el).masonry( 'appended', el, true );
 					}
-					var el = jQuery($boxes);
-	            	jQuery(".masonry-container").append(el).masonry( 'appended', el, true );
 	            	needle.push($page, $page);
 	            	$("#page").attr("data-type", $page+1);
 	            	var t = $(window).scrollTop();
-					$('body').animate({'scrollTop':t+200},700);
+					$('body').animate({'scrollTop':t+260},1500);
 				}else{
 					canLoad = false;
 					$("#load_res_txt").show();
