@@ -74,6 +74,7 @@ function load_more_goods($type, $page){
 	            		$(".masonry-container").masonry('appended', el, 'reloadItems');
 					}
 	            	needle.push($page, $page);
+	            	$(window).on('load', function(){});
 	            	$("#page").attr("data-type", $page+1);
 	            	var t = $(window).scrollTop();
 					$('body').animate({'scrollTop':t+240},1300);
@@ -81,7 +82,7 @@ function load_more_goods($type, $page){
 					canLoad = false;
 					$("#load_res_txt").show();
 					var t = $(window).scrollTop();
-					$('body').animate({'scrollTop':t+200},700);
+					$('body').animate({'scrollTop':t+200},1300);
 				}
 				$("div[id='load']").hide();
 			} else if(data.status == 'error'){

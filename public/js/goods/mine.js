@@ -89,6 +89,7 @@ function load_more_goods($page){
 	            		$(".masonry-container").masonry('appended', el, 'reloadItems');
 					}
 					needle.push($page, $page);
+					$(window).on('load', function(){});
 	            	$("#page").attr("data-type", $page+1);
 	            	var t = $(window).scrollTop();
 					$('body,html').animate({'scrollTop':t+250},1500);
