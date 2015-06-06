@@ -21,6 +21,7 @@ Route::post('/loadmore', 'Home\IndexController@load_more');
 Route::get('/about', function(){
 	return View::make('app.other.about');
 });
+
 Route::get('/search/{keyword}','Home\GoodsController@lookFor');
 
 

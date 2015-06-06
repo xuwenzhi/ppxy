@@ -34,21 +34,9 @@
 			</div>
 			
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<form class="navbar-form navbar-left" role="search">
-	        	<div class="form-group">
-	        	@if(isset($keyword) && $keyword != '')
-	          		<input type="text" class="form-control" name="find" placeholder="想搜点啥??" value="{{$keyword}}"/>
-	          	@else
-	          		<input type="text" class="form-control" name="find" placeholder="想搜点啥??" />
-	          	@endif
-	        	</div>
-	        	<input type="button" class="btn btn-primary" data-value="{{ url('/search') }}" id="find" value="搜索" />
-	      	</form>
+			
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/goods/new') }}">我要发货</a></li>
-				</ul>
-				<ul class="nav navbar-nav">
-					<li><a href="{{ url('/about') }}">关于我们</a></li>
 				</ul>
 				<ul class="nav navbar-nav">
 					<li class="dropdown">
@@ -57,6 +45,19 @@
 							<li><a href="#"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;&nbsp;<del>爱心捐赠</del></a></li>
 						</ul>
 					</li>
+				</ul>
+				<div class="navbar-form navbar-left" role="search" >
+		        	<div class="form-group">
+		        	@if(isset($keyword) && $keyword != '')
+		          		<input type="text" class="form-control" name="find" placeholder="想搜点啥??" value="{{$keyword}}"/>
+		          	@else
+		          		<input type="text" class="form-control" name="find" placeholder="想搜点啥??" />
+		          	@endif
+		        	</div>
+		        	<input type="button" class="btn btn-primary" data-value="{{ url('/search') }}" id="find" value="搜索" />
+		      	</div>
+				<ul class="nav navbar-nav">
+					<li><a href="{{ url('/about') }}">关于我们</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
@@ -88,7 +89,7 @@
 	</div>
 	<script src="{{ asset('/js/jquery.js')}}"></script>
     <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
-    <script src="{{ asset('/js/index/find.js')}}"></script>
+    <script type="text/javascript" src="{{asset('/js/index/find.js')}}"></script>
     @yield('js')
 </body>
 </html>

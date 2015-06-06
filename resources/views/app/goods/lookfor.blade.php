@@ -2,26 +2,17 @@
 @section('title', '我的商品')
 @section('content')
 <div class="container main-container">
-@if($isMobile)
-<div class="navbar-form navbar-left" role="search" >
-<div class="form-group">
-    <input type="text" class="form-control" id="input_keyword" placeholder="想搜点啥??" value="{{$keyword}}"/>
-    <p class="text-right"><input type="button" class="btn btn-primary" data-value="{{ url('/search') }}" id="search_find" value="搜索"/></p>
-</div>
-</div>
-@endif
 <ol class="breadcrumb">
-  	<li>首页</li>
-  	<li class="active">查询结果</li>
-    <li class="active" id="keyword" data-value="{{$keyword}}">关键字:<strong><mark>{{$keyword}}</mark></strong></li>
-</ol>
+	  	<li>首页</li>
+	  	<li class="active">查询结果</li>
+      <li class="active" id="keyword" data-value="{{$keyword}}">关键字:{{$keyword}}</li>
+	</ol>
   <div role="tabpanel">
     <!-- Tab panes -->
     <div class="tab-content">
     <br/>
       <div role="tabpanel" class="tab-pane active" id="panel-1">
         <div class="row masonry-container">
-        @if(count($goods) != 0)
           @foreach($goods as $good)
             <div  class="col-md-3 col-xs-12 item" width="100%">
               <div class="thumbnail" id="goods_block">
@@ -46,11 +37,6 @@
               </div>
             </div>
           @endforeach
-        @else
-          <div class="jumbotron">
-            抱歉，什么都没有找到。
-          </div>
-        @endif
         </div> <!--/.masonry-container  -->
       </div><!--/.tab-panel -->
     </div> <!--/.tab-content -->

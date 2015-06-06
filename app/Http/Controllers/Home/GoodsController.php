@@ -495,4 +495,5 @@ class GoodsController extends HomeController {
 		}
 		return 15;
 	}
+
 }
