@@ -11,3 +11,4 @@ class OAuthClientsSeeder extends Seeder
 		));
 	}
 }
+

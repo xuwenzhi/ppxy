@@ -12,3 +12,4 @@ class OAuthUsersSeeder extends Seeder
 		));
 	}
 }
+
