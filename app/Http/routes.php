@@ -21,9 +21,7 @@ Route::post('/loadmore', 'Home\IndexController@load_more');
 Route::get('/about', function(){
 	return View::make('app.other.about');
 });
-
-
-
+Route::get('/search/{keyword}','Home\GoodsController@lookFor');
 
 
 Route::group(['prefix' => '/user'], function()
@@ -50,7 +48,7 @@ Route::group(['prefix' => '/goods'], function()
 {
 	Route::get('new', ['middleware'           => 'auth', 'uses'=>'Home\GoodsController@tplNew']);
 	Route::post('doNew', ['middleware'        => 'auth', 'uses'=>'Home\GoodsController@doNew']);
-	Route::get('detail/{enId}', 'Home\GoodsController@detail');
+Route::get('detail/{enId}', 'Home\GoodsController@detail');
 	Route::get('find', 'Home\GoodsController@find');
 	Route::get('mine', ['middleware'          => 'auth', 'uses'=>'Home\GoodsController@mine']);
 	Route::get('modify/{enId}', ['middleware' => 'auth', 'uses'=>'Home\GoodsController@modify']);
@@ -62,6 +60,7 @@ Route::group(['prefix' => '/goods'], function()
 	Route::post('ajaxmine', 'Home\GoodsController@ajax_mine');
 	Route::post('ajaxstatus','Home\GoodsController@ajax_status');
 	Route::post('/h5upload', 'Home\GoodsController@uploadImgReturnPath');
+	Route::post('ajaxlookfor','Home\GoodsController@ajax_lookfor');
 });
 
 

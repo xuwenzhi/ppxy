@@ -241,4 +241,20 @@ class Goods extends Base {
 		}
 	}
 
+	/*
+	 * 获取title或者content中包含关键字商品
+	 * @author JV
+	 */
+	public static function find_goods($keyword,$page = 1,$pagesize = 20){
+		$skip = ($page-1)*$pagesize;
+		return Goods::where(array('status' => self::STATUS_SELL))
+			->where('title','like','%'.$keyword.'%')
+			->orwhere('content','like','%'.$keyword.'%')
+			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
+			->orderBy('ctime', 'desc')
+			->skip($skip)
+			->take($pagesize)
+			->get();
+	}
+
 }

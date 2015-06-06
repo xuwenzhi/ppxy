@@ -440,4 +440,48 @@ class GoodsController extends HomeController {
 		echo Protocol::JSEND_SUCCESS.'*'.$new_photo_id.'*'.$small_img_system_path.'*'.$big_img_system_path;
 		return ;
 	}
+
+	/**
+	 *	搜索商品
+	 *  @author JV
+	 */
+	public function lookFor(Request $request){
+		$keyword = $request->route('keyword');
+		$keyword = urldecode(str_replace('ppxy','%', $keyword));
+		$arrGoods = Goods::find_goods($keyword,1,6);
+		$arrGoodsIds = Util::column($arrGoods, 'id');
+		//获取图片
+		$arrGoodsPhoto = GoodsPhoto::getCoverPhotoByGoodsIds($arrGoodsIds);
+		$arrGoodsPhoto = Util::setKey($arrGoodsPhoto, 'goods_id');
+		foreach($arrGoods as $goods){
+			$goods['img_thumb_path'] = isset($arrGoodsPhoto[$goods['id']]) && !isset($goods['img_thumb_path']) ? $arrGoodsPhoto[$goods['id']]['thumb'] : '';
+		}
+		$arrGoods = Goods::decorateList($arrGoods);
+		$data = array(
+			'goods'=>$arrGoods,
+			'keyword'=>$keyword
+		);
+		return view('app.goods.search', $data);
+	}
+
+	/*
+	*搜索物品加载更多
+	*
+	*/
+	public function ajax_lookfor(Request $request){
+		$page = $request->get('page') + 1;
+		$keyword = $request->get('keyword');
+		$pagesize = 6;
+		$arrGoods = Goods::find_goods($keyword, $page, $pagesize);
+		$arrGoodsIds = Util::column($arrGoods, 'id');
+		//获取图片
+		$arrGoodsPhoto = GoodsPhoto::getCoverPhotoByGoodsIds($arrGoodsIds);
+		$arrGoodsPhoto = Util::setKey($arrGoodsPhoto, 'goods_id');
+		foreach($arrGoods as $goods){
+			$goods['img_thumb_path'] = isset($arrGoodsPhoto[$goods['id']]) && !isset($goods['img_thumb_path']) ? $arrGoodsPhoto[$goods['id']]['thumb'] : '';
+		}
+		$arrGoods = Goods::decorateList($arrGoods);
+		$arrGoods = Util::laravel_data_to_array($arrGoods);
+		return Util::json_format(Protocol::JSEND_SUCCESS, '', $arrGoods);
+	}
 }

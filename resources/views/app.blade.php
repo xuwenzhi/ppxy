@@ -35,6 +35,15 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
+					<li>
+					<div class="form-group">
+			          <input type="text" class="form-control" name="find" placeholder="想搜点啥??">
+			        </div>
+			        <button type="submit" data-value="{{ url('/search') }}" id="find" class="btn btn-default">搜索</button>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/goods/new') }}">我要发货</a></li>
 				</ul>
 				<ul class="nav navbar-nav">
@@ -78,6 +87,7 @@
 	</div>
 	<script src="{{ asset('/js/jquery.js')}}"></script>
     <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('/js/index/find.js')}}"></script>
     @yield('js')
 </body>
 </html>
