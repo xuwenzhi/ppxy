@@ -3,7 +3,6 @@ var temp_page = 1;
 var needle = new Array();
 var time = Date.parse(new Date());
 var canLoad = true;
-var isMobile = false;
 var deviceWidth = 0;
 $(document).ready(function(){
 	var $container = $('.masonry-container');
@@ -18,9 +17,9 @@ $(document).ready(function(){
            }
 		});
 	});
-	if($("#isMobile").val()){
+	if($("#isMobile").attr('data-type')){
 		isMobile = true;
-		deviceWidth = $(window).width();
+		deviceWidth = parseInt($(window).width()) * 0.75;
 	}
 	//滚动
 	$(window).scroll(function(){
@@ -71,7 +70,8 @@ function load_more_goods($type, $page){
 	                    $boxes += '<p><button class="btn btn-primary" onclick="window.location.href='+APP+'/goods/detail/'+list[one]['id']+'">查看详情</button> </p></div></div></div></a>';
 	                    var el = jQuery($boxes);
 	            		$(".masonry-container").append(el);
-	            		$(".masonry-container").masonry('appended', el, 'reloadItems')
+	            		setTimeout('', 200);
+	            		$(".masonry-container").masonry('appended', el, 'reloadItems');
 					}
 	            	needle.push($page, $page);
 	            	$("#page").attr("data-type", $page+1);

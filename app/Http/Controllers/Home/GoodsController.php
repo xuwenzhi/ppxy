@@ -170,6 +170,7 @@ class GoodsController extends HomeController {
 		$arrGoods = Goods::decorateList($arrGoods);
 		$data = array(
 			'goods'=>$arrGoods,
+			'isMobile' => Util::isMobile(),
 		);
 		return view('app.goods.mine', $data);
 	}

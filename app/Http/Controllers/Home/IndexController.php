@@ -54,6 +54,7 @@ class IndexController extends HomeController {
 			'goods'=>$arrGoods,
 			'type' =>GoodsType::BIG_TYPE_COMPLEX,
 			'active'=>'complex',
+			'isMobile' => Util::isMobile(),
 		);
 		return view('app.index', $data);
 	}
@@ -74,6 +75,7 @@ class IndexController extends HomeController {
 			'goods'=>$arrGoods,
 			'type' =>GoodsType::BIG_TYPE_BIG4,
 			'active'=>'big4',
+			'isMobile' => Util::isMobile(),
 		);
 		return view('app.index', $data);
 	}

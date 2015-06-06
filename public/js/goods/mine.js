@@ -3,6 +3,7 @@ var temp_page = 1;
 var needle = new Array();
 var time = Date.parse(new Date());
 var canLoad = true;
+var deviceWidth = 0;
 $(document).ready(function(){
 	var $container = $('.masonry-container');
 	$container.imagesLoaded( function () {
@@ -17,7 +18,10 @@ $(document).ready(function(){
            }
 		});
 	});
-
+	if($("#isMobile").attr('data-type')){
+		isMobile = true;
+		deviceWidth = parseInt($(window).width()) * 0.75;
+	}
 	//滚动
 	$(window).scroll(function(){
 	    // 当滚动到最底部以上100像素时， 加载新内容
@@ -52,7 +56,11 @@ function load_more_goods($page){
 						$boxes = '';
 						$boxes += '<div class="col-md-3 col-xs-12 item"><div class="thumbnail" id="goods_block">';
 						if(list[one]['img_thumb_path'] != ''){
-		            		$boxes += '<img src="'+PUBLIC+''+list[one]['img_thumb_path']+'" class="img-responsive img-rounded" width="100%" alt="">';
+							if(deviceWidth != 0){
+		            			$boxes += '<img src="'+PUBLIC+''+list[one]['img_thumb_path']+'" class="img-responsive img-rounded" height="'+deviceWidth+'" width="'+deviceWidth+'" alt="">';
+		            		}else{
+		            			$boxes += '<img src="'+PUBLIC+''+list[one]['img_thumb_path']+'" class="img-responsive img-rounded" width="90%" alt="">';
+		            		}
 						}
 						$boxes += '<div class="caption"><h3>'+list[one]['title']+'</h3>';
 						$boxes += '<ul class="list-group">';
@@ -76,8 +84,9 @@ function load_more_goods($page){
 	                    }
 	                    $boxes += '</p></div></div></div>';
 	                    var el = jQuery($boxes);
-	                    //setTimeout('', 200);
-		            	$(".masonry-container").append(el).masonry('appended', el, 'reloadItems');
+		            	$(".masonry-container").append(el);
+	            		setTimeout('', 200);
+	            		$(".masonry-container").masonry('appended', el, 'reloadItems');
 					}
 					needle.push($page, $page);
 	            	$("#page").attr("data-type", $page+1);

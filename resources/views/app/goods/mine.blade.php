@@ -77,6 +77,7 @@
   服务器没有更多资源了~
 </div>
 <input type="hidden" id="page" data-type="1" />
+<input type="hidden" id="isMobile" data-type="{{$isMobile}}" />
 @endsection
 @section('footer')
 @endsection
