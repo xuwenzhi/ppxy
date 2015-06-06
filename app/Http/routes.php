@@ -10,6 +10,25 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+// API
+App::singleton('oauth2', function() {
+	
+	$storage = new OAuth2\Storage\Pdo(
+		array(
+			'dsn' => 'mysql:dbname=ischare_school;host=localhost', 
+			'username' => 'root', 
+			'password' => ''
+		)
+	);
+	$server = new OAuth2\Server($storage);
+	
+	$server->addGrantType(new OAuth2\GrantType\ClientCredentials($storage));
+	$server->addGrantType(new OAuth2\GrantType\UserCredentials($storage));
+	
+	return $server;
+});
+
+
 $router->pattern('id', '[1-9][0-9]*');
 
 Route::get('/home', 'Home\IndexController@index');
