@@ -8,7 +8,6 @@ $(document).ready(function(){
 	$container.imagesLoaded( function () {
 		$container.masonry({
 			itemSelector: '.item',
-			columnWidth: 4,
             isAnimated:true,
             animationOptions: {
                 duration: 800,
@@ -52,7 +51,7 @@ function load_more_goods($type, $page){
 						$boxes = '';
 						$boxes += '<a href="'+APP+'/goods/detail/'+list[one]['id']+'" class="goods_block_a"><div class="col-md-3 col-xs-12 item"><div class="thumbnail" id="goods_block">';
 						if(list[one]['img_thumb_path'] != ''){
-		            		$boxes += '<img src="'+PUBLIC+''+list[one]['img_thumb_path']+'" class="img-responsive img-rounded" width="100%" alt="">';
+		            		$boxes += '<img src="'+PUBLIC+''+list[one]['img_thumb_path']+'" class="img-responsive img-rounded" height="130px" alt="">';
 						}
 						$boxes += '<div class="caption"><h3>'+list[one]['title']+'</h3>';
 						$boxes += '<ul class="list-group">';
@@ -61,9 +60,8 @@ function load_more_goods($type, $page){
 	                    $boxes += '<li class="list-group-item"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;'+list[one]['school_name']+'&nbsp;'+list[one]['deal_place_ext']+'</li></ul>';
 	                    $boxes += '<p><button class="btn btn-primary" onclick="window.location.href='+APP+'/goods/detail/'+list[one]['id']+'">查看详情</button> </p></div></div></div></a>';
 	                    var el = jQuery($boxes);
-	                    //setTimeout('', 200);
-	            		//jQuery(".masonry-container").append(el).masonry( 'appended', el, true );
-	            		$(".masonry-container").append(el).masonry('appended', el, 'reloadItems');
+	            		$(".masonry-container").append(el);
+	            		$(".masonry-container").masonry('appended', el, 'reloadItems')
 					}
 	            	needle.push($page, $page);
 	            	$("#page").attr("data-type", $page+1);
