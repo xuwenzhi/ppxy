@@ -3,6 +3,8 @@ var temp_page = 1;
 var needle = new Array();
 var time = Date.parse(new Date());
 var canLoad = true;
+var isMobile = false;
+var deviceWidth = 0;
 $(document).ready(function(){
 	var $container = $('.masonry-container');
 	$container.imagesLoaded( function () {
@@ -16,7 +18,10 @@ $(document).ready(function(){
            }
 		});
 	});
-
+	if($("#isMobile").val()){
+		isMobile = true;
+		deviceWidth = $(window).width();
+	}
 	//滚动
 	$(window).scroll(function(){
 	    // 当滚动到最底部以上100像素时， 加载新内容
@@ -41,6 +46,7 @@ function load_more_goods($type, $page){
 		type :'post',
 		dataType:'json',
 		async : false,
+		cache : false, 
 		data :{'type':$type, 'page':$page,'_token':$('meta[name="_token"]').attr('content')},
 		success:function(data){
 			if(data.status == 'success'){
@@ -51,7 +57,11 @@ function load_more_goods($type, $page){
 						$boxes = '';
 						$boxes += '<a href="'+APP+'/goods/detail/'+list[one]['id']+'" class="goods_block_a"><div class="col-md-3 col-xs-12 item"><div class="thumbnail" id="goods_block">';
 						if(list[one]['img_thumb_path'] != ''){
-		            		$boxes += '<img src="'+PUBLIC+''+list[one]['img_thumb_path']+'" class="img-responsive img-rounded" height="130px" alt="">';
+							if(deviceWidth != 0){
+		            			$boxes += '<img src="'+PUBLIC+''+list[one]['img_thumb_path']+'" class="img-responsive img-rounded" height="'+deviceWidth+'" width="'+deviceWidth+'" alt="">';
+		            		}else{
+		            			$boxes += '<img src="'+PUBLIC+''+list[one]['img_thumb_path']+'" class="img-responsive img-rounded" width="90%" alt="">';
+		            		}
 						}
 						$boxes += '<div class="caption"><h3>'+list[one]['title']+'</h3>';
 						$boxes += '<ul class="list-group">';

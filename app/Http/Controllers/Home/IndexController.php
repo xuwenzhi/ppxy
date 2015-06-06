@@ -33,6 +33,7 @@ class IndexController extends HomeController {
 			'goods'=>$arrGoods,
 			'type' =>GoodsType::BIG_TYPE_SINGLE,
 			'active'=>'index',
+			'isMobile' => Util::isMobile(),
 		);
 		return view('app.index', $data);
 	}

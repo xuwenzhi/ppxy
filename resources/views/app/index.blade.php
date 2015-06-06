@@ -61,6 +61,7 @@
 </div>
 <input type="hidden" id="big_type" data-type="{{$type}}" />
 <input type="hidden" id="page" data-type="1" />
+<input type="hidden" id="isMobile" data-type="{{$isMobile}}" />
 @endsection
 @section('footer')
 @section('js')
