@@ -17,7 +17,7 @@ App::singleton('oauth2', function() {
 		array(
 			'dsn' => 'mysql:dbname=ishare_school;host=localhost', 
 			'username' => 'root', 
-			'password' => 'qmnLOVExwz&521'
+			'password' => env('OAUTH_PASSWORD'),
 		)
 	);
 	$server = new OAuth2\Server($storage);
@@ -28,7 +28,7 @@ App::singleton('oauth2', function() {
 	return $server;
 });
 
-/*
+
 Route::post('oauth2/token', function()
 {
     $bridgedRequest  = \OAuth2\HttpFoundationBridge\Request::createFromRequest(Request::instance());
@@ -38,8 +38,8 @@ Route::post('oauth2/token', function()
     
     return $bridgedResponse;
 });
-*/
-Route::post('oauth2/token', 'Api\OauthController@postToken');
+
+//Route::post('oauth2/token', 'Api\OauthController@postToken');
 Route::get('private', function()
 {
 	$bridgedRequest  = OAuth2\HttpFoundationBridge\Request::createFromRequest(Request::instance());
