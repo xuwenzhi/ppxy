@@ -56,7 +56,6 @@ class PHP_CodeCoverage_Report_HTML
 
         $this->templatePath = sprintf(
             '%s%sHTML%sRenderer%sTemplate%s',
-
             dirname(__FILE__),
             DIRECTORY_SEPARATOR,
             DIRECTORY_SEPARATOR,
@@ -139,7 +138,7 @@ class PHP_CodeCoverage_Report_HTML
     {
         $dir = $this->getDirectory($target . 'css');
         copy($this->templatePath . 'css/bootstrap.min.css', $dir . 'bootstrap.min.css');
-        copy($this->templatePath . 'css/nv.d3.css', $dir . 'nv.d3.css');
+        copy($this->templatePath . 'css/nv.d3.min.css', $dir . 'nv.d3.min.css');
         copy($this->templatePath . 'css/style.css', $dir . 'style.css');
 
         $dir = $this->getDirectory($target . 'fonts');
@@ -147,11 +146,12 @@ class PHP_CodeCoverage_Report_HTML
         copy($this->templatePath . 'fonts/glyphicons-halflings-regular.svg', $dir . 'glyphicons-halflings-regular.svg');
         copy($this->templatePath . 'fonts/glyphicons-halflings-regular.ttf', $dir . 'glyphicons-halflings-regular.ttf');
         copy($this->templatePath . 'fonts/glyphicons-halflings-regular.woff', $dir . 'glyphicons-halflings-regular.woff');
+        copy($this->templatePath . 'fonts/glyphicons-halflings-regular.woff2', $dir . 'glyphicons-halflings-regular.woff2');
 
         $dir = $this->getDirectory($target . 'js');
         copy($this->templatePath . 'js/bootstrap.min.js', $dir . 'bootstrap.min.js');
         copy($this->templatePath . 'js/d3.min.js', $dir . 'd3.min.js');
-        copy($this->templatePath . 'js/holder.js', $dir . 'holder.js');
+        copy($this->templatePath . 'js/holder.min.js', $dir . 'holder.min.js');
         copy($this->templatePath . 'js/html5shiv.min.js', $dir . 'html5shiv.min.js');
         copy($this->templatePath . 'js/jquery.min.js', $dir . 'jquery.min.js');
         copy($this->templatePath . 'js/nv.d3.min.js', $dir . 'nv.d3.min.js');

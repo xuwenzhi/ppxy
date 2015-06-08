@@ -9,9 +9,6 @@
  */
 
 /**
- *
- *
- * @package    PHPUnit
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @author     Jeroen Versteeg <jversteeg@gmail.com>
  * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
@@ -25,13 +22,13 @@ class CountTest extends PHPUnit_Framework_TestCase
     public function testCount()
     {
         $countConstraint = new PHPUnit_Framework_Constraint_Count(3);
-        $this->assertTrue($countConstraint->evaluate(array(1,2,3), '', true));
+        $this->assertTrue($countConstraint->evaluate(array(1, 2, 3), '', true));
 
         $countConstraint = new PHPUnit_Framework_Constraint_Count(0);
         $this->assertTrue($countConstraint->evaluate(array(), '', true));
 
         $countConstraint = new PHPUnit_Framework_Constraint_Count(2);
-        $it = new TestIterator(array(1, 2));
+        $it              = new TestIterator(array(1, 2));
         $this->assertTrue($countConstraint->evaluate($it, '', true));
     }
 

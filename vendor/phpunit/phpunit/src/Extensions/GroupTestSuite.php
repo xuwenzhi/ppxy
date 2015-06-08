@@ -20,8 +20,6 @@
  * $suite = new PHPUnit_Extensions_GroupTestSuite($A, array('C', 'D'));
  * </code>
  *
- * @package    PHPUnit
- * @subpackage Extensions
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
@@ -48,7 +46,8 @@ class PHPUnit_Extensions_GroupTestSuite extends PHPUnit_Framework_TestSuite
         foreach ($tests as $test) {
             if ($test instanceof PHPUnit_Framework_TestCase) {
                 $testGroups = PHPUnit_Util_Test::getGroups(
-                    get_class($test), $test->getName(false)
+                    get_class($test),
+                    $test->getName(false)
                 );
 
                 foreach ($groups as $group) {

@@ -13,8 +13,6 @@
  *
  * The XML markup used is the same as the one that is used by the JUnit Ant task.
  *
- * @package    PHPUnit
- * @subpackage Util_Log
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
  * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
@@ -24,79 +22,79 @@
 class PHPUnit_Util_Log_JUnit extends PHPUnit_Util_Printer implements PHPUnit_Framework_TestListener
 {
     /**
-     * @var    DOMDocument
+     * @var DOMDocument
      */
     protected $document;
 
     /**
-     * @var    DOMElement
+     * @var DOMElement
      */
     protected $root;
 
     /**
-     * @var    boolean
+     * @var bool
      */
     protected $logIncompleteSkipped = false;
 
     /**
-     * @var    boolean
+     * @var bool
      */
     protected $writeDocument = true;
 
     /**
-     * @var    DOMElement[]
+     * @var DOMElement[]
      */
     protected $testSuites = array();
 
     /**
-     * @var    integer[]
+     * @var integer[]
      */
     protected $testSuiteTests = array(0);
 
     /**
-     * @var    integer[]
+     * @var integer[]
      */
     protected $testSuiteAssertions = array(0);
 
     /**
-     * @var    integer[]
+     * @var integer[]
      */
     protected $testSuiteErrors = array(0);
 
     /**
-     * @var    integer[]
+     * @var integer[]
      */
     protected $testSuiteFailures = array(0);
 
     /**
-     * @var    integer[]
+     * @var integer[]
      */
     protected $testSuiteTimes = array(0);
 
     /**
-     * @var    integer
+     * @var int
      */
     protected $testSuiteLevel = 0;
 
     /**
-     * @var    DOMElement
+     * @var DOMElement
      */
     protected $currentTestCase = null;
 
     /**
-     * @var    boolean
+     * @var bool
      */
     protected $attachCurrentTestCase = true;
 
     /**
      * Constructor.
      *
-     * @param mixed   $out
-     * @param boolean $logIncompleteSkipped
+     * @param mixed $out
+     * @param bool  $logIncompleteSkipped
      */
     public function __construct($out = null, $logIncompleteSkipped = false)
     {
-        $this->document = new DOMDocument('1.0', 'UTF-8');
+        $this->document               = new DOMDocument('1.0', 'UTF-8');
         $this->document->formatOutput = true;
 
         $this->root = $this->document->createElement('testsuites');
@@ -109,7 +107,6 @@ class PHPUnit_Util_Log_JUnit extends PHPUnit_Util_Printer implements PHPUnit_Fra
 
     /**
      * Flush buffer and close output.
-     *
      */
     public function flush()
     {
@@ -141,7 +138,8 @@ class PHPUnit_Util_Log_JUnit extends PHPUnit_Util_Printer implements PHPUnit_Fra
                        PHPUnit_Util_Filter::getFilteredStacktrace($e);
 
             $error = $this->document->createElement(
-                'error', PHPUnit_Util_XML::prepareString($buffer)
+                'error',
+                PHPUnit_Util_XML::prepareString($buffer)
             );
 
             $error->setAttribute('type', get_class($e));
@@ -174,7 +172,8 @@ class PHPUnit_Util_Log_JUnit extends PHPUnit_Util_Printer implements PHPUnit_Fra
                            PHPUnit_Util_Filter::getFilteredStacktrace($e);
 
                 $failure = $this->document->createElement(
-                    'failure', PHPUnit_Util_XML::prepareString($buffer)
+                    'failure',
+                    PHPUnit_Util_XML::prepareString($buffer)
                 );
 
                 $failure->setAttribute('type', get_class($e));
@@ -316,23 +315,28 @@ class PHPUnit_Util_Log_JUnit extends PHPUnit_Util_Printer implements PHPUnit_Fra
     public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
-            'tests', $this->testSuiteTests[$this->testSuiteLevel]
+            'tests',
+            $this->testSuiteTests[$this->testSuiteLevel]
         );
 
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
-            'assertions', $this->testSuiteAssertions[$this->testSuiteLevel]
+            'assertions',
+            $this->testSuiteAssertions[$this->testSuiteLevel]
         );
 
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
-            'failures', $this->testSuiteFailures[$this->testSuiteLevel]
+            'failures',
+            $this->testSuiteFailures[$this->testSuiteLevel]
         );
 
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
-            'errors', $this->testSuiteErrors[$this->testSuiteLevel]
+            'errors',
+            $this->testSuiteErrors[$this->testSuiteLevel]
         );
 
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
-            'time', sprintf('%F', $this->testSuiteTimes[$this->testSuiteLevel])
+            'time',
+            sprintf('%F', $this->testSuiteTimes[$this->testSuiteLevel])
         );
 
         if ($this->testSuiteLevel > 1) {
@@ -389,12 +393,14 @@ class PHPUnit_Util_Log_JUnit extends PHPUnit_Util_Printer implements PHPUnit_Fra
                     $this->testSuiteAssertions[$this->testSuiteLevel] += $numAssertions;
 
                     $this->currentTestCase->setAttribute(
-                        'assertions', $numAssertions
+                        'assertions',
+                        $numAssertions
                     );
                 }
 
                 $this->currentTestCase->setAttribute(
-                    'time', sprintf('%F', $time)
+                    'time',
+                    sprintf('%F', $time)
                 );
 
                 $this->testSuites[$this->testSuiteLevel]->appendChild(
