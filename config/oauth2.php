@@ -32,11 +32,21 @@ return [
     */
 
     'grant_types' => [
- 	   'authorization_code' => [
-      	  'class' => '\League\OAuth2\Server\Grant\AuthCodeGrant',
-       		 'access_token_ttl' => 3600,
-       	 'auth_token_ttl' => 60
-   	 ]
+	'password' => [
+        'class' => '\League\OAuth2\Server\Grant\PasswordGrant',
+        'callback' => function($username, $password) {
+            if( Auth::validate([
+                'email'    => $username,
+                'password' => $password,
+            ])){
+                  $user = \App\User::where('email',$username)->first();
+                  return $user->id;
+              } else {
+                  return false;
+              }
+    	    },
+        'access_token_ttl' => 3600
+    ]
     ],
     /*
     |--------------------------------------------------------------------------
