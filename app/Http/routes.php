@@ -11,59 +11,35 @@
 |
 */
 // API
-App::singleton('oauth2', function() {
-	
-	$storage = new OAuth2\Storage\Pdo(
-		array(
-			'dsn' => 'mysql:dbname=ishare_school;host=localhost', 
-			'username' => 'root', 
-			'password' => env('OAUTH_PASSWORD'),
-		)
-	);
-	$server = new OAuth2\Server($storage);
-	
-	$server->addGrantType(new OAuth2\GrantType\ClientCredentials($storage));
-	$server->addGrantType(new OAuth2\GrantType\UserCredentials($storage));
-	
-	return $server;
-});
-
-
-Route::post('oauth2/token', function()
+Route::get('/oauth/authorize', array('before' => 'check-authorization-params|auth', function()
 {
-    $bridgedRequest  = \OAuth2\HttpFoundationBridge\Request::createFromRequest(Request::instance());
-    $bridgedResponse = new \OAuth2\HttpFoundationBridge\Response();
-    
-    $bridgedResponse = App::make('oauth2')->handleTokenRequest($bridgedRequest, $bridgedResponse);
-    
-    return $bridgedResponse;
-});
+        if (Session::token() != Input::get('_token')){
+                $client = DB::table('oauth_clients')->where('id', Input::get('client_id'))->first();
+                if($client){
+                        $client_name = $client->name;
+                }
+                $scopes = DB::table('oauth_scopes')->whereIn('scope', explode(',',Input::get('scope')))->get();
+               // return View::make('oauth')->with('client_name', $client_name)->with('scopes', $scopes);
+        }
+    $params = Session::get('authorize-params');
+    $params['user_id'] = Auth::user()->id;
+    $code = AuthorizationServer::newAuthorizeRequest('user', $params['user_id'], $params);
+    Session::forget('authorize-params');
+    return Redirect::to(AuthorizationServer::makeRedirectWithCode($code, $params));
+}));
 
+Route::post('/oauth/access_token', function()
+{
+    return AuthorizationServer::performAccessTokenFlow();
+});
+Route::get('/callback', function(){
+        if(Input::has('code')){
+		return 'callback';
+        }
+});
 //Route::post('oauth2/token', 'Api\OauthController@postToken');
-Route::get('private', function()
-{
-	$bridgedRequest  = OAuth2\HttpFoundationBridge\Request::createFromRequest(Request::instance());
-	$bridgedResponse = new OAuth2\HttpFoundationBridge\Response();
-	
-	if (App::make('oauth2')->verifyResourceRequest($bridgedRequest, $bridgedResponse)) {
-		
-		$token = App::make('oauth2')->getAccessTokenData($bridgedRequest);
-		
-		return Response::json(array(
-			'private' => 'stuff',
-			'user_id' => $token['user_id'],
-			'client'  => $token['client_id'],
-			'expires' => $token['expires'],
-		));
-	}
-	else {
-		return Response::json(array(
-			'error' => 'Unauthorized'
-		), $bridgedResponse->getStatusCode());
-	}
-});
 
-
+Route::get('test', function(){return 'test';});
 
 
 
