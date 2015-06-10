@@ -11,38 +11,31 @@
 |
 */
 // API
-Route::get('/oauth/authorize', array('before' => 'check-authorization-params|auth', function()
-{
-        if (Session::token() != Input::get('_token')){
-                $client = DB::table('oauth_clients')->where('id', Input::get('client_id'))->first();
-                if($client){
-                        $client_name = $client->name;
-                }
-                $scopes = DB::table('oauth_scopes')->whereIn('scope', explode(',',Input::get('scope')))->get();
-               // return View::make('oauth')->with('client_name', $client_name)->with('scopes', $scopes);
-        }
-    $params = Session::get('authorize-params');
-    $params['user_id'] = Auth::user()->id;
-    $code = AuthorizationServer::newAuthorizeRequest('user', $params['user_id'], $params);
-    Session::forget('authorize-params');
-    return Redirect::to(AuthorizationServer::makeRedirectWithCode($code, $params));
-}));
-
-Route::post('/oauth/access_token', function()
-{
-    return AuthorizationServer::performAccessTokenFlow();
+App::singleton('oauth2', function() {
+ 
+	 $storage = new OAuth2\Storage\Pdo(array(
+		'dsn' => 'mysql:dbname=ishare_school;host=localhost', 'username' => 'root', 'password' => 'qmnLOVExwz&521'));
+	 $server = new OAuth2\Server($storage);
+	 $server->addGrantType(new OAuth2\GrantType\ClientCredentials($storage));
+	 $server->addGrantType(new OAuth2\GrantType\UserCredentials($storage));
+ 
+	 return $server;
 });
-Route::get('/callback', function(){
-        if(Input::has('code')){
-		return 'callback';
-        }
+Route::post('oauth/token', function()
+{
+    $bridgedRequest  = OAuth2\HttpFoundationBridge\Request::createFromRequest(Request::instance());
+    $bridgedResponse = new OAuth2\HttpFoundationBridge\Response();
+    
+    $bridgedResponse = App::make('oauth2')->handleTokenRequest($bridgedRequest, $bridgedResponse);
+    
+    return $bridgedResponse;
 });
-//Route::post('oauth2/token', 'Api\OauthController@postToken');
-
-Route::get('test', function(){return 'test';});
+Route::post('oauth/test', 'Api\OauthController@postToken');
 
 
-
+Route::group(['prefix' => 'post'], function(){
+	post('list', 'Api\OauthController@getAllPosts');	
+});
 
 $router->pattern('id', '[1-9][0-9]*');
 
