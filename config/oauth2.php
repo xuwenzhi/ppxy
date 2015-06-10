@@ -44,7 +44,8 @@ return [
                   } else {
                       return false;
                   }
-            }
+            },
+            'access_token_ttl' => 3600,
         ]
     ],
     /*
