@@ -35,7 +35,7 @@ class OauthUsers extends Base {
 		}
 		$recordCount = OauthUsers::where(array('username'=>$user['email']))->count();
 		if(!$recordCount){
-			return self::insert(array('username'=>$user['email'], 'password'=>sha1($user['password'])));
+			return self::insert(array('username'=>$user['email'], 'password'=>($user['password'])));
 		}
 	}
 

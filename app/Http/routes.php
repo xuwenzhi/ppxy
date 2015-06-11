@@ -37,6 +37,13 @@ Route::group(['prefix' => 'post'], function(){
 	post('list', 'Api\OauthController@getAllPosts');	
 });
 
+
+
+//Tools
+Route::get('/sysnoauth', 'Tools\sysnUsersToOauth@run');
+
+
+
 $router->pattern('id', '[1-9][0-9]*');
 
 Route::get('/home', 'Home\IndexController@index');
@@ -64,6 +71,10 @@ Route::group(['prefix' => '/user'], function()
 Route::get('verify/{resource?}', 'Home\IndividualController@setting');
 Route::post('verifyphone', 'Home\IndividualController@verifyphone');
 Route::post('doverifyphone', 'Home\IndividualController@doverifyphone');
+
+
+//todo 当在PC端修改密码时，同步到oauth_users表中，后期会干掉
+Route::post('/user/updatepass','Home\UserController@updateUserPass');
 
 
 

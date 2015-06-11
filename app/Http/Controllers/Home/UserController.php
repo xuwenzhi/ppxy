@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Util;
 use App\Services\Protocol;
 use App\User;
+use App\OauthUsers;
 
 class UserController extends Controller {
 
@@ -20,6 +21,19 @@ class UserController extends Controller {
 			return Util::json_format(Protocol::JSEND_SUCCESS, '', $db_email_count);
 		}
 		return Util::json_format(Protocol::JSEND_SUCCESS, '', array('count' => 0));
+	}
+
+	public function updateUserPass(Request $request){
+		$email = $request->get('email');
+		$password = $request->get('password');
+		if(!$email || !$password || $email == '' || $password == ''){
+			return Util::json_format(Protocol::JSEND_ERROR, '您提交的信息有误,请重试！');
+		}
+		$res = OauthUsers::updatePass(array('username'=>$email, 'password'=>sha1($password)));
+		if($res){
+			return Util::json_format(Protocol::JSEND_SUCCESS, '');
+		}
+		return Util::json_format(Protocol::JSEND_ERROR, '重置密码提交失败，请重试~');
 	}
 
 }

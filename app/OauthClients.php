@@ -35,7 +35,7 @@ class OauthClients extends Base {
 		}
 		$recordCount = OauthClients::where(array('client_id'=>$user['client_id']))->count();
 		if(!$recordCount){
-			return self::insert(array('client_id'=>$user['client_id'], 'client_secret'=>sha1($user['client_secret'])));
+			return self::insert(array('client_id'=>$user['client_id'], 'client_secret'=>($user['client_secret'])));
 		}
 	}
 
