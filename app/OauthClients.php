@@ -43,9 +43,9 @@ class OauthClients extends Base {
 		if(!$userInfo){
 			return array();
 		}
-		$userRecord = OauthUsers::where(array('client_id'=>$userInfo['client_id']))->get();
+		$userRecord = OauthClients::where(array('client_id'=>$userInfo['client_id']))->get();
 		if(count($userRecord)){
-			$userRecord->password = $userInfo['password'];
+			$userRecord->password = $userInfo['client_secret'];
 			return DB::table('oauth_clients')
             	->where('client_id', $userInfo['client_id'])
             	->update(['client_secret' => $userInfo['client_secret']]);

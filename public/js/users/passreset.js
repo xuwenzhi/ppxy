@@ -62,12 +62,12 @@ $(document).ready(function(){
 				if(data.status == 'success'){
 					$("#passRestForm").submit();
 				}else if(data.status == 'error'){
-					$("#show_register_issue").html(data.message);
-					$("#show_register_issue").show();
+					$("#show_reset_issue").html(data.message);
+					$("#show_reset_issue").show();
 					return false;
 				}else{
-					$("#show_register_issue").html(data.message);
-					$("#show_register_issue").show();
+					$("#show_reset_issue").html(data.message);
+					$("#show_reset_issue").show();
 					return false;
 				}
 			}
