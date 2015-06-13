@@ -19,8 +19,8 @@ class sysnUsersToOauth extends Controller {
 	public function run(){
 		$arrAllUser = User::where('id', '>', 0)->select('email')->get();
 		foreach ($arrAllUser as $key => $user) {
-			OauthUsers::insertNoRecord(array('email'=>$user['email'], 'password'=>''));
-			OauthClients::insertNoRecord(array('client_id'=>$user['email'], 'client_secret'=>''));
+			OauthUsers::insertNoRecord(array('email'=>$user['email'], 'password'=>$user['password']));
+			OauthClients::insertNoRecord(array('client_id'=>$user['email'], 'client_secret'=>$user['password']));
 		}
 	}
 

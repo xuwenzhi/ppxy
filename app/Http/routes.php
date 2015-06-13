@@ -41,6 +41,10 @@ Route::group(['prefix' => 'post'], function(){
 
 //Tools
 Route::get('/sysnoauth', 'Tools\sysnUsersToOauth@run');
+Route::get('/task/run',array('uses'=>'TaskController@run'));
+
+
+
 
 
 
