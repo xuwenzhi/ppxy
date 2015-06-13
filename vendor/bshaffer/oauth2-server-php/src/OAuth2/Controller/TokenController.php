@@ -31,9 +31,12 @@ class TokenController implements TokenControllerInterface
                 }
             }
         }
+        //数据表信息
         $this->clientAssertionType = $clientAssertionType;
+        //更详细的数据表信息
         $this->accessToken = $accessToken;
-        $this->clientStorage = $clientStorage;
+        //数据表信息
+        $this->clientStorage = $clientStorage;        
         foreach ($grantTypes as $grantType) {
             $this->addGrantType($grantType);
         }
@@ -50,7 +53,12 @@ class TokenController implements TokenControllerInterface
             // @see http://tools.ietf.org/html/rfc6749#section-5.1
             // server MUST disable caching in headers when tokens are involved
             $response->setStatusCode(200);
-            $response->addParameters($token);
+            //$response->addParameters($token);
+            $response->addParameters(array(
+                            'code' => 0,
+                            'message'=>'',
+                            'data'=>$token,
+                        ));
             $response->addHttpHeaders(array('Cache-Control' => 'no-store', 'Pragma' => 'no-cache'));
         }
     }
@@ -75,7 +83,12 @@ class TokenController implements TokenControllerInterface
     public function grantAccessToken(RequestInterface $request, ResponseInterface $response)
     {
         if (strtolower($request->server('REQUEST_METHOD')) != 'post') {
-            $response->setError(405, 'invalid_request', 'The request method must be POST when requesting an access token', '#section-3.2');
+            //$response->setError(405, '无效的请求', 'Token请以POST方式请求', '#section-3.2');
+            $response->addParameters(array(
+                        'code' => env('CODE_TOKEN_ERROR'),
+                        'message'=>'无效的请求',
+                        'data'=>array(),
+                    ));
             $response->addHttpHeaders(array('Allow' => 'POST'));
 
             return null;
@@ -86,15 +99,23 @@ class TokenController implements TokenControllerInterface
          * and validate the request for that grant type
          */
         if (!$grantTypeIdentifier = $request->request('grant_type')) {
-            $response->setError(400, 'invalid_request', 'The grant type was not specified in the request');
-
+            //$response->setError(400, '无效的请求', '请设置正确的GrantType');
+            $response->addParameters(array(
+                        'code' => env('CODE_TOKEN_ERROR'),
+                        'message'=>'请设置正确的GrantType',
+                        'data'=>array(),
+                    ));
             return null;
         }
 
         if (!isset($this->grantTypes[$grantTypeIdentifier])) {
             /* TODO: If this is an OAuth2 supported grant type that we have chosen not to implement, throw a 501 Not Implemented instead */
-            $response->setError(400, 'unsupported_grant_type', sprintf('Grant type "%s" not supported', $grantTypeIdentifier));
-
+            //$response->setError(200, '不支持此GrantType', sprintf('Grant type "%s" 不支持', $grantTypeIdentifier));
+            $response->addParameters(array(
+                        'code' => env('CODE_TOKEN_ERROR'),
+                        'message'=>'不支持此GrantType',
+                        'data'=>array(),
+                    ));
             return null;
         }
 
@@ -130,8 +151,12 @@ class TokenController implements TokenControllerInterface
         } else {
             // validate the Client ID (if applicable)
             if (!is_null($storedClientId = $grantType->getClientId()) && $storedClientId != $clientId) {
-                $response->setError(400, 'invalid_grant', sprintf('%s doesn\'t exist or is invalid for the client', $grantTypeIdentifier));
-
+                //$response->setError(400, 'invalid_grant', sprintf('%s doesn\'t exist or is invalid for the client', $grantTypeIdentifier));
+                $response->addParameters(array(
+                        'code' => env('CODE_TOKEN_ERROR'),
+                        'message'=>'不存在该Grant或无效的Client',
+                        'data'=>array(),
+                    ));
                 return null;
             }
         }
@@ -140,8 +165,12 @@ class TokenController implements TokenControllerInterface
          * Validate the client can use the requested grant type
          */
         if (!$this->clientStorage->checkRestrictedGrantType($clientId, $grantTypeIdentifier)) {
-            $response->setError(400, 'unauthorized_client', 'The grant type is unauthorized for this client_id');
-
+            //$response->setError(400, '未认证的clientId', '此GrantType没有对该ClientID授权');
+            $response->addParameters(array(
+                        'code' => env('CODE_TOKEN_ERROR'),
+                        'message'=>'此GrantType没有对该ClientID授权',
+                        'data'=>array(),
+                    ));
             return false;
         }
 
@@ -163,21 +192,33 @@ class TokenController implements TokenControllerInterface
             // validate the requested scope
             if ($availableScope) {
                 if (!$this->scopeUtil->checkScope($requestedScope, $availableScope)) {
-                    $response->setError(400, 'invalid_scope', 'The scope requested is invalid for this request');
-
+                    //$response->setError(400, 'invalid_scope', 'The scope requested is invalid for this request');
+                    $response->addParameters(array(
+                        'code' => env('CODE_TOKEN_ERROR'),
+                        'message'=>'无效的Scope',
+                        'data'=>array(),
+                    ));
                     return null;
                 }
             } else {
                 // validate the client has access to this scope
                 if ($clientScope = $this->clientStorage->getClientScope($clientId)) {
                     if (!$this->scopeUtil->checkScope($requestedScope, $clientScope)) {
-                        $response->setError(400, 'invalid_scope', 'The scope requested is invalid for this client');
-
+                        //$response->setError(400, 'invalid_scope', 'The scope requested is invalid for this client');
+                        $response->addParameters(array(
+                            'code' => env('CODE_TOKEN_ERROR'),
+                            'message'=>'该Scope未对Client授权',
+                            'data'=>array(),
+                        ));
                         return false;
                     }
                 } elseif (!$this->scopeUtil->scopeExists($requestedScope)) {
-                    $response->setError(400, 'invalid_scope', 'An unsupported scope was requested');
-
+                    //$response->setError(400, 'invalid_scope', 'An unsupported scope was requested');
+                    $response->addParameters(array(
+                            'code' => env('CODE_TOKEN_ERROR'),
+                            'message'=>'服务器不存在该Scope',
+                            'data'=>array(),
+                        ));
                     return null;
                 }
             }
@@ -190,8 +231,12 @@ class TokenController implements TokenControllerInterface
 
             // "false" means default scopes are not allowed
             if (false === $defaultScope) {
-                $response->setError(400, 'invalid_scope', 'This application requires you specify a scope parameter');
-
+                //$response->setError(400, 'invalid_scope', 'This application requires you specify a scope parameter');
+                $response->addParameters(array(
+                            'code' => env('CODE_TOKEN_ERROR'),
+                            'message'=>'您没有可授权的Scope',
+                            'data'=>array(),
+                        ));
                 return null;
             }
 

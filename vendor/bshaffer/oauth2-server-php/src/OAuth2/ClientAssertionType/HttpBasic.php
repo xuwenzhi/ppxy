@@ -49,19 +49,31 @@ class HttpBasic implements ClientAssertionTypeInterface
 
         if (!isset($clientData['client_secret']) || $clientData['client_secret'] == '') {
             if (!$this->config['allow_public_clients']) {
-                $response->setError(400, 'invalid_client', 'client credentials are required');
-
+                //$response->setError(400, 'invalid_client', 'client credentials are required');
+                $response->addParameters(array(
+                            'code' => env('CODE_TOKEN_ERROR'),
+                            'message'=>'无效的客户端',
+                            'data'=>array(),
+                        ));
                 return false;
             }
 
             if (!$this->storage->isPublicClient($clientData['client_id'])) {
-                $response->setError(400, 'invalid_client', 'This client is invalid or must authenticate using a client secret');
-
+                //$response->setError(400, 'invalid_client', 'This client is invalid or must authenticate using a client secret');
+                $response->addParameters(array(
+                            'code' => env('CODE_TOKEN_ERROR'),
+                            'message'=>'您没有输入有效的secret',
+                            'data'=>array(),
+                        ));
                 return false;
             }
         } elseif ($this->storage->checkClientCredentials($clientData['client_id'], $clientData['client_secret']) === false) {
-            $response->setError(400, 'invalid_client', 'The client credentials are invalid');
-
+            //$response->setError(400, 'invalid_client', 'The client credentials are invalid');
+            $response->addParameters(array(
+                            'code' => env('CODE_TOKEN_ERROR'),
+                            'message'=>'用户名或密码输入错误',
+                            'data'=>array(),
+                        ));
             return false;
         }
 
@@ -115,7 +127,12 @@ class HttpBasic implements ClientAssertionTypeInterface
 
         if ($response) {
             $message = $this->config['allow_credentials_in_request_body'] ? ' or body' : '';
-            $response->setError(400, 'invalid_client', 'Client credentials were not found in the headers'.$message);
+            //$response->setError(400, 'invalid_client', 'Client credentials were not found in the headers'.$message);
+            $response->addParameters(array(
+                            'code' => env('CODE_TOKEN_ERROR'),
+                            'message'=>'服务器没有授权您的行为',
+                            'data'=>array(),
+                        ));
         }
 
         return null;

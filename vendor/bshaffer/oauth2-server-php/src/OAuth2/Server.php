@@ -255,6 +255,13 @@ class Server implements ResourceControllerInterface,
      */
     public function handleTokenRequest(RequestInterface $request, ResponseInterface $response = null)
     {
+        if( Auth::validate([
+                    'email'    => 'test@qq.com',
+                    'password' => '123456',
+                ])){
+            echo 'ff';
+            exit;
+        }
         $this->response = is_null($response) ? new Response() : $response;
         $this->getTokenController()->handleTokenRequest($request, $this->response);
 

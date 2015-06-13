@@ -33,22 +33,34 @@ class UserCredentials implements GrantTypeInterface
     public function validateRequest(RequestInterface $request, ResponseInterface $response)
     {
         if (!$request->request("password") || !$request->request("username")) {
-            $response->setError(400, 'invalid_request', 'Missing parameters: "username" and "password" required');
-
+            //$response->setError(400, 'invalid_request', 'Missing parameters: "username" and "password" required');
+            $response->addParameters(array(
+                            'code' => env('CODE_TOKEN_ERROR'),
+                            'message'=>'您还未输入用户名和密码',
+                            'data'=>array(),
+                        ));
             return null;
         }
 
         if (!$this->storage->checkUserCredentials($request->request("username"), $request->request("password"))) {
-            $response->setError(401, 'invalid_grant', 'Invalid username and password combination');
-
+            //$response->setError(401, 'invalid_grant', 'Invalid username and password combination');
+            $response->addParameters(array(
+                            'code' => env('CODE_TOKEN_ERROR'),
+                            'message'=>'您的用户名或密码输入错误',
+                            'data'=>array(),
+                        ));
             return null;
         }
 
         $userInfo = $this->storage->getUserDetails($request->request("username"));
 
         if (empty($userInfo)) {
-            $response->setError(400, 'invalid_grant', 'Unable to retrieve user information');
-
+            //$response->setError(400, 'invalid_grant', 'Unable to retrieve user information');
+            $response->addParameters(array(
+                            'code' => env('CODE_TOKEN_ERROR'),
+                            'message'=>'服务器没有您的数据噢~',
+                            'data'=>array(),
+                        ));
             return null;
         }
 
@@ -76,6 +88,7 @@ class UserCredentials implements GrantTypeInterface
         return isset($this->userInfo['scope']) ? $this->userInfo['scope'] : null;
     }
 
+    //验证成功，创建token
     public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
     {
         return $accessToken->createAccessToken($client_id, $user_id, $scope);

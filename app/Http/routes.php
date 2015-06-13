@@ -22,7 +22,7 @@ App::singleton('oauth2', function() {
 	 return $server;
 });
 Route::post('oauth/token', function()
-{
+{	
     $bridgedRequest  = OAuth2\HttpFoundationBridge\Request::createFromRequest(Request::instance());
     $bridgedResponse = new OAuth2\HttpFoundationBridge\Response();
     
