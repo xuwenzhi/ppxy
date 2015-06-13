@@ -34,7 +34,7 @@ class Registrar implements RegistrarContract {
 		if(!OauthUsers::insert(
 			array(
 				'username' => $data['email'],
-				'password'=>sha1($data['password']),
+				'password'=>bcrypt($data['password']),
 			)
 		)){
 			return false;
@@ -42,7 +42,7 @@ class Registrar implements RegistrarContract {
 		if(!OauthClients::insert(
 			array(
 				'client_id' => $data['email'],
-				'client_secret'=>sha1($data['password']),
+				'client_secret'=>bcrypt($data['password']),
 			)
 		)){
 			return false;

@@ -112,7 +112,6 @@ class HttpBasic implements ClientAssertionTypeInterface
         if (!is_null($request->headers('PHP_AUTH_USER')) && !is_null($request->headers('PHP_AUTH_PW'))) {
             return array('client_id' => $request->headers('PHP_AUTH_USER'), 'client_secret' => $request->headers('PHP_AUTH_PW'));
         }
-
         if ($this->config['allow_credentials_in_request_body']) {
             // Using POST for HttpBasic authorization is not recommended, but is supported by specification
             if (!is_null($request->request('client_id'))) {
@@ -120,7 +119,7 @@ class HttpBasic implements ClientAssertionTypeInterface
                  * client_secret can be null if the client's password is an empty string
                  * @see http://tools.ietf.org/html/rfc6749#section-2.3.1
                  */
-
+                //不论client_id  和 client_secret是否填写正确，都会走这里
                 return array('client_id' => $request->request('client_id'), 'client_secret' => $request->request('client_secret'));
             }
         }

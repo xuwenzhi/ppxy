@@ -62,6 +62,7 @@ class AccessToken implements AccessTokenInterface
     }
 
     /**
+     * 创建token
      * Handle the creation of access token, also issue refresh token if supported / desirable.
      *
      * @param $client_id                client identifier related to the access token.

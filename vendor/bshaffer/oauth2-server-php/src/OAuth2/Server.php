@@ -112,7 +112,7 @@ class Server implements ResourceControllerInterface,
             'store_encrypted_token_string' => true,
             'use_openid_connect'       => false,
             'id_lifetime'              => 3600,
-            'access_lifetime'          => 3600,
+            'access_lifetime'          => 2592000,
             'www_realm'                => 'Service',
             'token_param_name'         => 'access_token',
             'token_bearer_header_name' => 'Bearer',
@@ -255,13 +255,7 @@ class Server implements ResourceControllerInterface,
      */
     public function handleTokenRequest(RequestInterface $request, ResponseInterface $response = null)
     {
-        if( Auth::validate([
-                    'email'    => 'test@qq.com',
-                    'password' => '123456',
-                ])){
-            echo 'ff';
-            exit;
-        }
+        // $request 请求参数
         $this->response = is_null($response) ? new Response() : $response;
         $this->getTokenController()->handleTokenRequest($request, $this->response);
 

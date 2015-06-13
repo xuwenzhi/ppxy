@@ -761,7 +761,7 @@ class EloquentUserProvider implements UserProvider
     }
     public function validateCredentials(UserContract $user, array $credentials)
     {
-        $plain = $credentials['password'];
+        $plain = $credentials['password'];//输入的密码
         return $this->hasher->check($plain, $user->getAuthPassword());
     }
     public function createModel()
@@ -13087,7 +13087,8 @@ class LineFormatter extends NormalizerFormatter
             return $str;
         }
         return strtr($str, array('
-' => ' ', '' => ' ', '
+' => ' ', '
+' => ' ', '
 ' => ' '));
     }
 }

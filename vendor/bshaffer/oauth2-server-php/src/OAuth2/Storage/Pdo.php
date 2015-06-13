@@ -71,25 +71,42 @@ class Pdo implements
     }
 
     /* OAuth2\Storage\ClientCredentialsInterface */
+    /**
+     *  oauth_clients表中的数据是从users表中同步过去的，所以下面更改了验证方式以便和laravel内置的auth验证方式一致
+     *  2015.6.14 1:15  By : 徐文志
+     */
     public function checkClientCredentials($client_id, $client_secret = null)
     {
+
         $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));
+        //$stmt = $this->db->prepare(sprintf('SELECT * from %s where email = :client_id', 'users'));
         $stmt->execute(compact('client_id'));
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         // make this extensible
-        return $result && $result['client_secret'] == $client_secret;
+        //return $result && $result['client_secret'] == $client_secret;
+        return $result && password_verify($client_secret, $result['client_secret']);
     }
 
+    /**
+     * oauth_clients表中的数据是从users表中同步过去的，所以下面更改了验证方式以便和laravel内置的auth验证方式一致
+     * 2015.6.14 1:15  By : 徐文志
+     * @param  [type]  $client_id [description]
+     * @return boolean            [description]
+     */
     public function isPublicClient($client_id)
     {
         $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));
+        //$stmt = $this->db->prepare(sprintf('SELECT * from %s where email = :client_id', 'users'));
         $stmt->execute(compact('client_id'));
 
         if (!$result = $stmt->fetch(\PDO::FETCH_ASSOC)) {
             return false;
         }
-
+        /**
+         * 这里进行了修改
+         */
+        //return empty($result['client_secret']);
         return empty($result['client_secret']);
     }
 
@@ -298,9 +315,17 @@ class Pdo implements
     }
 
     // plaintext passwords are bad!  Override this for your application
+    /**
+     * 由于laravel 内置auth使用了hash散列加密，而oauth内置的加密方式是sha1()所以这里进行修改了
+     * 2015.6.14 By : azxuwen
+     * @param  [type] $user     [description]
+     * @param  [type] $password [description]
+     * @return [type]           [description]
+     */
     protected function checkPassword($user, $password)
     {
-        return $user['password'] == sha1($password);
+        //return $user['password'] == sha1($password);
+        return password_verify($password, $user['password']);
     }
 
     public function getUser($username)
@@ -321,7 +346,7 @@ class Pdo implements
     public function setUser($username, $password, $firstName = null, $lastName = null)
     {
         // do not store in plaintext
-        $password = sha1($password);
+        $password = bcrypt($password);
 
         // if it exists, update it.
         if ($this->getUser($username)) {

@@ -93,7 +93,6 @@ class TokenController implements TokenControllerInterface
 
             return null;
         }
-
         /**
          * Determine grant type from request
          * and validate the request for that grant type
@@ -133,6 +132,7 @@ class TokenController implements TokenControllerInterface
             if (!$this->clientAssertionType->validateRequest($request, $response)) {
                 return null;
             }
+            //clientID
             $clientId = $this->clientAssertionType->getClientId();
         }
 
@@ -164,6 +164,7 @@ class TokenController implements TokenControllerInterface
         /**
          * Validate the client can use the requested grant type
          */
+        // $grantTypeIdentifier = password;
         if (!$this->clientStorage->checkRestrictedGrantType($clientId, $grantTypeIdentifier)) {
             //$response->setError(400, '未认证的clientId', '此GrantType没有对该ClientID授权');
             $response->addParameters(array(
@@ -173,7 +174,6 @@ class TokenController implements TokenControllerInterface
                     ));
             return false;
         }
-
         /**
          * Validate the scope of the token
          *
@@ -242,7 +242,6 @@ class TokenController implements TokenControllerInterface
 
             $requestedScope = $defaultScope;
         }
-
         return $grantType->createAccessToken($this->accessToken, $clientId, $grantType->getUserId(), $requestedScope);
     }
 
