@@ -26,6 +26,7 @@ class OauthUsers extends Base {
 		$obj = new OauthUsers;
 		$obj->username = $userInfo['email'];
 		$obj->password = $userInfo['password'];
+		$obj->phone    = $userInfo['phone'];
 		return $obj->save();
 	}
 
@@ -47,7 +48,7 @@ class OauthUsers extends Base {
 		if(count($userRecord)){
 			return DB::table('oauth_users')
             	->where('username', $userInfo['email'])
-            	->update(['password' => $userInfo['password']]);
+            	->update(['password' => $userInfo['password'], 'phone'=>$userInfo['phone']]);
 		}else{
 			return self::insert($userInfo);
 		}

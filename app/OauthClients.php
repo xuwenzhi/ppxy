@@ -26,6 +26,8 @@ class OauthClients extends Base {
 		$obj = new OauthClients;
 		$obj->client_id = $userInfo['client_id'];
 		$obj->client_secret = $userInfo['client_secret'];
+		$obj->phone = $userInfo['phone'];
+		$obj->userId = $userInfo['user_id'];
 		return $obj->save();
 	}
 
@@ -48,7 +50,7 @@ class OauthClients extends Base {
 			$userRecord->password = $userInfo['client_secret'];
 			return DB::table('oauth_clients')
             	->where('client_id', $userInfo['client_id'])
-            	->update(['client_secret' => $userInfo['client_secret']]);
+            	->update(['client_secret' => $userInfo['client_secret'], 'phone'=>$userInfo['phone'], 'user_id'=>$userInfo['user_id']]);
 		}else{
 			return self::insert($userInfo);
 		}

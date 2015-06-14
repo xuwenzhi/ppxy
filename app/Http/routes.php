@@ -10,15 +10,15 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-// API
+/**
+ * APIs
+ */
 App::singleton('oauth2', function() {
- 
 	 $storage = new OAuth2\Storage\Pdo(array(
 		'dsn' => 'mysql:dbname=ishare_school;host=localhost', 'username' => 'root', 'password' => env('DB_PASSWORD', '')));
 	 $server = new OAuth2\Server($storage);
 	 $server->addGrantType(new OAuth2\GrantType\ClientCredentials($storage));
 	 $server->addGrantType(new OAuth2\GrantType\UserCredentials($storage));
- 
 	 return $server;
 });
 Route::post('oauth/token', function()
@@ -30,18 +30,50 @@ Route::post('oauth/token', function()
     
     return $bridgedResponse;
 });
-Route::post('oauth/test', 'Api\OauthController@postToken');
-
 
 Route::group(['prefix' => 'post'], function(){
 	post('list', 'Api\OauthController@getAllPosts');	
 });
 
+Route::group(['prefix' => 'api'], function(){
+	Route::group(['prefix' => 'user'], function(){
+		Route::post('veirfycode', 'Api\UserController@veirfyCode');
+		Route::post('doverify'  , 'Api\UserController@doVerify');
+		Route::post('addpasswd'  , 'Api\UserController@addPassword');
+	});
+
+	Route::group(['prefix' => 'goods'], function(){
+		Route::post('bigtype', 'Api\GoodsController@getBigType');
+		Route::post('smalltype'  , 'Api\GoodsController@getSmallType');
+		Route::post('list'  , 'Api\GoodsController@getList');
+		Route::post('mine'  , 'Api\GoodsController@getList');
+		Route::post('detail'  , 'Api\GoodsController@getDetail');
+	});
+
+	Route::group(['prefix' => 'order'], function(){
+		Route::post('precheck', 'Api\OrderController@precheck');
+		Route::post('create'  , 'Api\OrderController@create');
+		Route::post('mine'  , 'Api\OrderController@mine');
+		Route::post('detail'  , 'Api\OrderController@detail');
+	});
+});
 
 
-//Tools
-Route::get('/sysnoauth', 'Tools\sysnUsersToOauth@run');
-Route::get('/task/run',array('uses'=>'TaskController@run'));
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Tools
+ */
+
 
 
 

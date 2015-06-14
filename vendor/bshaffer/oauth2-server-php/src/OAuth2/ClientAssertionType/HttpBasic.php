@@ -71,7 +71,7 @@ class HttpBasic implements ClientAssertionTypeInterface
             //$response->setError(400, 'invalid_client', 'The client credentials are invalid');
             $response->addParameters(array(
                             'code' => env('CODE_TOKEN_ERROR'),
-                            'message'=>'用户名或密码输入错误',
+                            'message'=>'您的用户名或密码输入错误',
                             'data'=>array(),
                         ));
             return false;

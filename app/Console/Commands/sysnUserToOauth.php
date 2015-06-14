@@ -69,14 +69,10 @@ class sysnUserToOauth extends Command {
 	}
 
 	function handle(){
-		$arrAllUser = User::where('id', '>', 0)->select('email', 'password', 'id')->get();
-	echo count($arrAllUser);
+		$arrAllUser = User::where('id', '>', 0)->select('email', 'password', 'id', 'phone_nu')->get();
 		foreach ($arrAllUser as $key => $user) {
-if($user['password'] == ''){
-	echo $user['email'].'null';
-}
-			OauthUsers::updatePass(array('email'=>$user['email'], 'password'=>$user['password']));
-			OauthClients::updatePass(array('client_id'=>$user['email'], 'client_secret'=>$user['password']));
+			OauthUsers::updatePass(array('email'=>$user['email'], 'password'=>$user['password'], 'phone'=>$user['phone_nu']));
+			OauthClients::updatePass(array('client_id'=>$user['email'], 'client_secret'=>$user['password'], 'phone'=>$user['phone_nu'], 'user_id'=>$user['id']));
 		}
 	}
 

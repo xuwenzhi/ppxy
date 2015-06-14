@@ -77,8 +77,15 @@ class Pdo implements
      */
     public function checkClientCredentials($client_id, $client_secret = null)
     {
-
-        $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));
+        /**
+         * 为兼容客户端可以通过手机号登录
+         */
+        if(preg_match("/1[34589]{1}\d{9}$/",$client_id)){  
+            $stmt = $this->db->prepare(sprintf('SELECT * from %s where phone = :client_id', $this->config['client_table']));     
+        }else{
+            $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));
+        }
+        
         //$stmt = $this->db->prepare(sprintf('SELECT * from %s where email = :client_id', 'users'));
         $stmt->execute(compact('client_id'));
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -96,7 +103,14 @@ class Pdo implements
      */
     public function isPublicClient($client_id)
     {
-        $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));
+        /**
+         * 为兼容客户端可以通过手机号或者邮箱登录
+         */
+        if(preg_match("/1[34589]{1}\d{9}$/",$client_id)){  
+            $stmt = $this->db->prepare(sprintf('SELECT * from %s where phone = :client_id', $this->config['client_table']));     
+        }else{
+            $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));    
+        }
         //$stmt = $this->db->prepare(sprintf('SELECT * from %s where email = :client_id', 'users'));
         $stmt->execute(compact('client_id'));
 
@@ -232,6 +246,7 @@ class Pdo implements
     /* OAuth2\Storage\UserCredentialsInterface */
     public function checkUserCredentials($username, $password)
     {
+        //$username  用户输入的username
         if ($user = $this->getUser($username)) {
             return $this->checkPassword($user, $password);
         }
@@ -328,9 +343,19 @@ class Pdo implements
         return password_verify($password, $user['password']);
     }
 
+    /**
+     * 根据username来获取一条记录，为兼容客户端邮箱和手机号都可以登录，修改这里
+     * @param  [type] $username [description]
+     * @return [type]           [description]
+     */
     public function getUser($username)
     {
-        $stmt = $this->db->prepare($sql = sprintf('SELECT * from %s where username=:username', $this->config['user_table']));
+        if(preg_match("/1[34589]{1}\d{9}$/",$username)){
+            $stmt = $this->db->prepare($sql = sprintf('SELECT * from %s where phone=:username', $this->config['user_table']));
+        }else{
+            $stmt = $this->db->prepare($sql = sprintf('SELECT * from %s where username=:username', $this->config['user_table']));
+        }
+        
         $stmt->execute(array('username' => $username));
 
         if (!$userInfo = $stmt->fetch(\PDO::FETCH_ASSOC)) {
