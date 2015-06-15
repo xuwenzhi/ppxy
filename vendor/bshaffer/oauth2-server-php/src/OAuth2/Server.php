@@ -265,8 +265,7 @@ class Server implements ResourceControllerInterface,
     public function grantAccessToken(RequestInterface $request, ResponseInterface $response = null)
     {
         $this->response = is_null($response) ? new Response() : $response;
-        $value = $this->getTokenController()->grantAccessToken($request, $this->response);
-
+        $value = $this->getTokenController()->grantAccessToken($request, $this->response);        
         return $value;
     }
 

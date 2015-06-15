@@ -383,6 +383,22 @@ class Pdo implements
         return $stmt->execute(compact('username', 'password', 'firstName', 'lastName'));
     }
 
+    /**
+     * 通过email或手机号从users中获取信息
+     */
+    public function getUserByClientId($cond){
+        if(preg_match("/1[34589]{1}\d{9}$/",$cond)){
+            $stmt = $this->db->prepare(sprintf("SELECT name, email, phone_nu, head FROM %s WHERE phone_nu = '%s'", 'users', $cond));
+        } else {
+            $stmt = $this->db->prepare(sprintf("SELECT name, email, phone_nu, head FROM %s WHERE email = '%s'", 'users', $cond));
+        }
+        $stmt->execute();
+        if ($result = $stmt->fetchAll(\PDO::FETCH_ASSOC)) {
+            return $result[0];
+        }
+        return array();
+    }
+
     /* ScopeInterface */
     public function scopeExists($scope)
     {

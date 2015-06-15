@@ -27,7 +27,6 @@ Route::post('oauth/token', function()
     $bridgedResponse = new OAuth2\HttpFoundationBridge\Response();
     
     $bridgedResponse = App::make('oauth2')->handleTokenRequest($bridgedRequest, $bridgedResponse);
-    
     return $bridgedResponse;
 });
 

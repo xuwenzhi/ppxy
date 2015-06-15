@@ -98,9 +98,10 @@ class AccessToken implements AccessTokenInterface
             }
             $this->refreshStorage->setRefreshToken($token['refresh_token'], $client_id, $user_id, $expires, $scope);
         }
-
-        return $token;
+        $user = $this->tokenStorage->getUserByClientId($client_id);
+        return array('token' => $token, 'user'=> $user);
     }
+
 
     /**
      * Generates an unique access token.

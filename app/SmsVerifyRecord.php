@@ -32,6 +32,18 @@ class SmsVerifyRecord extends Base {
 	}
 
 	/**
+	 * 获取某个手机号今天已经请求了多少次注册验证码
+	 */
+	public static function getVerifyPhoneTimesByUid($phone_nu){
+		$strDateStart = date('Y-m-d 00:00:00');
+		$strDateEnd   = date('Y-m-d 23:59:59');
+		$intCount = SmsVerifyRecord::whereBetween("ctime", array($strDateStart, $strDateEnd))
+			->where(array('phone_nu' =>$phone_nu, 'type' => self::TYPE_USER))
+			->count();
+		return $intCount;
+	}
+
+	/**
 	 * 获取该用户今天已经请求了多少次验证手机号的验证码
 	 */
 	public static function getVerifyPhoneTimesByUid($uid){
