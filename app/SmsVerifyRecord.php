@@ -31,17 +31,7 @@ class SmsVerifyRecord extends Base {
 		return $randCode;
 	}
 
-	/**
-	 * 获取某个手机号今天已经请求了多少次注册验证码
-	 */
-	public static function getVerifyPhoneTimesByUid($phone_nu){
-		$strDateStart = date('Y-m-d 00:00:00');
-		$strDateEnd   = date('Y-m-d 23:59:59');
-		$intCount = SmsVerifyRecord::whereBetween("ctime", array($strDateStart, $strDateEnd))
-			->where(array('phone_nu' =>$phone_nu, 'type' => self::TYPE_USER))
-			->count();
-		return $intCount;
-	}
+	
 
 	/**
 	 * 获取该用户今天已经请求了多少次验证手机号的验证码
@@ -96,5 +86,43 @@ class SmsVerifyRecord extends Base {
 		return $res;
 	}
 
+	/**
+	 * API 注册流程 
+	 */
+	
+	/**
+	 * 获取某个手机号今天已经请求了多少次注册验证码
+	 */
+	public static function getVerifyPhoneTimesByPhone($phone_nu){
+		$strDateStart = date('Y-m-d 00:00:00');
+		$strDateEnd   = date('Y-m-d 23:59:59');
+		$intCount = SmsVerifyRecord::whereBetween("ctime", array($strDateStart, $strDateEnd))
+			->where(array('phone_nu' =>$phone_nu, 'type' => self::TYPE_USER))
+			->count();
+		return $intCount;
+	}
+
+	public static function apiGenerateSend($uid, $phone_nu){
+		$randCode = self::generateRandCode();
+		$msg = sprintf("您本次的验证码为%s，请注意保密，感谢您的选择！", $randCode);
+		$objSms = new Sms;
+		$sendRes = $objSms->setHp($phone_nu)->setMsg($msg)->sendSingle();
+		Log::info("【客户端】【用户注册获取验证码】- 用户ID ".$uid." 手机号 ".$phone_nu.",短信内容为:".$msg);
+		if($sendRes != 0){
+			Log::error("【客户端】【用户验证手机号短信发送失败】- 用户ID ".$uid." 手机号 ".$phone_nu.",短信内容为:".$msg);
+		}
+		//记录日志
+		self::addRecord($uid, $randCode, $msg, $phone_nu, self::TYPE_USER);
+		return !$sendRes;
+	}
+
+	public static function apiCheckUserVerify($code, $phone_nu){
+		$now_timestamp = time();
+		$strDateStart = date('Y-m-d H:i:s', $now_timestamp - 1800);
+		$strDateEnd   = date('Y-m-d H:i:s', $now_timestamp);
+		$verify_record = SmsVerifyRecord::where(array('uid'=>0, 'code'=>$code, 'phone_nu'=>$phone_nu, 'type'=>self::TYPE_USER))
+			->count();
+		return $verify_record;
+	}
 }
 

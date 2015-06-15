@@ -27,7 +27,7 @@ class OauthClients extends Base {
 		$obj->client_id = $userInfo['client_id'];
 		$obj->client_secret = $userInfo['client_secret'];
 		$obj->phone = $userInfo['phone'];
-		$obj->userId = $userInfo['user_id'];
+		$obj->user_id = $userInfo['user_id'];
 		return $obj->save();
 	}
 

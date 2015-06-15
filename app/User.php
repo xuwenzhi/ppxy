@@ -72,4 +72,15 @@ class User extends Base implements AuthenticatableContract, CanResetPasswordCont
 		return User::whereIn('id', $arrUid) -> get();
 	}
 
+	public static function apiAddUser($arrUser){
+		$objUser = new User;
+		$objUser -> phone_nu = $arrUser['phone_nu'];
+		$objUser -> role = self::ROLE_MEMBER;
+		$objUser -> created_at = date('Y-m-d H:i:s');
+		if(!$objUser -> save()){
+			return false;
+		}
+		return $objUser -> id;
+	}
+
 }

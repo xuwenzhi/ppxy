@@ -55,7 +55,6 @@ class TokenController implements TokenControllerInterface
             // server MUST disable caching in headers when tokens are involved
             $response->setStatusCode(200);
             //$response->addParameters($token);
-            //$token['user']['head'] = env('DOMAIN_IMG_ADDR').$token['user']['head'];
             $token['user']['head'] = $token['user']['head'] != '' ? env('DOMAIN_IMG_ADDR').$token['user']['head'] : '';
             /**
              * 返回创建的token
