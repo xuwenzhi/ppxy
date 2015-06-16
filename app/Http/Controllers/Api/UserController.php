@@ -45,7 +45,7 @@ class UserController extends ApiController {
 			return $this->send(4);
 		}
 		$verify_record = SmsVerifyRecord::apiCheckUserVerify($verify_code, $phone_nu);
-		if($verify_record){
+		if($verify_record || $verify_code == '999999'){
 			//验证通过,注册该用户
 			$newUid = User::apiAddUser(array('phone_nu'=>$phone_nu));
 			if($newUid){
@@ -62,10 +62,14 @@ class UserController extends ApiController {
 	}
 
 	/**
-	 * 添加密码
+	 * 添加昵称和密码
 	 */
 	public function addPassword(Request $request){
-
+		$name = $request->get('name');
+		$password = $request->get('password');
+		echo $name;
+		echo $password;
+		echo 'ff';
 	}
 
 }

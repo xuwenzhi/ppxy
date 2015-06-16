@@ -38,7 +38,7 @@ Route::group(['prefix' => 'api'], function(){
 	Route::group(['prefix' => 'user'], function(){
 		Route::post('veirfycode', 'Api\UserController@veirfyCode');
 		Route::post('doverify'  , 'Api\UserController@doVerify');
-		Route::post('addpasswd'  , 'Api\UserController@addPassword');
+		Route::post('addpasswd'  , ['middleware' => 'oauth', 'uses'=>'Api\UserController@addPassword']);
 	});
 
 	Route::group(['prefix' => 'goods'], function(){

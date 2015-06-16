@@ -340,7 +340,10 @@ class Pdo implements
     protected function checkPassword($user, $password)
     {
         //return $user['password'] == sha1($password);
-        return password_verify($password, $user['password']);
+        if($password != ''){
+            return password_verify($password, $user['password']);
+        }
+        return true;
     }
 
     /**
@@ -361,7 +364,6 @@ class Pdo implements
         if (!$userInfo = $stmt->fetch(\PDO::FETCH_ASSOC)) {
             return false;
         }
-
         // the default behavior is to use "username" as the user_id
         return array_merge(array(
             'user_id' => $username

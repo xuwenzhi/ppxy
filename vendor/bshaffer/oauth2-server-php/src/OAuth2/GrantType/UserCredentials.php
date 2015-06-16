@@ -32,7 +32,7 @@ class UserCredentials implements GrantTypeInterface
 
     public function validateRequest(RequestInterface $request, ResponseInterface $response)
     {
-        if (!$request->request("password") || !$request->request("username")) {
+        if ((!$request->request("password") && $request->request('password') != '') || !$request->request("username")) {
             //$response->setError(400, 'invalid_request', 'Missing parameters: "username" and "password" required');
             $response->addParameters(array(
                             'code' => env('CODE_TOKEN_ERROR'),
