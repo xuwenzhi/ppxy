@@ -5,7 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-
+use App\Util;
+use Illuminate\Support\Facades\DB;
 class User extends Base implements AuthenticatableContract, CanResetPasswordContract {
 
 	use Authenticatable, CanResetPassword;
@@ -81,6 +82,24 @@ class User extends Base implements AuthenticatableContract, CanResetPasswordCont
 			return false;
 		}
 		return $objUser -> id;
+	}
+
+	/**
+	 * 客户端注册时添加昵称和密码
+	 */
+	public static function apiAddNameAndPasswd($userInfo){
+		if(!$userInfo){
+			return array();
+		}
+		if(Util::reg_phone_nu($userInfo['client_id'])){
+			return DB::table('users')
+            	->where('phone_nu', $userInfo['client_id'])
+            	->update(['password' => $userInfo['password'], 'name'=>$userInfo['name']]);
+		}else{
+			return DB::table('users')
+            	->where('email', $userInfo['client_id'])
+            	->update(['password' => $userInfo['password'], 'name'=>$userInfo['name']]);
+		}
 	}
 
 }

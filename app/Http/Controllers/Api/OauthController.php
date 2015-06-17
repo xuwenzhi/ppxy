@@ -19,8 +19,9 @@ class OauthController extends Controller {
 	         return $bridgedResponse;
 	}
 	
-	public function getAllPosts(){
+	public function getAllPosts(Request $request){
 		$data = [1, 2, 3, 4];
+		var_dump($request->all());
 		return response($data, 201);
 	}
 

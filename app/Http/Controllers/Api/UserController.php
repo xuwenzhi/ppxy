@@ -67,9 +67,19 @@ class UserController extends ApiController {
 	public function addPassword(Request $request){
 		$name = $request->get('name');
 		$password = $request->get('password');
-		echo $name;
-		echo $password;
-		echo 'ff';
+		$client_id = $request->get('user_id');
+		if(!$name || !$password || !$client_id){
+			return $this->send(9);
+		}
+		//客户端注册时增加昵称和密码
+		if(!User::apiAddNameAndPasswd(array(
+				'client_id' => $client_id,
+				'password'  => bcrypt($password),
+				'name'      => $name,
+			))){
+			return $this->send(10);	
+		}
+		return $this->send(0);	
 	}
 
 }

@@ -11,6 +11,10 @@ class ApiController extends Controller {
 	protected $data = array(
 	);
 
+	/**
+	 * 错误码对应msg
+	 * @var array
+	 */
 	protected static $arrMsg = array(
 		'0' => '处理成功',
 		'1' => '数据获取失败',
@@ -21,6 +25,8 @@ class ApiController extends Controller {
 		'6' => '验证码发送失败,请您重试',
 		'7' => '您的验证码输入错误,请重新填写',
 		'8' => '非常抱歉,系统错误,请重试。',
+		'9' => '您提交的信息不完整,请您重试',
+		'10'=> '抱歉,您的昵称和密码添加失败,请重试',
 	);
 
 
