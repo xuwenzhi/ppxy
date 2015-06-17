@@ -73,6 +73,12 @@ class Goods extends Base {
 		'one'   => '一成新',
 	);
 
+
+	public static $clientOrder = array(
+		'price' => 'price',
+		'new'   => 'ctime',
+	);
+
 	/**
 	 * 数据加工
 	 */
@@ -104,7 +110,9 @@ class Goods extends Base {
 			$goods['uid']             = Util::encryptData($goods['uid']);
 			$goods['trans_time']      = Util::timeTrans($goods['ctime']);
 			$goods['school_name']     = isset($arrSchool[$goods['school_id']]) ? $arrSchool[$goods['school_id']]['name'] : '';
+			$goods['school_id']     = isset($arrSchool[$goods['school_id']]) ? Util::encryptData($goods['school_id']) : '';
 			$goods['type_name']     = isset($arrGoodsTypes[$goods['type']]) ? $arrGoodsTypes[$goods['type']]['name'] : '';
+			$goods['type']     = isset($arrGoodsTypes[$goods['type']]) ? Util::encryptData($goods['type']) : '';
 			$goods['new_level']     = isset($arrNewLevel[$goods['new_level']]) ? $arrNewLevel[$goods['new_level']] : '';
 		}
 		return $arrGoods;
@@ -155,11 +163,15 @@ class Goods extends Base {
 		}
 		$skip = ($page-1) * $pagesize;
 		$arrRes = Goods::where(array('uid' => $uid ))
-				->orderBy('ctime', 'desc')
-				->skip($skip)
+				->orderBy('ctime', 'desc');
+	    $total = $arrRes -> count();
+		$arrGoods = $arrRes ->skip($skip)
 				->take($pagesize)
 				->get();
-		return $arrRes;
+		return array(
+			'total' => $total,
+			'list'  => $arrGoods,
+		);
 	}
 
 	/**
@@ -255,6 +267,38 @@ class Goods extends Base {
 			->skip($skip)
 			->take($pagesize)
 			->get();
+	}
+
+	/**
+	 * 客户端请求列表
+	 * @param  [type] $page      [description]
+	 * @param  [type] $pagesize  [description]
+	 * @param  [type] $bigtype   [description]
+	 * @param  [type] $smalltype [description]
+	 * @param  [type] $orderby   [description]
+	 * @return [type]            [description]
+	 */
+	public static function search($page, $pagesize, $bigtype = null, $smalltype = null , $orderby = null){
+		$skip = ($page-1) * $pagesize;
+		$orderby = $orderby ? $orderby : 'ctime';
+		$arrGoods = Goods::where(array('status' => self::STATUS_SELL))
+			->select('id', 'title', 'price', 'uid', 'ctime', 'uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
+			->orderBy($orderby, 'desc');
+			
+		if($bigtype){
+			$arrGoods -> where('type', 'like', $bigtype.'%');
+		}
+		if($smalltype){
+			$arrGoods -> where('type', $smalltype);
+		}
+		$count = $arrGoods->count();
+		$arrGoods = $arrGoods
+			->skip($skip)
+			->take($pagesize)->get();
+		return array(
+			'total' => $count,
+			'list'  => $arrGoods,
+		);
 	}
 
 }

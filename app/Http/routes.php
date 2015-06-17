@@ -45,7 +45,7 @@ Route::group(['prefix' => 'api'], function(){
 		Route::post('bigtype', 'Api\GoodsController@getBigType');
 		Route::post('smalltype'  , 'Api\GoodsController@getSmallType');
 		Route::post('list'  , 'Api\GoodsController@getList');
-		Route::post('mine'  , 'Api\GoodsController@getList');
+		Route::post('mine'  , ['middleware' => 'oauth', 'uses'=>'Api\GoodsController@getMyList']);
 		Route::post('detail'  , 'Api\GoodsController@getDetail');
 	});
 

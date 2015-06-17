@@ -160,6 +160,7 @@ class GoodsController extends HomeController {
 	public function mine(){
 		$uid = $this->getLogUid();
 		$arrGoods = Goods::getUserAllGoods($uid, 1, 6);
+		$arrGoods = $arrGoods['list'];
 		$arrGoodsIds = Util::column($arrGoods, 'id');
 		//获取图片
 		$arrGoodsPhoto = GoodsPhoto::getCoverPhotoByGoodsIds($arrGoodsIds);
@@ -180,6 +181,7 @@ class GoodsController extends HomeController {
 		$pagesize = 6;
 		$uid = $this->getLogUid();
 		$arrGoods = Goods::getUserAllGoods($uid, $page, $pagesize);
+		$arrGoods = $arrGoods['list'];
 		$arrGoodsIds = Util::column($arrGoods, 'id');
 		//获取图片
 		$arrGoodsPhoto = GoodsPhoto::getCoverPhotoByGoodsIds($arrGoodsIds);

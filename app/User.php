@@ -102,4 +102,15 @@ class User extends Base implements AuthenticatableContract, CanResetPasswordCont
 		}
 	}
 
+	/**
+	 * 根据client也就是邮箱或者手机号获取uid
+	 */
+	public static function getUserByClient($client){
+		if(Util::reg_phone_nu($client)){
+			return User::where(array('phone_nu' => $client))->select('id', 'name') -> get();
+		}else{
+			return User::where(array('email' => $client)) -> select('id', 'name')-> get();
+		}
+	}
+
 }
