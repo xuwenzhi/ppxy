@@ -58,7 +58,8 @@ Route::group(['prefix' => 'api'], function(){
 });
 
 
-
+//安卓页面
+Route::get('app/android/v100', 'Api\App\Info.php');
 
 
 

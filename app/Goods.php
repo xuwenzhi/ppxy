@@ -110,9 +110,7 @@ class Goods extends Base {
 			$goods['uid']             = Util::encryptData($goods['uid']);
 			$goods['trans_time']      = Util::timeTrans($goods['ctime']);
 			$goods['school_name']     = isset($arrSchool[$goods['school_id']]) ? $arrSchool[$goods['school_id']]['name'] : '';
-			$goods['school_id']     = isset($arrSchool[$goods['school_id']]) ? Util::encryptData($goods['school_id']) : '';
 			$goods['type_name']     = isset($arrGoodsTypes[$goods['type']]) ? $arrGoodsTypes[$goods['type']]['name'] : '';
-			$goods['type']     = isset($arrGoodsTypes[$goods['type']]) ? Util::encryptData($goods['type']) : '';
 			$goods['new_level']     = isset($arrNewLevel[$goods['new_level']]) ? $arrNewLevel[$goods['new_level']] : '';
 		}
 		return $arrGoods;
