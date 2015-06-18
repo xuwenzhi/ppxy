@@ -44,6 +44,8 @@ class GoodsController extends ApiController {
 	public function getList(Request $request){
 		$page = $request->get('page') ? $request->get('page') : 1;
 		$pagesize = $request->get('pagesize') ? $request->get('pagesize') : 15;
+		$bigtype = $request->get('bigtype');
+		$smalltype = $request->get('smalltype');
 		$bigtype = $request->get('bigtype') ? Util::encryptData($bigtype, true) : null;
 		$smalltype = $request->get('smalltype') ? Util::encryptData($smalltype, true) : null;
 		$arrGoods = Goods::search($page, $pagesize, $bigtype, $smalltype);
@@ -54,6 +56,11 @@ class GoodsController extends ApiController {
 		return $this->send(2);
 	}
 
+	/**
+	 * 我的商品列表
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function getMyList(Request $request){
 		$page = $request->get('page') ? $request->get('page') : 1;
 		$pagesize = $request->get('pagesize') ? $request->get('pagesize') : 15;
