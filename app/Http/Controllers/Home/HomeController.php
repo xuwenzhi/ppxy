@@ -11,13 +11,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Session;
-
+use App\Util;
+use App\TrafficBrowser;
 class HomeController extends Controller {
 
 	protected $boolNeedLogin = true;
 
 	public function __construct(){
 		$this->checkLogin();
+		//增加浏览量
+		$this->addTraffic();
 	}
 
 	/**
@@ -57,6 +60,27 @@ class HomeController extends Controller {
 
 	public function getPreviousUrl(){
 		return Session::previousUrl();
+	}
+
+	/**
+	 * 增加浏览量
+	 */
+	public function addTraffic(){
+		$device = '';
+		if(Util::isMobile()){
+			$device = 'mobile';
+		}else{
+			$device = 'pc';
+		}
+		$uid = intval($this->getLogUid());
+		$objTrafficBrowser = new TrafficBrowser;
+		$objTrafficBrowser -> device = $device;
+		$objTrafficBrowser -> ip = Util::getIP();
+		$objTrafficBrowser -> user_agent = Util::getUserAgent();
+		$objTrafficBrowser -> uri = Util::getUri();
+		$objTrafficBrowser -> channel = Util::getChannel();
+		$objTrafficBrowser -> uid = $uid;
+		$objTrafficBrowser->save();
 	}
 
 }
