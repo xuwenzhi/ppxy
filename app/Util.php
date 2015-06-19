@@ -467,7 +467,7 @@ class Util {
 	static function getChannel(){
 		$channel = "";
 		if(isset($_SERVER)){
-			$channel = $_SERVER['HTTP_REFERER'];
+			$channel = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
 		}
 		return $channel;
 	}
