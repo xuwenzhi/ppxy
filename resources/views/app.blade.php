@@ -85,7 +85,7 @@
 	<div id="footer" class="navbar-fixed-bottom">
 		<div id="load" class="text-center" style="display:none;">玩命加载中...</div>
 	@yield('footer')
-	2015 &copy; PP校园
+	2015 &copy; PP校园 <a href="http://www.miitbeian.gov.cn/">黑ICP备15004834</a> 
 	</div>
 	<script src="{{ asset('/js/jquery.js')}}"></script>
     <script src="{{ asset('/js/bootstrap.min.js')}}"></script>
