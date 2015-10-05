@@ -25,6 +25,10 @@
     <br/>
       <div role="tabpanel" class="tab-pane active">
         <div class="row masonry-container" id="goods_block_container">
+          <div id="loading_status" class="alert alert-success alert-dismissible text-center" role="alert">
+            资源正在加载中...
+          </div>
+        <!--
           @foreach($goods as $good)
           <a href="{{ url('/goods/detail/'.$good->id) }}" class="goods_block_a">
             <div class="col-md-3 col-xs-12 item" width="100%">
@@ -51,6 +55,7 @@
             </div>
           </a>
           @endforeach
+        -->
         </div>
       </div>
     </div>
@@ -60,7 +65,7 @@
   服务器没有更多资源了~
 </div>
 <input type="hidden" id="big_type" data-type="{{$type}}" />
-<input type="hidden" id="page" data-type="1" />
+<input type="hidden" id="page" data-type="0" />
 <input type="hidden" id="isMobile" data-type="{{$isMobile}}" />
 @endsection
 @section('footer')

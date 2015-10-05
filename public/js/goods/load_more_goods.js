@@ -21,6 +21,11 @@ $(document).ready(function(){
 		isMobile = true;
 		deviceWidth = parseInt($(window).width()) * 0.75;
 	}
+
+	var $type = $("#big_type").attr("data-type");
+   	var $page = parseInt($("#page").attr("data-type"));
+   	load_more_goods($type, $page);
+
 	//滚动
 	$(window).scroll(function(){
 	    // 当滚动到最底部以上100像素时， 加载新内容
@@ -38,6 +43,7 @@ $(document).ready(function(){
 	    }
 	});
 });
+
 function load_more_goods($type, $page){
 	$("div[id='load']").show(10);
 	$.ajax({
@@ -50,6 +56,7 @@ function load_more_goods($type, $page){
 		success:function(data){
 			if(data.status == 'success'){
 				var list = data.data;
+				$("#loading_status").hide();
 				if(list.length != 0 && !in_array($page,needle)) {
 					var $boxes = '';
 					for(var one in list) {
@@ -89,6 +96,8 @@ function load_more_goods($type, $page){
 				alert('数据加载失败,请重试！');
 				return false;
 			}
+		},beforeSend:function(){
+
 		}
 	});
 }
