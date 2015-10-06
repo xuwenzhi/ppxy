@@ -193,13 +193,21 @@ class Goods extends Base {
 	 */
 	public static function IndexSingleList($page = 1, $pagesize = 20){
 		$skip = ($page-1) * $pagesize;
-		return Goods::where(array('status' => self::STATUS_SELL))
+		$arrGoods = Goods::where(array('status' => self::STATUS_SELL))
 			->whereNotIn('type', array_merge(GoodsType::$arrComplex, GoodsType::$arrBig4))
 			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
 			->orderBy('ctime', 'desc')
 			->skip($skip)
 			->take($pagesize)
 			->get();
+		$typeCount = Goods::where(array('status' => self::STATUS_SELL))
+			->whereNotIn('type', array_merge(GoodsType::$arrComplex, GoodsType::$arrBig4))
+			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
+			->count();
+		return array(
+			'total' => $typeCount,
+			'list'  => $arrGoods,
+		);
 	}
 
 	/**
@@ -207,13 +215,21 @@ class Goods extends Base {
 	 */
 	public static function IndexComplexList($page = 1, $pagesize = 20){
 		$skip = ($page-1) * $pagesize;
-		return Goods::where(array('status' => self::STATUS_SELL))
+		$arrGoods = Goods::where(array('status' => self::STATUS_SELL))
 			->whereIn('type', GoodsType::$arrComplex)
 			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
 			->orderBy('ctime', 'desc')
 			->skip($skip)
 			->take($pagesize)
 			->get();
+		$typeCount = Goods::where(array('status' => self::STATUS_SELL))
+			->whereIn('type', GoodsType::$arrComplex)
+			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
+			->count();
+		return array(
+			'total' => $typeCount,
+			'list'  => $arrGoods,
+		);
 	}
 
 	/**
@@ -223,13 +239,21 @@ class Goods extends Base {
 	 */
 	public static function IndexBig4List($page = 1, $pagesize = 20){
 		$skip = ($page-1) * $pagesize;
-		return Goods::where(array('status' => self::STATUS_SELL))
+		$arrGoods = Goods::where(array('status' => self::STATUS_SELL))
 			->whereIn('type', GoodsType::$arrBig4)
 			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
 			->orderBy('ctime', 'desc')
 			->skip($skip)
 			->take($pagesize)
 			->get();
+		$typeCount = Goods::where(array('status' => self::STATUS_SELL))
+			->whereIn('type', GoodsType::$arrBig4)
+			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
+			->count();
+		return array(
+			'total' => $typeCount,
+			'list'  => $arrGoods,
+		);
 	}
 
 	/**

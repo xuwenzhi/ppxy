@@ -86,7 +86,7 @@ function load_more_goods($page){
 	                    var el = jQuery($boxes);
 		            	$(".masonry-container").append(el);
 	            		setTimeout('', 200);
-	            		//$(".masonry-container").masonry('appended', el, 'reloadItems');
+	            		$(".masonry-container").masonry('appended', el, 'reloadItems');
 					}
 					needle.push($page, $page);
 					$(window).on('load', function(){});

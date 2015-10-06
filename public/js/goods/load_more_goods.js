@@ -55,7 +55,8 @@ function load_more_goods($type, $page){
 		data :{'type':$type, 'page':$page,'_token':$('meta[name="_token"]').attr('content')},
 		success:function(data){
 			if(data.status == 'success'){
-				var list = data.data;
+				console.log(data.data.has_next_page);
+				var list = data.data.list;
 				$("#loading_status").hide();
 				if(list.length != 0 && !in_array($page,needle)) {
 					var $boxes = '';
@@ -78,18 +79,17 @@ function load_more_goods($type, $page){
 	                    var el = jQuery($boxes);
 	            		$(".masonry-container").append(el);
 	            		setTimeout('', 200);
-	            		//$(".masonry-container").masonry('appended', el, 'reloadItems');
+	            		$(".masonry-container").masonry('appended', el, 'reloadItems');
 					}
 	            	needle.push($page, $page);
 	            	$(window).on('load', function(){});
 	            	$("#page").attr("data-type", $page+1);
 	            	//var t = $(window).scrollTop();
 					//$('body').animate({'scrollTop':t+240},1300);
-				}else{
-					canLoad = false;
-					$("#load_res_txt").show();
-					//var t = $(window).scrollTop();
-					//$('body').animate({'scrollTop':t+200},1300);
+					if(!data.data.has_next_page){
+						canLoad = false;
+						$("#load_res_txt").show();
+					}
 				}
 				$("div[id='load']").hide();
 			} else if(data.status == 'error'){
