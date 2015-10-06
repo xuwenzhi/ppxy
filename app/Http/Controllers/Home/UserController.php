@@ -29,12 +29,7 @@ class UserController extends Controller {
 		if(!$email || !$password || $email == '' || $password == ''){
 			return Util::json_format(Protocol::JSEND_ERROR, '您提交的信息有误,请重试！');
 		}
-		$resOauthUser = OauthUsers::updatePass(array('username'=>$email, 'password'=>sha1($password)));
-		$resOauthClient = OauthClients::updatePass(array('client_id'=>$email, 'client_secret'=>sha1($password)));
-		if($resOauthUser && $resOauthClient){
-			return Util::json_format(Protocol::JSEND_SUCCESS, '');
-		}
-		return Util::json_format(Protocol::JSEND_ERROR, '重置密码提交失败，请重试~');
+		return Util::json_format(Protocol::JSEND_SUCCESS, '');
 	}
 
 }
