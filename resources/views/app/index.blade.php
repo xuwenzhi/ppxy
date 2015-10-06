@@ -45,6 +45,5 @@
 <script src="{{asset('/js/masonry.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('/js/imagesLoaded.js')}}"></script>
 <script type="text/javascript" src="{{asset('/js/goods/load_more_goods.js')}}"></script>
-<script type="text/javascript" src="{{asset('/js/jquery.toaster.js')}}"></script>
 @endsection
 @endsection

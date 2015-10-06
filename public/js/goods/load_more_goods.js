@@ -84,8 +84,8 @@ function load_more_goods($type, $page){
 	            	needle.push($page, $page);
 	            	$(window).on('load', function(){});
 	            	$("#page").attr("data-type", $page+1);
-	            	//var t = $(window).scrollTop();
-					//$('body').animate({'scrollTop':t+240},1300);
+	            	var t = $(window).scrollTop();
+					$('body').animate({'scrollTop':t+100},100);
 					if(!data.data.has_next_page){
 						canLoad = false;
 						$("#load_res_txt").show();
@@ -97,7 +97,7 @@ function load_more_goods($type, $page){
 				return false;
 			}
 		},beforeSend:function(){
-
+			
 		}
 	});
 }
