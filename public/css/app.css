@@ -62,9 +62,9 @@
 #goods_block{
     border:rgba(0,0,0,.2) 0px solid;
     filter:progid:DXImageTransform.Microsoft.Shadow(color=rgba(0,0,0,.6),strength=4);/*ie*/
-    -moz-box-shadow: 0 0 10px rgba(20,20,0,.5);/*firefox*/
-    -webkit-box-shadow: 0 0 10px rgba(20,20,0,.5);/*safari或chrome*/
-    box-shadow: 0 0 10px rgba(20,20,0,.5);/*opera或ie9*/
+    -moz-box-shadow: 0 0 3px rgba(20,20,0,.5);/*firefox*/
+    -webkit-box-shadow: 0 0 3px rgba(20,20,0,.5);/*safari或chrome*/
+    box-shadow: 0 0 3px rgba(20,20,0,.5);/*opera或ie9*/
 }
 
 a.goods_block_a {
