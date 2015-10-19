@@ -21,10 +21,6 @@ class HomeController extends Controller {
 		$this->checkLogin();
 		//增加浏览量
 		$this->addTraffic();
-		$isMobile = Util::isMobile();
-		if(!$isMobile){
-			exit();
-		}
 	}
 
 	/**
