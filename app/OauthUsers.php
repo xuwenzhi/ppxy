@@ -20,6 +20,7 @@ class OauthUsers extends Base {
 	public $timestamps = false;
 
 	public static function insert($userInfo){
+		return ;
 		if(!$userInfo){
 			return array();
 		}
@@ -31,6 +32,7 @@ class OauthUsers extends Base {
 	}
 
 	public static function insertNoRecord($user){
+		return ;
 		if(!$user){
 			return array();
 		}
@@ -41,6 +43,7 @@ class OauthUsers extends Base {
 	}
 
 	public static function updatePass($userInfo){
+		return ;
 		if(!$userInfo){
 			return array();
 		}
