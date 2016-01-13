@@ -18,9 +18,6 @@ class HomeController extends Controller {
 	protected $boolNeedLogin = true;
 
 	public function __construct(){
-		if(!Util::isMobile()){
-			exit(1);
-		}
 		$this->checkLogin();
 		//增加浏览量
 		$this->addTraffic();
