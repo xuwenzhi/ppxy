@@ -80,10 +80,10 @@ class GoodsController extends HomeController {
 	 */
 	private function _insert($arrData){
 		$objGoods = new Goods;
-		$objGoods->title = htmlspecialchars($arrData['goods_title']);
+		$objGoods->title = htmlspecialchars($arrData['goods_title'], ENT_QUOTES);
 		$objGoods->type = $arrData['goods_type'];
 		$objGoods->price = $arrData['goods_price'];
-		$objGoods->content = htmlspecialchars(trim($arrData['goods_content']));
+		$objGoods->content = htmlspecialchars(trim($arrData['goods_content']), ENT_QUOTES);
 		$objGoods->uid = $arrData['uid'];
 		$objGoods->special = Goods::SPECIAL_NORMAL;
 		$objGoods->status  = Goods::STATUS_SELL;
