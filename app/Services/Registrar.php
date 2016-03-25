@@ -30,24 +30,6 @@ class Registrar implements RegistrarContract {
 	 */
 	public function create(array $data)
 	{
-		//在注册时将用户的信息添加到oauth_users表中，供以后客户端用
-		if(!OauthUsers::insert(
-			array(
-				'username' => $data['email'],
-				'password'=>bcrypt($data['password']),
-			)
-		)){
-			return false;
-		}
-		if(!OauthClients::insert(
-			array(
-				'client_id' => $data['email'],
-				'client_secret'=>bcrypt($data['password']),
-			)
-		)){
-			return false;
-		}
-
 		return User::create([
 			'name' => $data['name'],
 			'email' => $data['email'],
