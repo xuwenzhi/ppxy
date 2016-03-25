@@ -22,7 +22,7 @@
 							<ul>
 								@foreach ($errors->all() as $error)
 									@if($error == "We can't find a user with that e-mail address.")
-										您好像不是用这个邮件地址注册的PP校园噢，换一个试试吧~
+										我们的服务器并没有记录这个邮件地址，换一个试试吧~
 									@endif
 								@endforeach
 							</ul>

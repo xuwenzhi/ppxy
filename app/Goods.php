@@ -67,10 +67,6 @@ class Goods extends Base {
 		'seven' => '七成新',
 		'six'   => '六成新',
 		'five'  => '五成新',
-		'four'  => '四成新',
-		'three' => '三成新',
-		'two'   => '二成新',
-		'one'   => '一成新',
 	);
 
 

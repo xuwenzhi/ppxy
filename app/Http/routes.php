@@ -11,11 +11,11 @@
 |
 */
 /**
- * APIs
+ * Client APIs
  */
 App::singleton('oauth2', function() {
 	 $storage = new OAuth2\Storage\Pdo(array(
-		'dsn' => 'mysql:dbname=ishare_school;host=localhost', 'username' => 'root', 'password' => env('DB_PASSWORD', '')));
+		'dsn' => 'mysql:dbname='.env('DB_DATABASE').';host=localhost', 'username' => 'root', 'password' => env('DB_PASSWORD', '')));
 	 $server = new OAuth2\Server($storage);
 	 $server->addGrantType(new OAuth2\GrantType\ClientCredentials($storage));
 	 $server->addGrantType(new OAuth2\GrantType\UserCredentials($storage));
@@ -57,28 +57,12 @@ Route::group(['prefix' => 'api'], function(){
 	});
 });
 
-
-//安卓页面
 Route::get('app/android/v100', 'Api\App\Info.php');
 
 
-
-
-
-
-
-
-
-
 /**
- * Tools
+ * Web
  */
-
-
-
-
-
-
 
 $router->pattern('id', '[1-9][0-9]*');
 
@@ -107,14 +91,7 @@ Route::group(['prefix' => '/user'], function()
 Route::get('verify/{resource?}', 'Home\IndividualController@setting');
 Route::post('verifyphone', 'Home\IndividualController@verifyphone');
 Route::post('doverifyphone', 'Home\IndividualController@doverifyphone');
-
-
-//todo 当在PC端修改密码时，同步到oauth_users表中，后期会干掉
 Route::post('/user/updatepass','Home\UserController@updateUserPass');
-
-
-
-
 
 /**
  * 商品部分
@@ -150,7 +127,6 @@ Route::group(['prefix' => '/order'], function()
 	Route::get('mine', ['middleware' => 'auth', 'uses'=>'Home\OrderController@mine']);
 	Route::get('surprise/{type}', 'Home\OrderController@surprise');
 });
-
 
 /**
  * 通用部分
