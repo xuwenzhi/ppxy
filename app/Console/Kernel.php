@@ -12,6 +12,7 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected $commands = [
 		'App\Console\Commands\Inspire',
+		'App\Console\Commands\sysnUserToOauth',
 	];
 
 	/**
@@ -24,6 +25,7 @@ class Kernel extends ConsoleKernel {
 	{
 		$schedule->command('inspire')
 				 ->hourly();
+		$schedule->command('oauth.infosysn')->hourly();
 	}
 
 }

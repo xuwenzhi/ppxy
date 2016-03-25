@@ -5,7 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-
+use App\Util;
+use Illuminate\Support\Facades\DB;
 class User extends Base implements AuthenticatableContract, CanResetPasswordContract {
 
 	use Authenticatable, CanResetPassword;
@@ -70,6 +71,46 @@ class User extends Base implements AuthenticatableContract, CanResetPasswordCont
 
 	public static function batchGetUser($arrUid){
 		return User::whereIn('id', $arrUid) -> get();
+	}
+
+	public static function apiAddUser($arrUser){
+		$objUser = new User;
+		$objUser -> phone_nu = $arrUser['phone_nu'];
+		$objUser -> role = self::ROLE_MEMBER;
+		$objUser -> created_at = date('Y-m-d H:i:s');
+		if(!$objUser -> save()){
+			return false;
+		}
+		return $objUser -> id;
+	}
+
+	/**
+	 * 客户端注册时添加昵称和密码
+	 */
+	public static function apiAddNameAndPasswd($userInfo){
+		if(!$userInfo){
+			return array();
+		}
+		if(Util::reg_phone_nu($userInfo['client_id'])){
+			return DB::table('users')
+            	->where('phone_nu', $userInfo['client_id'])
+            	->update(['password' => $userInfo['password'], 'name'=>$userInfo['name']]);
+		}else{
+			return DB::table('users')
+            	->where('email', $userInfo['client_id'])
+            	->update(['password' => $userInfo['password'], 'name'=>$userInfo['name']]);
+		}
+	}
+
+	/**
+	 * 根据client也就是邮箱或者手机号获取uid
+	 */
+	public static function getUserByClient($client){
+		if(Util::reg_phone_nu($client)){
+			return User::where(array('phone_nu' => $client))->select('id', 'name') -> get();
+		}else{
+			return User::where(array('email' => $client)) -> select('id', 'name')-> get();
+		}
 	}
 
 }

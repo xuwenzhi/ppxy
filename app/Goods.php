@@ -67,10 +67,12 @@ class Goods extends Base {
 		'seven' => '七成新',
 		'six'   => '六成新',
 		'five'  => '五成新',
-		'four'  => '四成新',
-		'three' => '三成新',
-		'two'   => '二成新',
-		'one'   => '一成新',
+	);
+
+
+	public static $clientOrder = array(
+		'price' => 'price',
+		'new'   => 'ctime',
 	);
 
 	/**
@@ -155,11 +157,15 @@ class Goods extends Base {
 		}
 		$skip = ($page-1) * $pagesize;
 		$arrRes = Goods::where(array('uid' => $uid ))
-				->orderBy('ctime', 'desc')
-				->skip($skip)
+				->orderBy('ctime', 'desc');
+	    $total = $arrRes -> count();
+		$arrGoods = $arrRes ->skip($skip)
 				->take($pagesize)
 				->get();
-		return $arrRes;
+		return array(
+			'total' => $total,
+			'list'  => $arrGoods,
+		);
 	}
 
 	/**
@@ -183,13 +189,21 @@ class Goods extends Base {
 	 */
 	public static function IndexSingleList($page = 1, $pagesize = 20){
 		$skip = ($page-1) * $pagesize;
-		return Goods::where(array('status' => self::STATUS_SELL))
+		$arrGoods = Goods::where(array('status' => self::STATUS_SELL))
 			->whereNotIn('type', array_merge(GoodsType::$arrComplex, GoodsType::$arrBig4))
 			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
 			->orderBy('ctime', 'desc')
 			->skip($skip)
 			->take($pagesize)
 			->get();
+		$typeCount = Goods::where(array('status' => self::STATUS_SELL))
+			->whereNotIn('type', array_merge(GoodsType::$arrComplex, GoodsType::$arrBig4))
+			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
+			->count();
+		return array(
+			'total' => $typeCount,
+			'list'  => $arrGoods,
+		);
 	}
 
 	/**
@@ -197,13 +211,21 @@ class Goods extends Base {
 	 */
 	public static function IndexComplexList($page = 1, $pagesize = 20){
 		$skip = ($page-1) * $pagesize;
-		return Goods::where(array('status' => self::STATUS_SELL))
+		$arrGoods = Goods::where(array('status' => self::STATUS_SELL))
 			->whereIn('type', GoodsType::$arrComplex)
 			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
 			->orderBy('ctime', 'desc')
 			->skip($skip)
 			->take($pagesize)
 			->get();
+		$typeCount = Goods::where(array('status' => self::STATUS_SELL))
+			->whereIn('type', GoodsType::$arrComplex)
+			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
+			->count();
+		return array(
+			'total' => $typeCount,
+			'list'  => $arrGoods,
+		);
 	}
 
 	/**
@@ -213,13 +235,21 @@ class Goods extends Base {
 	 */
 	public static function IndexBig4List($page = 1, $pagesize = 20){
 		$skip = ($page-1) * $pagesize;
-		return Goods::where(array('status' => self::STATUS_SELL))
+		$arrGoods = Goods::where(array('status' => self::STATUS_SELL))
 			->whereIn('type', GoodsType::$arrBig4)
 			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
 			->orderBy('ctime', 'desc')
 			->skip($skip)
 			->take($pagesize)
 			->get();
+		$typeCount = Goods::where(array('status' => self::STATUS_SELL))
+			->whereIn('type', GoodsType::$arrBig4)
+			->select('id', 'title', 'price', 'uid', 'ctime', 'view_times','uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
+			->count();
+		return array(
+			'total' => $typeCount,
+			'list'  => $arrGoods,
+		);
 	}
 
 	/**
@@ -255,6 +285,38 @@ class Goods extends Base {
 			->skip($skip)
 			->take($pagesize)
 			->get();
+	}
+
+	/**
+	 * 客户端请求列表
+	 * @param  [type] $page      [description]
+	 * @param  [type] $pagesize  [description]
+	 * @param  [type] $bigtype   [description]
+	 * @param  [type] $smalltype [description]
+	 * @param  [type] $orderby   [description]
+	 * @return [type]            [description]
+	 */
+	public static function search($page, $pagesize, $bigtype = null, $smalltype = null , $orderby = null){
+		$skip = ($page-1) * $pagesize;
+		$orderby = $orderby ? $orderby : 'ctime';
+		$arrGoods = Goods::where(array('status' => self::STATUS_SELL))
+			->select('id', 'title', 'price', 'uid', 'ctime', 'uid', 'content', 'ctime', 'school_id', 'deal_place_ext', 'type', 'new_level')
+			->orderBy($orderby, 'desc');
+			
+		if($bigtype){
+			$arrGoods -> where('type', 'like', $bigtype.'%');
+		}
+		if($smalltype){
+			$arrGoods -> where('type', $smalltype);
+		}
+		$count = $arrGoods->count();
+		$arrGoods = $arrGoods
+			->skip($skip)
+			->take($pagesize)->get();
+		return array(
+			'total' => $count,
+			'list'  => $arrGoods,
+		);
 	}
 
 }

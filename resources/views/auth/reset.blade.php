@@ -9,43 +9,50 @@
 				<div class="panel-body">
 					@if (count($errors) > 0)
 						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
 							<ul>
 								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
+								@if($error == 'The password confirmation does not match.')
+									<li>两次密码输入不一致</li>
+								@elseif($error == 'Passwords must be at least six characters and match the confirmation.')
+									<li>请保证密码最少6位噢~</li>
+								@elseif($error == 'This password reset token is invalid.')
+									<li>您在平台上留下的好像不是这个邮箱噢~</li>
+								@endif
 								@endforeach
 							</ul>
 						</div>
 					@endif
-
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
+					<div class="alert alert-danger" id="show_reset_issue" style="display:none;">
+						
+					</div>
+					<form class="form-horizontal" id="passRestForm" role="form" method="POST" action="{{ url('/password/reset') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<input type="hidden" name="token" value="{{ $token }}">
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">邮件地址</label>
 							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
+								<input type="email" id="email" class="form-control" name="email" value="{{ old('email') }}">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">密码</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
+								<input type="password" id="password" class="form-control" name="password">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">确认密码</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" name="password_confirmation">
+								<input type="password" id="confirmpassword" class="form-control" name="password_confirmation">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
+								<button type="button" id="passreset" class="btn btn-primary">
 									点击重置
 								</button>
 							</div>
@@ -56,4 +63,7 @@
 		</div>
 	</div>
 </div>
+@endsection
+@section('js')
+<script type="text/javascript" src="{{asset('/js/users/passreset.js')}}"></script>
 @endsection

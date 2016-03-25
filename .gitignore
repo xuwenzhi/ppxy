@@ -1,4 +1,6 @@
+.env
+/node_module
+/public/upload
 /vendor
 /node_modules
-/public/upload
-.env
+.idea/

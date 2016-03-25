@@ -5,9 +5,9 @@ class Sms {
     public $hp = '';
     public $message = '';
     //签名
-    private $sign = 'PP校园';
-    private $smsPlatUser = '18345199232';
-    private $smsKey      = 'D77C151BEB1265AF779675D0B99E';
+    private $sign = '';
+    private $smsPlatUser = '';
+    private $smsKey      = '';
 
     private $sendRes = array(
         0 => '提交成功',
@@ -22,6 +22,12 @@ class Sms {
         14 => '格式错误',
         -1 => '系统异常',
     );
+
+    public function __construct(){
+        $this->sign = env('SMS_SIGN');
+        $this->smsPlatUser = env('SMS_HP');
+        $this->smsKey = env('SMS_KEY');
+    }
 
     public function setHp($hp){
         $this->hp = $hp;
@@ -58,7 +64,7 @@ class Sms {
             if ($flag!=0) { 
                 $params .= "&"; 
                 $flag = 1; 
-            } 
+            }
             $params.= $key."="; $params.= urlencode($value);// urlencode($value); 
             $flag = 1; 
         } 

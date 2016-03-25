@@ -80,10 +80,10 @@ class GoodsController extends HomeController {
 	 */
 	private function _insert($arrData){
 		$objGoods = new Goods;
-		$objGoods->title = $arrData['goods_title'];
+		$objGoods->title = htmlspecialchars($arrData['goods_title'], ENT_QUOTES);
 		$objGoods->type = $arrData['goods_type'];
 		$objGoods->price = $arrData['goods_price'];
-		$objGoods->content = trim($arrData['goods_content']);
+		$objGoods->content = htmlspecialchars(trim($arrData['goods_content']), ENT_QUOTES);
 		$objGoods->uid = $arrData['uid'];
 		$objGoods->special = Goods::SPECIAL_NORMAL;
 		$objGoods->status  = Goods::STATUS_SELL;
@@ -160,6 +160,7 @@ class GoodsController extends HomeController {
 	public function mine(){
 		$uid = $this->getLogUid();
 		$arrGoods = Goods::getUserAllGoods($uid, 1, 6);
+		$arrGoods = $arrGoods['list'];
 		$arrGoodsIds = Util::column($arrGoods, 'id');
 		//获取图片
 		$arrGoodsPhoto = GoodsPhoto::getCoverPhotoByGoodsIds($arrGoodsIds);
@@ -180,6 +181,7 @@ class GoodsController extends HomeController {
 		$pagesize = 6;
 		$uid = $this->getLogUid();
 		$arrGoods = Goods::getUserAllGoods($uid, $page, $pagesize);
+		$arrGoods = $arrGoods['list'];
 		$arrGoodsIds = Util::column($arrGoods, 'id');
 		//获取图片
 		$arrGoodsPhoto = GoodsPhoto::getCoverPhotoByGoodsIds($arrGoodsIds);

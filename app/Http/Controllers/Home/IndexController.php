@@ -18,19 +18,8 @@ class IndexController extends HomeController {
 	protected $boolNeedLogin = false;
 
 	public function index() {
-		$page = 1;
-		$pagesize = $this->_generate_pagesize();
-		$arrGoods = Goods::IndexSingleList($page, $pagesize);
-		$arrGoodsIds = Util::column($arrGoods, 'id');
-		//获取图片
-		$arrGoodsPhoto = GoodsPhoto::getCoverPhotoByGoodsIds($arrGoodsIds);
-		$arrGoodsPhoto = Util::setKey($arrGoodsPhoto, 'goods_id');
-		foreach($arrGoods as $goods){
-			$goods['img_thumb_path'] = isset($arrGoodsPhoto[$goods['id']]) && !isset($goods['img_thumb_path']) ? $arrGoodsPhoto[$goods['id']]['thumb'] : '';
-		}
-		$arrGoods = Goods::decorateList($arrGoods);
 		$data = array(
-			'goods'=>$arrGoods,
+			'goods'=>array(),
 			'type' =>GoodsType::BIG_TYPE_SINGLE,
 			'active'=>'index',
 			'isMobile' => Util::isMobile(),
@@ -39,19 +28,8 @@ class IndexController extends HomeController {
 	}
 
 	public function complexList(){
-		$page = 1;
-		$pagesize = $this->_generate_pagesize();
-		$arrGoods = Goods::IndexComplexList($page, $pagesize);
-		$arrGoodsIds = Util::column($arrGoods, 'id');
-		//获取图片
-		$arrGoodsPhoto = GoodsPhoto::getCoverPhotoByGoodsIds($arrGoodsIds);
-		$arrGoodsPhoto = Util::setKey($arrGoodsPhoto, 'goods_id');
-		foreach($arrGoods as $goods){
-			$goods['img_thumb_path'] = isset($arrGoodsPhoto[$goods['id']]) && !isset($goods['img_thumb_path']) ? $arrGoodsPhoto[$goods['id']]['thumb'] : '';
-		}
-		$arrGoods = Goods::decorateList($arrGoods);
 		$data = array(
-			'goods'=>$arrGoods,
+			'goods'=>array(),
 			'type' =>GoodsType::BIG_TYPE_COMPLEX,
 			'active'=>'complex',
 			'isMobile' => Util::isMobile(),
@@ -60,19 +38,8 @@ class IndexController extends HomeController {
 	}
 
 	public function big4List(){
-		$page = 1;
-		$pagesize = $this->_generate_pagesize();
-		$arrGoods = Goods::IndexBig4List($page, $pagesize);
-		$arrGoodsIds = Util::column($arrGoods, 'id');
-		//获取图片
-		$arrGoodsPhoto = GoodsPhoto::getCoverPhotoByGoodsIds($arrGoodsIds);
-		$arrGoodsPhoto = Util::setKey($arrGoodsPhoto, 'goods_id');
-		foreach($arrGoods as $goods){
-			$goods['img_thumb_path'] = isset($arrGoodsPhoto[$goods['id']]) && !isset($goods['img_thumb_path']) ? $arrGoodsPhoto[$goods['id']]['thumb'] : '';
-		}
-		$arrGoods = Goods::decorateList($arrGoods);
 		$data = array(
-			'goods'=>$arrGoods,
+			'goods'=>array(),
 			'type' =>GoodsType::BIG_TYPE_BIG4,
 			'active'=>'big4',
 			'isMobile' => Util::isMobile(),
@@ -87,7 +54,11 @@ class IndexController extends HomeController {
 		$page = $request->get('page') + 1;
 		$type = $request->get('type');
 		$pagesize = $this->_generate_pagesize();
-		$arrGoods = Goods::load_more($type, $page, $pagesize);
+		$arrGoodCombine = Goods::load_more($type, $page, $pagesize);
+		$arrGoods = $arrGoodCombine['list'];
+		$total = $arrGoodCombine['total'];
+
+		$has_next_page = $page*$pagesize < $total ? true : false;
 		$arrGoodsIds = Util::column($arrGoods, 'id');
 		//获取图片
 		$arrGoodsPhoto = GoodsPhoto::getCoverPhotoByGoodsIds($arrGoodsIds);
@@ -97,7 +68,7 @@ class IndexController extends HomeController {
 		}
 		$arrGoods = Goods::decorateList($arrGoods);
 		$arrGoods = Util::laravel_data_to_array($arrGoods);
-		return Util::json_format(Protocol::JSEND_SUCCESS, '', $arrGoods);
+		return Util::json_format(Protocol::JSEND_SUCCESS, '', array('total'=>$total, 'list'=>$arrGoods, 'has_next_page'=>$has_next_page));
 	}
 
 	/**
@@ -114,8 +85,8 @@ class IndexController extends HomeController {
 	 */
 	private function _generate_pagesize(){
 		if(Util::isMobile()){
-			return 7;
+			return 12;
 		}
-		return 15;
+		return 10;
 	}
 }

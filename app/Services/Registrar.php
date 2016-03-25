@@ -3,7 +3,8 @@
 use App\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
-
+use App\OauthUsers;
+use App\OauthClients;
 class Registrar implements RegistrarContract {
 
 	/**

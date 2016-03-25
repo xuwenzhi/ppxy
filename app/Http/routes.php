@@ -10,39 +10,59 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-// API
-Route::get('/oauth/authorize', array('before' => 'check-authorization-params|auth', function()
-{
-        if (Session::token() != Input::get('_token')){
-                $client = DB::table('oauth_clients')->where('id', Input::get('client_id'))->first();
-                if($client){
-                        $client_name = $client->name;
-                }
-                $scopes = DB::table('oauth_scopes')->whereIn('scope', explode(',',Input::get('scope')))->get();
-               // return View::make('oauth')->with('client_name', $client_name)->with('scopes', $scopes);
-        }
-    $params = Session::get('authorize-params');
-    $params['user_id'] = Auth::user()->id;
-    $code = AuthorizationServer::newAuthorizeRequest('user', $params['user_id'], $params);
-    Session::forget('authorize-params');
-    return Redirect::to(AuthorizationServer::makeRedirectWithCode($code, $params));
-}));
-
-Route::post('/oauth/access_token', function()
-{
-    return AuthorizationServer::performAccessTokenFlow();
+/**
+ * Client APIs
+ */
+App::singleton('oauth2', function() {
+	 $storage = new OAuth2\Storage\Pdo(array(
+		'dsn' => 'mysql:dbname='.env('DB_DATABASE').';host=localhost', 'username' => 'root', 'password' => env('DB_PASSWORD', '')));
+	 $server = new OAuth2\Server($storage);
+	 $server->addGrantType(new OAuth2\GrantType\ClientCredentials($storage));
+	 $server->addGrantType(new OAuth2\GrantType\UserCredentials($storage));
+	 return $server;
 });
-Route::get('/callback', function(){
-        if(Input::has('code')){
-		return 'callback';
-        }
+Route::post('oauth/token', function()
+{	
+    $bridgedRequest  = OAuth2\HttpFoundationBridge\Request::createFromRequest(Request::instance());
+    $bridgedResponse = new OAuth2\HttpFoundationBridge\Response();
+    
+    $bridgedResponse = App::make('oauth2')->handleTokenRequest($bridgedRequest, $bridgedResponse);
+    return $bridgedResponse;
 });
-//Route::post('oauth2/token', 'Api\OauthController@postToken');
 
-Route::get('test', function(){return 'test';});
+Route::group(['prefix' => 'post'], function(){
+	post('list', 'Api\OauthController@getAllPosts');	
+});
+
+Route::group(['prefix' => 'api'], function(){
+	Route::group(['prefix' => 'user'], function(){
+		Route::post('veirfycode', 'Api\UserController@veirfyCode');
+		Route::post('doverify'  , 'Api\UserController@doVerify');
+		Route::post('addpasswd'  , ['middleware' => 'oauth', 'uses'=>'Api\UserController@addPassword']);
+	});
+
+	Route::group(['prefix' => 'goods'], function(){
+		Route::post('bigtype', 'Api\GoodsController@getBigType');
+		Route::post('smalltype'  , 'Api\GoodsController@getSmallType');
+		Route::post('list'  , 'Api\GoodsController@getList');
+		Route::post('mine'  , ['middleware' => 'oauth', 'uses'=>'Api\GoodsController@getMyList']);
+		Route::post('detail'  , 'Api\GoodsController@getDetail');
+	});
+
+	Route::group(['prefix' => 'order'], function(){
+		Route::post('precheck', 'Api\OrderController@precheck');
+		Route::post('create'  , 'Api\OrderController@create');
+		Route::post('mine'  , 'Api\OrderController@mine');
+		Route::post('detail'  , 'Api\OrderController@detail');
+	});
+});
+
+Route::get('app/android/v100', 'Api\App\Info.php');
 
 
-
+/**
+ * Web
+ */
 
 $router->pattern('id', '[1-9][0-9]*');
 
@@ -71,10 +91,7 @@ Route::group(['prefix' => '/user'], function()
 Route::get('verify/{resource?}', 'Home\IndividualController@setting');
 Route::post('verifyphone', 'Home\IndividualController@verifyphone');
 Route::post('doverifyphone', 'Home\IndividualController@doverifyphone');
-
-
-
-
+Route::post('/user/updatepass','Home\UserController@updateUserPass');
 
 /**
  * 商品部分
@@ -110,7 +127,6 @@ Route::group(['prefix' => '/order'], function()
 	Route::get('mine', ['middleware' => 'auth', 'uses'=>'Home\OrderController@mine']);
 	Route::get('surprise/{type}', 'Home\OrderController@surprise');
 });
-
 
 /**
  * 通用部分

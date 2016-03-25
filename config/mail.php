@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'azxuwen701@163.com', 'name' => 'PP校园'],
+	'from' => ['address' => env('MAIL_USERNAME'), 'name' => env('MAIL_SIGN')],
 
 	/*
 	|--------------------------------------------------------------------------

@@ -426,4 +426,50 @@ class Util {
 		return 'other';
 	}
 
+	static function getIP() {
+	    $realip = '';
+	    if (isset($_SERVER)){
+	        if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])){
+	            $realip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+	        } else if (isset($_SERVER["HTTP_CLIENT_IP"])) {
+	            $realip = $_SERVER["HTTP_CLIENT_IP"];
+	        } else {
+	            $realip = $_SERVER["REMOTE_ADDR"];
+	        }
+	    } else {
+	        if (getenv("HTTP_X_FORWARDED_FOR")){
+	            $realip = getenv("HTTP_X_FORWARDED_FOR");
+	        } else if (getenv("HTTP_CLIENT_IP")) {
+	            $realip = getenv("HTTP_CLIENT_IP");
+	        } else {
+	            $realip = getenv("REMOTE_ADDR");
+	        }
+	    }
+	    return $realip;
+	}
+
+	static function getUserAgent(){
+		$user_agent = "";
+		if(isset($_SERVER)){
+			$user_agent = $_SERVER['HTTP_USER_AGENT'];
+		}
+		return $user_agent;
+	}
+
+	static function getUri(){
+		$uri = "";
+		if(isset($_SERVER)){
+			$uri = $_SERVER['REQUEST_URI'];
+		}
+		return $uri;
+	}
+
+	static function getChannel(){
+		$channel = "";
+		if(isset($_SERVER)){
+			$channel = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+		}
+		return $channel;
+	}
+
 }
