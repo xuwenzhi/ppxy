@@ -51,5 +51,13 @@ SMS_KEY=xxxxxxxxxx
 
 ```
 
+- 数据库配置
+新建数据库，在此下载数据库表结构[http://xuwenzhi.com/wp-content/uploads/2016/03/ppxy.sql](http://xuwenzhi.com/wp-content/uploads/2016/03/ppxy.txt)，将.txt改为.sql，然后执行改SQL文件。
+
+- 实验
+在浏览器中输入yourhostname.com/ppxy/public/index.php
+
+
+
 #OK..
 
