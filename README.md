@@ -55,6 +55,7 @@ SMS_URL=第三方短信地址
 ```
 
 - 数据库配置
+
 新建数据库，请查看此数据表结构及基础数据[ppxy.sql](http://xuwenzhi.com/wp-content/uploads/2016/03/ppxy.txt)，把数据注入对应DB。
 
 - 加个host吧（方法自行百度）
@@ -62,7 +63,7 @@ SMS_URL=第三方短信地址
 ```
 yourip www.ppxy.com
 ```
-- 加个nginx配置
+- nginx配置到你的nginx/conf下
 
 ```
 server {
