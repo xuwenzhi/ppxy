@@ -1,6 +1,6 @@
 .env
 /node_module
-/public/upload
+/public/upload/imgs
 /vendor
 /node_modules
 .idea/

@@ -29,7 +29,7 @@ class GoodsController extends HomeController {
 		}
 		$goods_types = GoodsType::getFirstType();
 		$second_types = array();
-		if($goods_types){
+		if(!empty($goods_types[0])){
 			$second_types = GoodsType::getSecondTypeByFirst($goods_types[0]['code']);
 		}
 		$goods_types = GoodsType::encryptCode($goods_types);

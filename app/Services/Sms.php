@@ -48,9 +48,9 @@ class Sms {
      * @return 发送结果
      */
     public function smsInterface($hp, $message){
-        $flag = 0; 
+        $flag = 0;
         $params='';//要post的数据
-        $argv = array( 
+        $argv = array(
             'name'=>$this->smsPlatUser,     //必填参数。用户账号
             'pwd'=>$this->smsKey,     //必填参数。（web平台：基本资料中的接口密码）
             'content'=>$message,   //必填参数。发送内容（1-500 个汉字）UTF-8编码
@@ -59,16 +59,16 @@ class Sms {
             'sign'=>$this->sign,    //必填参数。用户签名。
             'type'=>'pt',  //必填参数。固定值 pt
             'extno'=>''    //可选参数，扩展码，用户定义扩展码，只能为数字
-        ); 
-        foreach ($argv as $key=>$value) { 
-            if ($flag!=0) { 
-                $params .= "&"; 
-                $flag = 1; 
+        );
+        foreach ($argv as $key=>$value) {
+            if ($flag!=0) {
+                $params .= "&";
+                $flag = 1;
             }
-            $params.= $key."="; $params.= urlencode($value);// urlencode($value); 
-            $flag = 1; 
-        } 
-        $url = "http://web.cr6868.com/asmx/smsservice.aspx?".$params; //提交的url地址
+            $params.= $key."="; $params.= urlencode($value);// urlencode($value);
+            $flag = 1;
+        }
+        $url = env("SMS_URL").$params; //提交的url地址
         $con = substr( file_get_contents($url), 0, 1 );  //获取信息发送后的状态
         if($con != 0){
             Log::error('【短信网关错误】', ['context' => $this->sendRes[$con]]);
